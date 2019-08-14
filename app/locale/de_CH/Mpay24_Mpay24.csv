@@ -108,3 +108,7 @@
 "A SUCCESSFUL confirmation occured for an already canceled order!", "Eine Zahlungsbestätigung wurde für eine bereits stornierte Bestellung empfangen!"
 "ATTENTION! - It is possible that the payment for the order ID '", "ACHTUNG! - Es ist möglich, dass die Zahlung für die Bestellung mit der ID '"
 "' was SUCCESSFUL, although the order is set as 'Canceled'! Please check in the mPAY24 Merchant Interface (https://www.mpay24.com) whether the amount was BILLED!", "' erfolgreich war, obwohl die Bestellung als 'Storniert' markiert wurde! Bitte überprüfen Sie im mPAY24 Händlerportal (https://www.mpay24.com) ob der Betrag gebucht wurde!"
+"The payment was not successful! ", "Es ist ein Fehler bei der Bezahlung aufgetreten! "
+"Please try again or choose a different payment method.", "Bitte versuchen Sie es erneut, oder wählen Sie ein anderes Zahlungssystem."
+"Redirected to an external page", "Weitergeleitet zu einer externen Seite"
+"Credit cards", "Kreditkarten"

@@ -7,7 +7,7 @@
  */
 
 include_once(Mage::getBaseDir('code')."/community/Mpay24/Mpay24/Model/Api/MPay24Shop.php");
-define("MAGENTO_VERSION", "Magento v " . Mage::getVersion() . " Module v 1.6.5 ");
+define("MAGENTO_VERSION", "Magento v " . Mage::getVersion() . " Module v 2.0.0 ");
 
 class MPay24MagentoShop extends MPay24Shop {
 
@@ -27,6 +27,8 @@ class MPay24MagentoShop extends MPay24Shop {
   var $ps;
   var $type;
   var $brand;
+  var $bic;
+  var $token;
 
   public static function getAllowedAuth() {
     return array("CB", "CC", "ELV", "BILLPAY", "PAYPAL", "PB", "PSC", "SAFETYPAY");
@@ -235,7 +237,153 @@ class MPay24MagentoShop extends MPay24Shop {
   }
 
   function createProfileOrder($tid) {}
-  function createBackend2BackendOrder($tid, $paymentType) {}
+  
+  function createBackend2BackendOrder($transaction, $paymentType) {
+    $b2bOrder = new ORDER();
+    
+    $b2bOrder->AcceptPayment->tid = $transaction->TID;
+    $b2bOrder->AcceptPayment->merchantID = Mage::getStoreConfig('mpay24/mpay24as/merchantid');
+    $b2bOrder->AcceptPayment->pType = $paymentType;
+     
+    $b2bOrder->AcceptPayment->payment->amount = $transaction->PRICE*100;
+    $b2bOrder->AcceptPayment->payment->currency = $this->order->getOrderCurrencyCode();
+
+    if($paymentType == "EPS") {
+      $b2bOrder->AcceptPayment->payment->brand = $this->brand;
+      $b2bOrder->AcceptPayment->payment->bic = $this->bic;
+    } else if($paymentType == "TOKEN")
+      $b2bOrder->AcceptPayment->payment->token = $this->token;
+
+    $b2bOrder->AcceptPayment->order->description = Mage::getStoreConfig('mpay24/mpay24/description');
+    $b2bOrder->AcceptPayment->order->userField = MAGENTO_VERSION.$transaction->TID.'_'.date('Y-m-d');
+
+    if(number_format($this->order->getData('discount_amount'),2,'.','') !== '0.00')
+      $b2bOrder->AcceptPayment->order->shoppingCart->discount = number_format($this->order->getData('discount_amount'), 2, '.', '')*100;
+    if(number_format($this->order->getData('shipping_amount'),2,'.','') !== '0.00')
+      if(Mage::getStoreConfig('tax/cart_display/shipping') == 2 || Mage::getStoreConfig('tax/cart_display/shipping') == 3)
+        $b2bOrder->AcceptPayment->order->shoppingCart->shippingCosts = number_format($this->order->getShippingInclTax(), 2, '.', '')*100;
+      else
+        $b2bOrder->AcceptPayment->order->shoppingCart->shippingCosts = number_format($this->order->getData('shipping_amount'), 2, '.', '')*100;
+
+    $total_tax = 0;
+    if(number_format($this->order->getData('tax_amount'),2,'.','') !== '0.00') {
+      $array = $this->order->getFullTaxInfo();
+      $taxInfo = array();
+      
+      foreach($array as $a){
+        $taxArray = $a;
+        $total_tax += number_format($taxArray['amount'],2,'.','');
+      }
+    }
+    
+    if($total_tax !== 0)
+      $b2bOrder->AcceptPayment->order->shoppingCart->tax = $total_tax*100;
+
+    $linecount = 0;
+    foreach($this->order->getAllItems() as $_item) {
+      if(Mage::getStoreConfig('mpay24/mpay24/show_free_products') == 1 ||
+          (Mage::getStoreConfig('mpay24/mpay24/show_free_products') == 0 && number_format(($_item->getData('price')*1),2,'.','') != '0.00')) {
+        $linecount++;
+        
+        $b2bOrder->AcceptPayment->order->shoppingCart->item($linecount)->number = $linecount;
+        $b2bOrder->AcceptPayment->order->shoppingCart->item($linecount)->productNr = $this->xmlentities($_item->getData('sku'));
+        $b2bOrder->AcceptPayment->order->shoppingCart->item($linecount)->description = $this->xmlentities($_item->getData('name'));
+        $b2bOrder->AcceptPayment->order->shoppingCart->item($linecount)->package = "";
+        $b2bOrder->AcceptPayment->order->shoppingCart->item($linecount)->quantity = (int)$_item->getQtyOrdered();
+        if(Mage::getStoreConfig('tax/cart_display/price') == 2 || Mage::getStoreConfig('tax/cart_display/price') == 3)
+          $b2bOrder->AcceptPayment->order->shoppingCart->item($linecount)->amount = number_format($_item->getPriceInclTax()*1,2,'.','')*100;
+        else
+          $b2bOrder->AcceptPayment->order->shoppingCart->item($linecount)->amount = number_format(($_item->getData('price')*1),2,'.','')*100;
+      }
+    }
+
+    $billingCountry = "";
+    $billingCountryCode = "";
+    $shippingCountry = "";
+    $shippingCountryCode = "";
+    
+    foreach(Mage::app()->getLocale()->getOptionCountries() as $c)
+      if ($c['value'] == $this->order->getBillingAddress()->getCountry()) {
+        $billingCountry = $c['label'];
+        $billingCountryCode = $c['value'];
+        break;
+      }
+    
+    if($this->order->getShippingAddress())
+      foreach(Mage::app()->getLocale()->getOptionCountries() as $c)
+        if ($c['value'] == $this->order->getShippingAddress()->getCountry()) {
+          $shippingCountry = $c['label'];
+          $shippingCountryCode = $c['value'];
+          break;
+        }
+
+      $b2bOrder->AcceptPayment->order->billing->mode = "READONLY";
+    $b2bOrder->AcceptPayment->order->billing->name = $this->xmlentities(substr($this->order->getBillingAddress()->getName(),0,50));
+    
+    $billingAdress = $this->xmlentities($this->order->getBillingAddress()->getStreetFull());
+    
+    $billingStreet = $this->splitAdress($billingAdress);
+    
+    if(isset($billingStreet[0]) && is_array($billingStreet[0])) {
+      $b2bOrder->AcceptPayment->order->billing->street = $billingStreet[0]['Street'];
+      $b2bOrder->AcceptPayment->order->billing->street2 = $billingStreet[1]['Street2'];
+    } else {
+      $b2bOrder->AcceptPayment->order->billing->street = $billingStreet['Street'];
+    
+      if(isset($billingStreet['Street2']))
+        $b2bOrder->AcceptPayment->order->billing->street2 = $billingStreet['Street2'];
+    }
+    
+    $b2bOrder->AcceptPayment->order->billing->zip = substr($this->xmlentities($this->order->getBillingAddress()->getPostcode()),0,50);
+    $b2bOrder->AcceptPayment->order->billing->city = substr($this->xmlentities($this->order->getBillingAddress()->getCity()),0,50);
+    $b2bOrder->AcceptPayment->order->billing->countryCode = $this->xmlentities($billingCountryCode);
+    $b2bOrder->AcceptPayment->order->billing->email = substr($this->xmlentities($this->order->getBillingAddress()->getEmail()),0,50);
+
+    if($this->order->getShippingAddress()) {
+      $b2bOrder->AcceptPayment->order->shipping->mode = "READONLY";
+      $b2bOrder->AcceptPayment->order->shipping->name = $this->xmlentities(substr($this->order->getBillingAddress()->getName(),0,50));
+      
+      $shippingAdress = $this->xmlentities($this->order->getShippingAddress()->getStreetFull());
+      
+      $shippingStreet = $this->splitAdress($shippingAdress);
+      
+      if(isset($shippingStreet[0]) && is_array($shippingStreet[0])) {
+        $b2bOrder->AcceptPayment->order->shipping->street = $shippingStreet[0]['Street'];
+        $b2bOrder->AcceptPayment->order->shipping->street2 = $shippingStreet[1]['Street2'];
+      } else {
+        $b2bOrder->AcceptPayment->order->shipping->street = $shippingStreet['Street'];
+      
+        if(isset($shippingStreet['Street2']))
+          $b2bOrder->AcceptPayment->order->shipping->street2 = $shippingStreet['Street2'];
+      }
+      
+      $b2bOrder->AcceptPayment->order->shipping->zip = substr($this->xmlentities($this->order->getShippingAddress()->getPostcode()),0,50);
+      $b2bOrder->AcceptPayment->order->shipping->city = substr($this->xmlentities($this->order->getShippingAddress()->getCity()),0,50);
+      $b2bOrder->AcceptPayment->order->shipping->countryCode = $this->xmlentities($shippingCountryCode);
+      $b2bOrder->AcceptPayment->order->shipping->email = substr($this->xmlentities($this->order->getShippingAddress()->getEmail()),0,50);
+    }
+
+    $lang = explode('_', Mage::getStoreConfig('general/locale/code'));
+    
+    if(in_array(strtoupper($lang[0]), array("BG", "CS", "DE", "EN", "FR", "HR", "IT")))
+      $b2bOrder->AcceptPayment->language = strtoupper($lang[0]);
+    else
+      $b2bOrder->AcceptPayment->language = "EN";
+  
+    if(Mage::helper('customer')->isLoggedIn())
+      $b2bOrder->AcceptPayment->successURL = Mage::getUrl(MPay24MagentoShop::SUCCESS_URL,array('_secure' => true, '_query' => "TID=" . substr($this->order->getIncrementId(),0,32) ));
+    else
+      $b2bOrder->AcceptPayment->successURL = Mage::getUrl(MPay24MagentoShop::GUEST_SUCCESS_URL,array('_secure' => true, '_query' => "tid=" . substr($this->order->getIncrementId(),0,32) ));
+    
+    $b2bOrder->AcceptPayment->errorURL = Mage::getUrl(MPay24MagentoShop::ERROR_URL,array('_secure' => true, '_query' => "TID=" . substr($this->order->getIncrementId(),0,32) ));
+    $b2bOrder->AcceptPayment->confirmationURL = Mage::getUrl(MPay24MagentoShop::CONFIRMATION_URL,array('_secure' => true));
+
+    if(Mage::getStoreConfig('mpay24/mpay24as/debug') == 1)
+      Mage::log($b2bOrder->toXML(), null, "mpay24/xmls/".$transaction->TID."_b2b.xml",true);
+    
+    return $b2bOrder;
+  }
+  
   function createFinishExpressCheckoutOrder($tid, $s, $a, $c) {}
 
   function write_log($operation, $info_to_log) {
@@ -254,18 +402,18 @@ class MPay24MagentoShop extends MPay24Shop {
   function createMDXI($transaction) {
     $mdxi = new ORDER();
 
-    $mdxi->Order->setStyle(Mage::getStoreConfig('mpay24/mpay24sporder/style'));
-    $mdxi->Order->setLogoStyle(Mage::getStoreConfig('mpay24/mpay24sporder/logostyle'));
-    $mdxi->Order->setPageHeaderStyle(Mage::getStoreConfig('mpay24/mpay24sporder/pageheaderstyle'));
-    $mdxi->Order->setPageCaptionStyle(Mage::getStoreConfig('mpay24/mpay24sporder/pagecaptionstyle'));
-    $mdxi->Order->setPageStyle(Mage::getStoreConfig('mpay24/mpay24sporder/pagestyle'));
-    $mdxi->Order->setInputFieldsStyle(Mage::getStoreConfig('mpay24/mpay24sporder/inputfieldsstyle'));
-    $mdxi->Order->setDropDownListsStyle(Mage::getStoreConfig('mpay24/mpay24sporder/dropdownlistsstyle'));
-    $mdxi->Order->setButtonsStyle(Mage::getStoreConfig('mpay24/mpay24sporder/buttonsstyle'));
-    $mdxi->Order->setErrorsStyle(Mage::getStoreConfig('mpay24/mpay24sporder/errorsstyle'));
-    $mdxi->Order->setSuccessTitleStyle(Mage::getStoreConfig('mpay24/mpay24sporder/successtitlestyle'));
-    $mdxi->Order->setErrorTitleStyle(Mage::getStoreConfig('mpay24/mpay24sporder/errortitlestyle'));
-    $mdxi->Order->setFooterStyle(Mage::getStoreConfig('mpay24/mpay24sporder/footerstyle'));
+    $mdxi->Order->setStyle(Mage::getStoreConfig('mpay24/mpay24/style'));
+    $mdxi->Order->setLogoStyle(Mage::getStoreConfig('mpay24/mpay24/logostyle'));
+    $mdxi->Order->setPageHeaderStyle(Mage::getStoreConfig('mpay24/mpay24/pageheaderstyle'));
+    $mdxi->Order->setPageCaptionStyle(Mage::getStoreConfig('mpay24/mpay24/pagecaptionstyle'));
+    $mdxi->Order->setPageStyle(Mage::getStoreConfig('mpay24/mpay24/pagestyle'));
+    $mdxi->Order->setInputFieldsStyle(Mage::getStoreConfig('mpay24/mpay24/inputfieldsstyle'));
+    $mdxi->Order->setDropDownListsStyle(Mage::getStoreConfig('mpay24/mpay24/dropdownlistsstyle'));
+    $mdxi->Order->setButtonsStyle(Mage::getStoreConfig('mpay24/mpay24/buttonsstyle'));
+    $mdxi->Order->setErrorsStyle(Mage::getStoreConfig('mpay24/mpay24/errorsstyle'));
+    $mdxi->Order->setSuccessTitleStyle(Mage::getStoreConfig('mpay24/mpay24/successtitlestyle'));
+    $mdxi->Order->setErrorTitleStyle(Mage::getStoreConfig('mpay24/mpay24/errortitlestyle'));
+    $mdxi->Order->setFooterStyle(Mage::getStoreConfig('mpay24/mpay24/footerstyle'));
 
     $this->order->getPayment()->setAdditionalInformation('user_field', MAGENTO_VERSION.$transaction->TID.'_'.date('Y-m-d'))->save();
     
@@ -329,46 +477,46 @@ class MPay24MagentoShop extends MPay24Shop {
       }
     }
 
-    $conf = explode(',',Mage::getStoreConfig('mpay24/mpay24spsc/sc_row'));
+    $conf = explode(',',Mage::getStoreConfig('mpay24/mpay24/sc_row'));
 
-    $mdxi->Order->ShoppingCart->setStyle(Mage::getStoreConfig('mpay24/mpay24spsc/sc_style'));
-    $mdxi->Order->ShoppingCart->setHeader(Mage::getStoreConfig('mpay24/mpay24spsc/sc_header'));
-    $mdxi->Order->ShoppingCart->setHeaderStyle(Mage::getStoreConfig('mpay24/mpay24spsc/sc_headerstyle'));
-    $mdxi->Order->ShoppingCart->setCaptionStyle(Mage::getStoreConfig('mpay24/mpay24spsc/sc_captionstyle'));
+    $mdxi->Order->ShoppingCart->setStyle(Mage::getStoreConfig('mpay24/mpay24/sc_style'));
+    $mdxi->Order->ShoppingCart->setHeader(Mage::getStoreConfig('mpay24/mpay24/sc_header'));
+    $mdxi->Order->ShoppingCart->setHeaderStyle(Mage::getStoreConfig('mpay24/mpay24/sc_headerstyle'));
+    $mdxi->Order->ShoppingCart->setCaptionStyle(Mage::getStoreConfig('mpay24/mpay24/sc_captionstyle'));
 
     if(in_array('Number',$conf)) {
-      $mdxi->Order->ShoppingCart->setNumberHeader(Mage::getStoreConfig('mpay24/mpay24spsc/sc_numberheader'));
-      $mdxi->Order->ShoppingCart->setNumberStyle(Mage::getStoreConfig('mpay24/mpay24spsc/sc_numberstyle'));
+      $mdxi->Order->ShoppingCart->setNumberHeader(Mage::getStoreConfig('mpay24/mpay24/sc_numberheader'));
+      $mdxi->Order->ShoppingCart->setNumberStyle(Mage::getStoreConfig('mpay24/mpay24/sc_numberstyle'));
     }
     if(in_array('ProductNr',$conf)) {
-      $mdxi->Order->ShoppingCart->setProductNrHeader(Mage::getStoreConfig('mpay24/mpay24spsc/sc_productnrheader'));
-      $mdxi->Order->ShoppingCart->setProductNrStyle(Mage::getStoreConfig('mpay24/mpay24spsc/sc_productnrstyle'));
+      $mdxi->Order->ShoppingCart->setProductNrHeader(Mage::getStoreConfig('mpay24/mpay24/sc_productnrheader'));
+      $mdxi->Order->ShoppingCart->setProductNrStyle(Mage::getStoreConfig('mpay24/mpay24/sc_productnrstyle'));
     }
     if(in_array('Description',$conf)) {
-      $mdxi->Order->ShoppingCart->setDescriptionHeader(Mage::getStoreConfig('mpay24/mpay24spsc/sc_descriptionheader'));
-      $mdxi->Order->ShoppingCart->setDescriptionStyle(Mage::getStoreConfig('mpay24/mpay24spsc/sc_descriptionstyle'));
+      $mdxi->Order->ShoppingCart->setDescriptionHeader(Mage::getStoreConfig('mpay24/mpay24/sc_descriptionheader'));
+      $mdxi->Order->ShoppingCart->setDescriptionStyle(Mage::getStoreConfig('mpay24/mpay24/sc_descriptionstyle'));
     }
     if(in_array('Package',$conf)) {
-      $mdxi->Order->ShoppingCart->setPackageHeader(Mage::getStoreConfig('mpay24/mpay24spsc/sc_packageheader'));
-      $mdxi->Order->ShoppingCart->setPackageStyle(Mage::getStoreConfig('mpay24/mpay24spsc/sc_packagestyle'));
+      $mdxi->Order->ShoppingCart->setPackageHeader(Mage::getStoreConfig('mpay24/mpay24/sc_packageheader'));
+      $mdxi->Order->ShoppingCart->setPackageStyle(Mage::getStoreConfig('mpay24/mpay24/sc_packagestyle'));
     }
     if(in_array('Quantity',$conf)) {
-      $mdxi->Order->ShoppingCart->setQuantityHeader(Mage::getStoreConfig('mpay24/mpay24spsc/sc_quantityheader'));
-      $mdxi->Order->ShoppingCart->setQuantityStyle(Mage::getStoreConfig('mpay24/mpay24spsc/sc_quantitystyle'));
+      $mdxi->Order->ShoppingCart->setQuantityHeader(Mage::getStoreConfig('mpay24/mpay24/sc_quantityheader'));
+      $mdxi->Order->ShoppingCart->setQuantityStyle(Mage::getStoreConfig('mpay24/mpay24/sc_quantitystyle'));
     }
     if(in_array('ItemPrice',$conf)) {
-      $mdxi->Order->ShoppingCart->setItemPriceHeader(Mage::getStoreConfig('mpay24/mpay24spsc/sc_itempriceheader'));
-      $mdxi->Order->ShoppingCart->setItemPriceStyle(Mage::getStoreConfig('mpay24/mpay24spsc/sc_itempricestyle'));
+      $mdxi->Order->ShoppingCart->setItemPriceHeader(Mage::getStoreConfig('mpay24/mpay24/sc_itempriceheader'));
+      $mdxi->Order->ShoppingCart->setItemPriceStyle(Mage::getStoreConfig('mpay24/mpay24/sc_itempricestyle'));
     }
     if(in_array('Price',$conf)) {
-      $mdxi->Order->ShoppingCart->setPriceHeader(Mage::getStoreConfig('mpay24/mpay24spsc/sc_priceheader'));
-      $mdxi->Order->ShoppingCart->setPriceStyle(Mage::getStoreConfig('mpay24/mpay24spsc/sc_pricestyle'));
+      $mdxi->Order->ShoppingCart->setPriceHeader(Mage::getStoreConfig('mpay24/mpay24/sc_priceheader'));
+      $mdxi->Order->ShoppingCart->setPriceStyle(Mage::getStoreConfig('mpay24/mpay24/sc_pricestyle'));
     }
 
-    $mdxi->Order->ShoppingCart->Description = Mage::getStoreConfig('mpay24/mpay24spsc/description');
+    $mdxi->Order->ShoppingCart->Description = Mage::getStoreConfig('mpay24/mpay24/description');
 
-    $style1 = Mage::getStoreConfig('mpay24/mpay24spsc/item_style1');
-    $style2 = Mage::getStoreConfig('mpay24/mpay24spsc/item_style2');
+    $style1 = Mage::getStoreConfig('mpay24/mpay24/item_style1');
+    $style2 = Mage::getStoreConfig('mpay24/mpay24/item_style2');
     $ret = "";
     $linecount = 0;
 
@@ -427,9 +575,9 @@ class MPay24MagentoShop extends MPay24Shop {
       }
     }
 
-    $mdxi->Order->ShoppingCart->SubTotal->setHeader(Mage::getStoreConfig('mpay24/mpay24spsc/subtotal_header'));
-    $mdxi->Order->ShoppingCart->SubTotal->setHeaderStyle(Mage::getStoreConfig('mpay24/mpay24spsc/subtotal_headerstyle'));
-    $mdxi->Order->ShoppingCart->SubTotal->setStyle(Mage::getStoreConfig('mpay24/mpay24spsc/subtotal_style'));
+    $mdxi->Order->ShoppingCart->SubTotal->setHeader(Mage::getStoreConfig('mpay24/mpay24/subtotal_header'));
+    $mdxi->Order->ShoppingCart->SubTotal->setHeaderStyle(Mage::getStoreConfig('mpay24/mpay24/subtotal_headerstyle'));
+    $mdxi->Order->ShoppingCart->SubTotal->setStyle(Mage::getStoreConfig('mpay24/mpay24/subtotal_style'));
 
     if(Mage::getStoreConfig('tax/cart_display/subtotal') == 2 || Mage::getStoreConfig('tax/cart_display/subtotal') == 3)
       $mdxi->Order->ShoppingCart->SubTotal = number_format($this->order->getSubtotalInclTax(),2,'.','');
@@ -438,8 +586,8 @@ class MPay24MagentoShop extends MPay24Shop {
 
     if(number_format($this->order->getData('discount_amount'),2,'.','') !== '0.00') {
       $mdxi->Order->ShoppingCart->Discount->setHeader($this->order->getData('discount_description'));
-      $mdxi->Order->ShoppingCart->Discount->setHeaderStyle(Mage::getStoreConfig('mpay24/mpay24spsc/discount_headerstyle'));
-      $mdxi->Order->ShoppingCart->Discount->setStyle(Mage::getStoreConfig('mpay24/mpay24spsc/discount_style'));
+      $mdxi->Order->ShoppingCart->Discount->setHeaderStyle(Mage::getStoreConfig('mpay24/mpay24/discount_headerstyle'));
+      $mdxi->Order->ShoppingCart->Discount->setStyle(Mage::getStoreConfig('mpay24/mpay24/discount_style'));
       $mdxi->Order->ShoppingCart->Discount = number_format($this->order->getData('discount_amount'), 2, '.', '');
     }
 
@@ -450,8 +598,8 @@ class MPay24MagentoShop extends MPay24Shop {
         $mdxi->Order->ShoppingCart->ShippingCosts(1, number_format($this->order->getData('shipping_amount'), 2, '.', ''));
       
       $mdxi->Order->ShoppingCart->ShippingCosts(1)->setHeader($this->order->getData('shipping_description'));
-      $mdxi->Order->ShoppingCart->ShippingCosts(1)->setHeaderStyle(Mage::getStoreConfig('mpay24/mpay24spsc/shipping_costs_headerstyle'));
-      $mdxi->Order->ShoppingCart->ShippingCosts(1)->setStyle(Mage::getStoreConfig('mpay24/mpay24spsc/shipping_costs_style'));
+      $mdxi->Order->ShoppingCart->ShippingCosts(1)->setHeaderStyle(Mage::getStoreConfig('mpay24/mpay24/shipping_costs_headerstyle'));
+      $mdxi->Order->ShoppingCart->ShippingCosts(1)->setStyle(Mage::getStoreConfig('mpay24/mpay24/shipping_costs_style'));
     }
     
     $t=1;
@@ -464,8 +612,8 @@ class MPay24MagentoShop extends MPay24Shop {
         $mdxi->Order->ShoppingCart->Tax(1)->setHeader(Mage::helper('mpay24')->__("Payment charge") . " (" . Mage::helper('mpay24')->__("Absolute value") . ")");
       }
     
-      $mdxi->Order->ShoppingCart->Tax(1)->setHeaderStyle(Mage::getStoreConfig('mpay24/mpay24spsc/tax_headerstyle'));
-      $mdxi->Order->ShoppingCart->Tax(1)->setStyle(Mage::getStoreConfig('mpay24/mpay24spsc/tax_style'));
+      $mdxi->Order->ShoppingCart->Tax(1)->setHeaderStyle(Mage::getStoreConfig('mpay24/mpay24/tax_headerstyle'));
+      $mdxi->Order->ShoppingCart->Tax(1)->setStyle(Mage::getStoreConfig('mpay24/mpay24/tax_style'));
       $t=2;
     } elseif($this->order->getPaymentCharge() < 0) {
       if($this->order->getPaymentChargeType() == "percent") {
@@ -476,8 +624,8 @@ class MPay24MagentoShop extends MPay24Shop {
         $mdxi->Order->ShoppingCart->Discount(1)->setHeader(Mage::helper('mpay24')->__("Payment discount") . " (" . Mage::helper('mpay24')->__("Absolute value") . ")");
       }
       
-      $mdxi->Order->ShoppingCart->Discount(1)->setHeaderStyle(Mage::getStoreConfig('mpay24/mpay24spsc/discount_headerstyle'));
-      $mdxi->Order->ShoppingCart->Discount(1)->setStyle(Mage::getStoreConfig('mpay24/mpay24spsc/discount_style'));
+      $mdxi->Order->ShoppingCart->Discount(1)->setHeaderStyle(Mage::getStoreConfig('mpay24/mpay24/discount_headerstyle'));
+      $mdxi->Order->ShoppingCart->Discount(1)->setStyle(Mage::getStoreConfig('mpay24/mpay24/discount_style'));
     }
 
     if(number_format($this->order->getData('tax_amount'),2,'.','') !== '0.00') {
@@ -501,8 +649,8 @@ class MPay24MagentoShop extends MPay24Shop {
         $mdxi->Order->ShoppingCart->Tax($t, number_format($taxArray['amount'],2,'.',''));
             
         $mdxi->Order->ShoppingCart->Tax($t)->setHeader($inklText . $taxArray['id']);
-        $mdxi->Order->ShoppingCart->Tax($t)->setHeaderStyle(Mage::getStoreConfig('mpay24/mpay24spsc/tax_headerstyle'));
-        $mdxi->Order->ShoppingCart->Tax($t)->setStyle(Mage::getStoreConfig('mpay24/mpay24spsc/tax_style'));
+        $mdxi->Order->ShoppingCart->Tax($t)->setHeaderStyle(Mage::getStoreConfig('mpay24/mpay24/tax_headerstyle'));
+        $mdxi->Order->ShoppingCart->Tax($t)->setStyle(Mage::getStoreConfig('mpay24/mpay24/tax_style'));
         $mdxi->Order->ShoppingCart->Tax($t)->setPercent(number_format($taxArray['rates'][0]['percent'],0,'.',''));
         
         $t++;
@@ -531,9 +679,9 @@ class MPay24MagentoShop extends MPay24Shop {
 
     $mdxi->Order->Price = $transaction->PRICE;
       
-    $mdxi->Order->Price->setHeader(Mage::getStoreConfig('mpay24/mpay24spsc/price_header'));
-    $mdxi->Order->Price->setHeaderStyle(Mage::getStoreConfig('mpay24/mpay24spsc/price_headerstyle'));
-    $mdxi->Order->Price->setStyle(Mage::getStoreConfig('mpay24/mpay24spsc/price_style'));
+    $mdxi->Order->Price->setHeader(Mage::getStoreConfig('mpay24/mpay24/price_header'));
+    $mdxi->Order->Price->setHeaderStyle(Mage::getStoreConfig('mpay24/mpay24/price_headerstyle'));
+    $mdxi->Order->Price->setStyle(Mage::getStoreConfig('mpay24/mpay24/price_style'));
 
     $mdxi->Order->Currency = $this->xmlentities($this->order->getOrderCurrencyCode());
     $mdxi->Order->Customer = $this->xmlentities(substr($this->order->getCustomerName(),0,50));
@@ -616,13 +764,15 @@ class MPay24MagentoShop extends MPay24Shop {
     return $mdxi;
   }
 
-  function setVariables($order, $ps, $type, $brand) {
+  function setVariables($order, $ps, $type, $brand, $bic = "", $token = "") {
     $this->tid = $order->getIncrementId();
     $this->order = $order;
     $this->price = number_format($order->getData('grand_total'),2,'.','');
     $this->ps = $ps;
     $this->type = $type;
     $this->brand = $brand;
+    $this->bic = $bic;
+    $this->token = $token;
 
     $m= new Mage;
     $version=$m->getVersion();

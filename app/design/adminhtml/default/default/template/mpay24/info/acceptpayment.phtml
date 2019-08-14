@@ -1,0 +1,19 @@
+<?php
+/**
+ * @category            design
+ * @package             default_defaut
+ * @author              Anna Sadriu (mPAY24 GmbH)
+ * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @version             $Id: acceptpayment.phtml 6280 2015-04-16 13:00:22Z anna $
+ */
+?>
+<p><b>
+
+<?php $pType=$this->getPType(); ?>
+<img style="height: 50px;" alt="<?= $pType; ?>" src="<?= Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN)."frontend/base/default/images/Mpay24/Mpay24/logos/$pType.svg" ?>">
+
+<?php if($this->getMethod()->getData('info_instance')->getOrder() !== null): ?>
+  <br/><b><?php echo "<label for='mpaytid'>MPAYTID</label><span name='mpaytid' style='float: right; margin-right: 400px;'>".$this->htmlEscape($this->getInfo()->getOrder()->getPayment()->getAdditionalInformation('mpay_tid'))."</span>"; ?></b>
+  <br/><b><?php echo "<label for='appr_code'>".Mage::helper('mpay24')->__("Approval code")."</label><span name='appr_code' style='float: right; margin-right: 400px;'>".$this->htmlEscape($this->getInfo()->getOrder()->getPayment()->getAdditionalInformation('appr_code'))."</span>"; ?></b>
+<?php endif; ?>
+</b></p><br/>

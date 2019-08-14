@@ -43,7 +43,7 @@
               <label>mPAY24 enabled</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_yesno</source_model>
-              <config_path>payment/mpay24/active</config_path>
+<!--               <config_path>payment/mpay24/active</config_path> -->
               <sort_order>0</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -107,17 +107,6 @@
               <show_in_store>1</show_in_store>
               <depends><active>1</active></depends>
             </debug>
-            <!-- <sofort_state translate="label comment">
-              <label>SOFORT Banking end-state</label>
-              <frontend_type>select</frontend_type>
-              <source_model>mpay24/source_sOFORTState</source_model>
-              <sort_order>5</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-              <depends><active>1</active></depends>
-              <comment>ONLY FOR 'SOFORT Überweisung' merchants: Please contact support@mpay24.com for more information!</comment>
-            </sofort_state> -->
             <use_proxy translate="label">
               <label>API uses proxy</label>
               <frontend_type>select</frontend_type>
@@ -198,424 +187,185 @@
           </fields>
         </mpay24as>
   
-        <mpay24sporder>
-          <label>mPAY24 Selectpayment Order Design</label>
-          <frontend_type>text</frontend_type>
-          <sort_order>2</sort_order>
-          <expanded>0</expanded>
-          <show_in_default>1</show_in_default>
-          <show_in_website>1</show_in_website>
-          <show_in_store>1</show_in_store>
-          <fields>
-            <style translate="label">
-              <label>Style</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>101</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </style>
-            <logostyle translate="label">
-              <label>LogoStyle</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>102</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </logostyle>
-            <pageheaderstyle translate="label">
-              <label>PageHeaderStyle</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>103</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </pageheaderstyle>
-            <pagecaptionstyle translate="label">
-              <label>PageCaptionStyle</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>104</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </pagecaptionstyle>
-            <pagestyle translate="label">
-              <label>PageStyle</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>105</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </pagestyle>
-            <inputfieldsstyle translate="label">
-              <label>InputFieldsStyle</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>106</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </inputfieldsstyle>
-            <dropdownlistsstyle translate="label">
-              <label>DropDownListsStyle</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>107</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </dropdownlistsstyle>
-            <buttonsstyle translate="label">
-              <label>ButtonsStyle</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>108</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </buttonsstyle>
-            <errorsstyle translate="label">
-              <label>ErrorsStyle</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>109</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </errorsstyle>
-            <successtitlestyle translate="label">
-              <label>SuccessTitleStyle</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>110</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </successtitlestyle>
-            <errortitlestyle translate="label">
-              <label>ErrorTitleStyle</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>111</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </errortitlestyle>
-            <footerstyle translate="label">
-              <label>FooterStyle</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>112</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </footerstyle>
-          </fields>
-        </mpay24sporder>
-  
-        <mpay24spsc translate="label">
-          <label>mPAY24 Selectpayment ShoppingCart Design</label>
-          <frontend_type>text</frontend_type>
-          <sort_order>3</sort_order>
-          <expanded>0</expanded>
-          <show_in_default>1</show_in_default>
-          <show_in_website>1</show_in_website>
-          <show_in_store>1</show_in_store>
-          <fields>
-            <description translate="label">
-              <label>Description</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>49</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </description>
-            <sc_row translate="label">
-              <label>ShoppingCart Rows</label>
-              <frontend_type>multiselect</frontend_type>
-              <sort_order>50</sort_order>
-              <source_model>mpay24/source_shoppingCartRowsAction</source_model>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </sc_row>
-            <sc_style translate="label">
-              <label>Style</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>101</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </sc_style>
-            <sc_header translate="label">
-              <label>Header</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>102</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </sc_header>
-            <sc_headerstyle translate="label">
-              <label>HeaderStyle</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>103</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </sc_headerstyle>
-            <sc_captionstyle translate="label">
-              <label>CaptionStyle</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>104</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </sc_captionstyle>
-            <sc_numberheader translate="label">
-              <label>NumberHeader</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>105</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </sc_numberheader>
-            <sc_numberstyle translate="label">
-              <label>NumberStyle</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>106</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </sc_numberstyle>
-            <sc_productnrheader translate="label">
-              <label>ProductNrHeader</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>107</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </sc_productnrheader>
-            <sc_productnrstyle translate="label">
-              <label>ProductNrStyle</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>108</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </sc_productnrstyle>
-            <sc_descriptionheader translate="label">
-              <label>DescriptionHeader</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>109</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </sc_descriptionheader>
-            <sc_descriptionstyle translate="label">
-              <label>DescriptionStyle</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>110</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </sc_descriptionstyle>
-            <sc_packageheader translate="label">
-              <label>PackageHeader</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>111</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </sc_packageheader>
-            <sc_packagestyle translate="label">
-              <label>PackageStyle</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>112</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </sc_packagestyle>
-            <sc_quantityheader translate="label">
-              <label>QuantityHeader</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>113</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </sc_quantityheader>
-            <sc_quantitystyle translate="label">
-              <label>QuantityStyle</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>114</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </sc_quantitystyle>
-            <sc_itempriceheader translate="label">
-              <label>ItemPriceHeader</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>115</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </sc_itempriceheader>
-            <sc_itempricestyle translate="label">
-              <label>ItemPriceStyle</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>116</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </sc_itempricestyle>
-            <sc_priceheader translate="label">
-              <label>PriceHeader</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>117</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </sc_priceheader>
-            <sc_pricestyle translate="label">
-              <label>PriceStyle</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>118</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </sc_pricestyle>
-            <item_style1 translate="label">
-              <label>ItemStyle Line 1</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>120</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </item_style1>
-            <item_style2 translate="label">
-              <label>ItemStyle Line 2</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>121</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </item_style2>
-            <discount_headerstyle translate="label">
-              <label>Discount HeaderStyle</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>123</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </discount_headerstyle>
-            <discount_style translate="label">
-              <label>Discount Style</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>124</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </discount_style> 
-            <shipping_costs_headerstyle translate="label">
-              <label>Ship.Costs HeaderStyle</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>126</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </shipping_costs_headerstyle>
-            <shipping_costs_style translate="label">
-              <label>Ship.Costs Style</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>127</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </shipping_costs_style>
-            <tax_headerstyle translate="label">
-              <label>Tax HeaderStyle</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>129</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </tax_headerstyle>
-            <tax_style translate="label">
-              <label>Tax Style</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>130</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </tax_style>
-            <price_header translate="label">
-              <label>Price Header</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>132</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </price_header>
-            <price_headerstyle translate="label">
-              <label>Price HeaderStyle</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>133</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </price_headerstyle>
-            <price_style translate="label">
-              <label>Price Style</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>134</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </price_style>    
-            <subtotal_header translate="label">
-              <label>Subtotal Header</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>135</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </subtotal_header>
-            <subtotal_headerstyle translate="label">
-              <label>Subtotal HeaderStyle</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>136</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </subtotal_headerstyle>
-            <subtotal_style translate="label">
-              <label>Subtotal Style</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>137</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </subtotal_style>
-          </fields>
-        </mpay24spsc>
-
-        <mpay24 translate="label" module="mpay24">
-          <label>Payment systems</label>
-          <expanded>1</expanded>
+        <mpay24>
+          <label>mPAY24 Checkout Settings</label>
           <frontend_type>text</frontend_type>
           <frontend_model>mpay24/adminhtml_system_config_fieldset_fieldset</frontend_model>
-          <sort_order>5</sort_order>
+          <sort_order>2</sort_order>
+          <expanded>1</expanded>
           <show_in_default>1</show_in_default>
           <show_in_website>1</show_in_website>
           <show_in_store>1</show_in_store>
           <fields>
+            <seamless>
+              <label>Seamless</label>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <sort_order>0</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </seamless>
+            
+            <tokenizer_active translate="label comment">
+              <label>Tokenizer enabled</label>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <config_path>payment/mpay24_tokenizer/active</config_path>
+              <sort_order>1</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>1</seamless></depends>
+            </tokenizer_active>
+            <tokenizer_title>
+              <label>Tokenizer title</label>
+              <frontend_type>select</frontend_type>
+              <config_path>payment/mpay24_tokenizer/title</config_path>
+              <sort_order>2</sort_order>
+              <source_model>mpay24/source_checkout</source_model>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>1</seamless><tokenizer_active>1</tokenizer_active></depends>
+            </tokenizer_title>
+            <credit_cards translate="label">
+              <label>Allowed credit cards</label>
+              <frontend_type>multiselect</frontend_type>
+              <sort_order>3</sort_order>
+              <source_model>mpay24/source_creditCards</source_model>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>1</seamless><tokenizer_active>1</tokenizer_active></depends>
+            </credit_cards>
+            <tokenizer_allowspecific translate="label">
+              <label>Credit cards Payment Applicable From</label>
+              <config_path>payment/mpay24_tokenizer/allowspecific</config_path>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
+              <sort_order>4</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <depends><seamless>1</seamless><tokenizer_active>1</tokenizer_active></depends>
+            </tokenizer_allowspecific>
+            <tokenizer_specificcountry translate="label">
+              <label>Credit cards Countries Payment Applicable From</label>
+              <config_path>payment/mpay24_tokenizer/specificcountry</config_path>
+              <frontend_type>multiselect</frontend_type>
+              <source_model>mpay24/source_buyerCountry</source_model>
+              <sort_order>5</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <depends><seamless>1</seamless><tokenizer_active>1</tokenizer_active><tokenizer_allowspecific>1</tokenizer_allowspecific></depends>
+            </tokenizer_specificcountry>
+            
+            <eps_active translate="label comment">
+              <label>EPS enabled</label>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <config_path>payment/mpay24_eps/active</config_path>
+              <sort_order>10</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>1</seamless></depends>
+            </eps_active>
+            <eps_title>
+              <label>EPS title</label>
+              <frontend_type>select</frontend_type>
+              <config_path>payment/mpay24_eps/title</config_path>
+              <sort_order>11</sort_order>
+              <source_model>mpay24/source_checkout</source_model>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>1</seamless><eps_active>1</eps_active></depends>
+            </eps_title>
+            <eps_allowspecific translate="label">
+              <label>EPS Payment Applicable From</label>
+              <config_path>payment/mpay24_eps/allowspecific</config_path>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
+              <sort_order>12</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <depends><seamless>1</seamless><eps_active>1</eps_active></depends>
+            </eps_allowspecific>
+            <eps_specificcountry translate="label">
+              <label>EPS Countries Payment Applicable From</label>
+              <config_path>payment/mpay24_eps/specificcountry</config_path>
+              <frontend_type>multiselect</frontend_type>
+              <source_model>mpay24/source_buyerCountry</source_model>
+              <sort_order>13</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <depends><seamless>1</seamless><eps_active>1</eps_active><eps_allowspecific>1</eps_allowspecific></depends>
+            </eps_specificcountry>
+            
+            <paypal_active translate="label comment">
+              <label>PayPal enabled</label>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <config_path>payment/mpay24_paypal/active</config_path>
+              <sort_order>20</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>1</seamless></depends>
+            </paypal_active>
+            <paypal_title>
+              <label>PayPal title</label>
+              <frontend_type>select</frontend_type>
+              <config_path>payment/mpay24_paypal/title</config_path>
+              <sort_order>21</sort_order>
+              <source_model>mpay24/source_checkout</source_model>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>1</seamless><paypal_active>1</paypal_active></depends>
+            </paypal_title>
+            <paypal_allowspecific translate="label">
+              <label>PayPal Payment Applicable From</label>
+              <config_path>payment/mpay24_paypal/allowspecific</config_path>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
+              <sort_order>22</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <depends><seamless>1</seamless><paypal_active>1</paypal_active></depends>
+            </paypal_allowspecific>
+            <paypal_specificcountry translate="label">
+              <label>PayPal Countries Payment Applicable From</label>
+              <config_path>payment/mpay24_paypal/specificcountry</config_path>
+              <frontend_type>multiselect</frontend_type>
+              <source_model>mpay24/source_buyerCountry</source_model>
+              <sort_order>23</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <depends><seamless>1</seamless><paypal_active>1</paypal_active><paypal_allowspecific>1</paypal_allowspecific></depends>
+            </paypal_specificcountry>
+            
+            <!-- pay page payment systems settings -->
             <active_payments>
               <label>Active payments</label>
               <frontend_type>text</frontend_type>
+              <depends><seamless>0</seamless></depends>
             </active_payments>
             <active_payment_types>
               <label>Active payment types</label>
               <frontend_type>text</frontend_type>
+              <depends><seamless>0</seamless></depends>
             </active_payment_types>
             <payments_count>
               <label>Payments count</label>
               <frontend_type>text</frontend_type>
+              <depends><seamless>0</seamless></depends>
             </payments_count>
             <payments_error>
               <label>Payments error</label>
               <frontend_type>text</frontend_type>
+              <depends><seamless>0</seamless></depends>
             </payments_error>
             <payments_active transalte="label comment">
               <label>Payment systems</label>
@@ -625,6 +375,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
               <comment>Your customers can choose the payment system in the shop only by 'Custom configuration'! The payment systems will be synchronized when the settings are saved!</comment>
             </payments_active>
             <checkout_template>
@@ -634,6 +385,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
             </checkout_template>
             <form_template translate="label comment">
               <label>Payment system selection</label>
@@ -644,7 +396,7 @@
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
               <comment>Choose the way the mPAY24 systems are shown in the fronend (checkout)</comment>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </form_template>
             <forced_preselection translate="label comment">
               <label>Forced preselection</label>
@@ -655,8 +407,8 @@
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
               <comment>Your customers must choose the payment system before they are forwarded to mPAY24 in order to be possible to charge the specific payment system.</comment>
-              <depends><payments_active>true</payments_active></depends>
-            </forced_preselection>            
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
+            </forced_preselection>
             <ps_1>
               <label>PS_1</label>
               <frontend_type>select</frontend_type>
@@ -666,7 +418,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_1>
             <tax_type_1 translate="label">
               <label>Payment charge type</label>
@@ -676,7 +428,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_1>1</ps_1></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_1>1</ps_1><seamless>0</seamless></depends>
             </tax_type_1>
             <tax_1 translate="label">
               <label>Payment charge/discount</label>
@@ -686,7 +438,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_1>1</ps_1></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_1>1</ps_1><seamless>0</seamless></depends>
             </tax_1>
             <ps_2>
               <label>PS_2</label>
@@ -697,7 +449,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_2>
             <tax_type_2 translate="label">
               <label>Payment charge type</label>
@@ -707,7 +459,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_2>1</ps_2></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_2>1</ps_2><seamless>0</seamless></depends>
             </tax_type_2>
             <tax_2 translate="label">
               <label>Payment charge/discount</label>
@@ -717,7 +469,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_2>1</ps_2></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_2>1</ps_2><seamless>0</seamless></depends>
             </tax_2>
             <ps_3>
               <label>PS_3</label>
@@ -728,7 +480,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_3>
             <tax_type_3 translate="label">
               <label>Payment charge type</label>
@@ -738,7 +490,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_3>1</ps_3></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_3>1</ps_3><seamless>0</seamless></depends>
             </tax_type_3>
             <tax_3 translate="label">
               <label>Payment charge/discount</label>
@@ -747,7 +499,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_3>1</ps_3></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_3>1</ps_3><seamless>0</seamless></depends>
             </tax_3>
             <ps_4>
               <label>PS_4</label>
@@ -758,7 +510,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_4>
             <tax_type_4 translate="label">
               <label>Payment charge type</label>
@@ -768,7 +520,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_4>1</ps_4></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_4>1</ps_4><seamless>0</seamless></depends>
             </tax_type_4>
             <tax_4 translate="label">
               <label>Payment charge/discount</label>
@@ -777,7 +529,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_4>1</ps_4></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_4>1</ps_4><seamless>0</seamless></depends>
             </tax_4>
             <ps_5>
               <label>PS_5</label>
@@ -788,7 +540,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_5>
             <tax_type_5 translate="label">
               <label>Payment charge type</label>
@@ -798,7 +550,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_5>1</ps_5></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_5>1</ps_5><seamless>0</seamless></depends>
             </tax_type_5>
             <tax_5 translate="label">
               <label>Payment charge/discount</label>
@@ -807,7 +559,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_5>1</ps_5></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_5>1</ps_5><seamless>0</seamless></depends>
             </tax_5>
             <ps_6>
               <label>PS_6</label>
@@ -818,7 +570,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_6>
             <tax_type_6 translate="label">
               <label>Payment charge type</label>
@@ -828,7 +580,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_6>1</ps_6></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_6>1</ps_6><seamless>0</seamless></depends>
             </tax_type_6>
             <tax_6 translate="label">
               <label>Payment charge/discount</label>
@@ -837,7 +589,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_6>1</ps_6></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_6>1</ps_6><seamless>0</seamless></depends>
             </tax_6>
             <ps_7>
               <label>PS_7</label>
@@ -848,7 +600,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_7>
             <tax_type_7 translate="label">
               <label>Payment charge type</label>
@@ -858,7 +610,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_7>1</ps_7></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_7>1</ps_7><seamless>0</seamless></depends>
             </tax_type_7>
             <tax_7 translate="label">
               <label>Payment charge/discount</label>
@@ -867,7 +619,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_7>1</ps_7></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_7>1</ps_7><seamless>0</seamless></depends>
             </tax_7>
             <ps_8>
               <label>PS_8</label>
@@ -878,7 +630,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_8>
             <tax_type_8 translate="label">
               <label>Payment charge type</label>
@@ -888,7 +640,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_8>1</ps_8></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_8>1</ps_8><seamless>0</seamless></depends>
             </tax_type_8>
             <tax_8 translate="label">
               <label>Payment charge/discount</label>
@@ -897,7 +649,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_8>1</ps_8></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_8>1</ps_8><seamless>0</seamless></depends>
             </tax_8>
             <ps_9>
               <label>PS_9</label>
@@ -908,7 +660,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_9>
             <tax_type_9 translate="label">
               <label>Payment charge type</label>
@@ -918,7 +670,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_9>1</ps_9></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_9>1</ps_9><seamless>0</seamless></depends>
             </tax_type_9>
             <tax_9 translate="label">
               <label>Payment charge/discount</label>
@@ -927,7 +679,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_9>1</ps_9></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_9>1</ps_9><seamless>0</seamless></depends>
             </tax_9>
             <ps_10>
               <label>PS_10</label>
@@ -938,7 +690,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_10>
             <tax_type_10 translate="label">
               <label>Payment charge type</label>
@@ -948,7 +700,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_10>1</ps_10></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_10>1</ps_10><seamless>0</seamless></depends>
             </tax_type_10>
             <tax_10 translate="label">
               <label>Payment charge/discount</label>
@@ -957,7 +709,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_10>1</ps_10></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_10>1</ps_10><seamless>0</seamless></depends>
             </tax_10>
             <ps_11>
               <label>PS_11</label>
@@ -968,7 +720,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_11>
             <tax_type_11 translate="label">
               <label>Payment charge type</label>
@@ -978,7 +730,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_11>1</ps_11></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_11>1</ps_11><seamless>0</seamless></depends>
             </tax_type_11>
             <tax_11 translate="label">
               <label>Payment charge/discount</label>
@@ -987,7 +739,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_11>1</ps_11></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_11>1</ps_11><seamless>0</seamless></depends>
             </tax_11>
             <ps_12>
               <label>PS_12</label>
@@ -998,7 +750,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_12>
             <tax_type_12 translate="label">
               <label>Payment charge type</label>
@@ -1008,7 +760,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_12>1</ps_12></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_12>1</ps_12><seamless>0</seamless></depends>
             </tax_type_12>
             <tax_12 translate="label">
               <label>Payment charge/discount</label>
@@ -1017,7 +769,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_12>1</ps_12></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_12>1</ps_12><seamless>0</seamless></depends>
             </tax_12>
             <ps_13>
               <label>PS_13</label>
@@ -1028,7 +780,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_13>
             <tax_type_13 translate="label">
               <label>Payment charge type</label>
@@ -1038,7 +790,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_13>1</ps_13></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_13>1</ps_13><seamless>0</seamless></depends>
             </tax_type_13>
             <tax_13 translate="label">
               <label>Payment charge/discount</label>
@@ -1047,7 +799,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_13>1</ps_13></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_13>1</ps_13><seamless>0</seamless></depends>
             </tax_13>
             <ps_14>
               <label>PS_14</label>
@@ -1058,7 +810,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_14>
             <tax_type_14 translate="label">
               <label>Payment charge type</label>
@@ -1068,7 +820,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_14>1</ps_14></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_14>1</ps_14><seamless>0</seamless></depends>
             </tax_type_14>
             <tax_14 translate="label">
               <label>Payment charge/discount</label>
@@ -1077,7 +829,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_14>1</ps_14></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_14>1</ps_14><seamless>0</seamless></depends>
             </tax_14>
             <ps_15>
               <label>PS_15</label>
@@ -1088,7 +840,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_15>
             <tax_type_15 translate="label">
               <label>Payment charge type</label>
@@ -1098,7 +850,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_15>1</ps_15></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_15>1</ps_15><seamless>0</seamless></depends>
             </tax_type_15>
             <tax_15 translate="label">
               <label>Payment charge/discount</label>
@@ -1107,7 +859,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_15>1</ps_15></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_15>1</ps_15><seamless>0</seamless></depends>
             </tax_15>
             <ps_16>
               <label>PS_16</label>
@@ -1118,7 +870,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_16>
             <tax_type_16 translate="label">
               <label>Payment charge type</label>
@@ -1128,7 +880,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_16>1</ps_16></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_16>1</ps_16><seamless>0</seamless></depends>
             </tax_type_16>
             <tax_16 translate="label">
               <label>Payment charge/discount</label>
@@ -1137,7 +889,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_16>1</ps_16></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_16>1</ps_16><seamless>0</seamless></depends>
             </tax_16>
             <ps_17>
               <label>PS_17</label>
@@ -1148,7 +900,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_17>
             <tax_type_17 translate="label">
               <label>Payment charge type</label>
@@ -1158,7 +910,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_17>1</ps_17></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_17>1</ps_17><seamless>0</seamless></depends>
             </tax_type_17>
             <tax_17 translate="label">
               <label>Payment charge/discount</label>
@@ -1167,7 +919,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_17>1</ps_17></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_17>1</ps_17><seamless>0</seamless></depends>
             </tax_17>
             <ps_18>
               <label>PS_18</label>
@@ -1178,7 +930,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_18>
             <tax_type_18 translate="label">
               <label>Payment charge type</label>
@@ -1188,7 +940,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_18>1</ps_18></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_18>1</ps_18><seamless>0</seamless></depends>
             </tax_type_18>
             <tax_18 translate="label">
               <label>Payment charge/discount</label>
@@ -1197,7 +949,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_18>1</ps_18></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_18>1</ps_18><seamless>0</seamless></depends>
             </tax_18>
             <ps_19>
               <label>PS_19</label>
@@ -1208,7 +960,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_19>
             <tax_type_19 translate="label">
               <label>Payment charge type</label>
@@ -1218,7 +970,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_19>1</ps_19></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_19>1</ps_19><seamless>0</seamless></depends>
             </tax_type_19>
             <tax_19 translate="label">
               <label>Payment charge/discount</label>
@@ -1227,7 +979,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_19>1</ps_19></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_19>1</ps_19><seamless>0</seamless></depends>
             </tax_19>
             <ps_20>
               <label>PS_20</label>
@@ -1238,7 +990,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_20>
             <tax_type_20 translate="label">
               <label>Payment charge type</label>
@@ -1248,7 +1000,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_20>1</ps_20></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_20>1</ps_20><seamless>0</seamless></depends>
             </tax_type_20>
             <tax_20 translate="label">
               <label>Payment charge/discount</label>
@@ -1257,7 +1009,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_20>1</ps_20></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_20>1</ps_20><seamless>0</seamless></depends>
             </tax_20>
             <ps_21>
               <label>PS_21</label>
@@ -1268,7 +1020,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_21>  
             <tax_type_21 translate="label">
               <label>Payment charge type</label>
@@ -1278,7 +1030,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_21>1</ps_21></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_21>1</ps_21><seamless>0</seamless></depends>
             </tax_type_21>
             <tax_21 translate="label">
               <label>Payment charge/discount</label>
@@ -1287,7 +1039,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_21>1</ps_21></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_21>1</ps_21><seamless>0</seamless></depends>
             </tax_21>
             <ps_22>
               <label>PS_22</label>
@@ -1298,7 +1050,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_22>
             <tax_type_22 translate="label">
               <label>Payment charge type</label>
@@ -1308,7 +1060,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_22>1</ps_22></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_22>1</ps_22><seamless>0</seamless></depends>
             </tax_type_22>
             <tax_22 translate="label">
               <label>Payment charge/discount</label>
@@ -1317,7 +1069,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_22>1</ps_22></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_22>1</ps_22><seamless>0</seamless></depends>
             </tax_22>
             <ps_23>
               <label>PS_23</label>
@@ -1328,7 +1080,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_23>
             <tax_type_23 translate="label">
               <label>Payment charge type</label>
@@ -1338,7 +1090,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_23>1</ps_23></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_23>1</ps_23><seamless>0</seamless></depends>
             </tax_type_23>
             <tax_23 translate="label">
               <label>Payment charge/discount</label>
@@ -1347,7 +1099,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_23>1</ps_23></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_23>1</ps_23><seamless>0</seamless></depends>
             </tax_23>
             <ps_24>
               <label>PS_24</label>
@@ -1358,7 +1110,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_24>
             <tax_type_24 translate="label">
               <label>Payment charge type</label>
@@ -1368,7 +1120,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_24>1</ps_24></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_24>1</ps_24><seamless>0</seamless></depends>
             </tax_type_24>
             <tax_24 translate="label">
               <label>Payment charge/discount</label>
@@ -1377,7 +1129,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_24>1</ps_24></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_24>1</ps_24><seamless>0</seamless></depends>
             </tax_24>
             <ps_25>
               <label>PS_25</label>
@@ -1388,7 +1140,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_25>
             <tax_type_25 translate="label">
               <label>Payment charge type</label>
@@ -1398,7 +1150,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_25>1</ps_25></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_25>1</ps_25><seamless>0</seamless></depends>
             </tax_type_25>
             <tax_25 translate="label">
               <label>Payment charge/discount</label>
@@ -1407,7 +1159,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_25>1</ps_25></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_25>1</ps_25><seamless>0</seamless></depends>
             </tax_25>
             <ps_26>
               <label>PS_26</label>
@@ -1418,7 +1170,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_26>
             <tax_type_26 translate="label">
               <label>Payment charge type</label>
@@ -1428,7 +1180,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_26>1</ps_26></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_26>1</ps_26><seamless>0</seamless></depends>
             </tax_type_26>
             <tax_26 translate="label">
               <label>Payment charge/discount</label>
@@ -1437,7 +1189,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_26>1</ps_26></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_26>1</ps_26><seamless>0</seamless></depends>
             </tax_26>
             <ps_27>
               <label>PS_27</label>
@@ -1448,7 +1200,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_27>
             <tax_type_27 translate="label">
               <label>Payment charge type</label>
@@ -1458,7 +1210,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_27>1</ps_27></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_27>1</ps_27><seamless>0</seamless></depends>
             </tax_type_27>
             <tax_27 translate="label">
               <label>Payment charge/discount</label>
@@ -1467,7 +1219,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_27>1</ps_27></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_27>1</ps_27><seamless>0</seamless></depends>
             </tax_27>
             <ps_28>
               <label>PS_28</label>
@@ -1478,7 +1230,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_28>
             <tax_type_28 translate="label">
               <label>Payment charge type</label>
@@ -1488,7 +1240,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_28>1</ps_28></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_28>1</ps_28><seamless>0</seamless></depends>
             </tax_type_28>
             <tax_28 translate="label">
               <label>Payment charge/discount</label>
@@ -1497,7 +1249,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_28>1</ps_28></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_28>1</ps_28><seamless>0</seamless></depends>
             </tax_28>
             <ps_29>
               <label>PS_29</label>
@@ -1508,7 +1260,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_29>
             <tax_type_29 translate="label">
               <label>Payment charge type</label>
@@ -1518,7 +1270,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_29>1</ps_29></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_29>1</ps_29><seamless>0</seamless></depends>
             </tax_type_29>
             <tax_29 translate="label">
               <label>Payment charge/discount</label>
@@ -1527,7 +1279,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_29>1</ps_29></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_29>1</ps_29><seamless>0</seamless></depends>
             </tax_29>
             <ps_30>
               <label>PS_30</label>
@@ -1538,7 +1290,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_30>
             <tax_type_30 translate="label">
               <label>Payment charge type</label>
@@ -1548,7 +1300,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_30>1</ps_30></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_30>1</ps_30><seamless>0</seamless></depends>
             </tax_type_30>
             <tax_30 translate="label">
               <label>Payment charge/discount</label>
@@ -1557,7 +1309,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_30>1</ps_30></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_30>1</ps_30><seamless>0</seamless></depends>
             </tax_30>
             <ps_31>
               <label>PS_31</label>
@@ -1568,7 +1320,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_31>
             <tax_type_31 translate="label">
               <label>Payment charge type</label>
@@ -1578,7 +1330,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_31>1</ps_31></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_31>1</ps_31><seamless>0</seamless></depends>
             </tax_type_31>
             <tax_31 translate="label">
               <label>Payment charge/discount</label>
@@ -1587,7 +1339,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_31>1</ps_31></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_31>1</ps_31><seamless>0</seamless></depends>
             </tax_31>
             <ps_32>
               <label>PS_32</label>
@@ -1598,7 +1350,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_32>
             <tax_type_32 translate="label">
               <label>Payment charge type</label>
@@ -1608,7 +1360,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_32>1</ps_32></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_32>1</ps_32><seamless>0</seamless></depends>
             </tax_type_32>
             <tax_32 translate="label">
               <label>Payment charge/discount</label>
@@ -1617,7 +1369,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_32>1</ps_32></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_32>1</ps_32><seamless>0</seamless></depends>
             </tax_32>
             <ps_33>
               <label>PS_33</label>
@@ -1628,7 +1380,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_33>
             <tax_type_33 translate="label">
               <label>Payment charge type</label>
@@ -1638,7 +1390,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_33>1</ps_33></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_33>1</ps_33><seamless>0</seamless></depends>
             </tax_type_33>
             <tax_33 translate="label">
               <label>Payment charge/discount</label>
@@ -1647,7 +1399,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_33>1</ps_33></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_33>1</ps_33><seamless>0</seamless></depends>
             </tax_33>
             <ps_34>
               <label>PS_34</label>
@@ -1658,7 +1410,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_34>
             <tax_type_34 translate="label">
               <label>Payment charge type</label>
@@ -1668,7 +1420,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_34>1</ps_34></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_34>1</ps_34><seamless>0</seamless></depends>
             </tax_type_34>
             <tax_34 translate="label">
               <label>Payment charge/discount</label>
@@ -1677,7 +1429,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_34>1</ps_34></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_34>1</ps_34><seamless>0</seamless></depends>
             </tax_34>
             <ps_35>
               <label>PS_35</label>
@@ -1688,7 +1440,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_35>
             <tax_type_35 translate="label">
               <label>Payment charge type</label>
@@ -1698,7 +1450,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_35>1</ps_35></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_35>1</ps_35><seamless>0</seamless></depends>
             </tax_type_35>
             <tax_35 translate="label">
               <label>Payment charge/discount</label>
@@ -1707,7 +1459,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_35>1</ps_35></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_35>1</ps_35><seamless>0</seamless></depends>
             </tax_35>
             <ps_36>
               <label>PS_36</label>
@@ -1718,7 +1470,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_36>
             <tax_type_36 translate="label">
               <label>Payment charge type</label>
@@ -1728,7 +1480,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_36>1</ps_36></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_36>1</ps_36><seamless>0</seamless></depends>
             </tax_type_36>
             <tax_36 translate="label">
               <label>Payment charge/discount</label>
@@ -1737,7 +1489,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_36>1</ps_36></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_36>1</ps_36><seamless>0</seamless></depends>
             </tax_36>
             <ps_37>
               <label>PS_37</label>
@@ -1748,7 +1500,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_37>
             <tax_type_37 translate="label">
               <label>Payment charge type</label>
@@ -1758,7 +1510,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_37>1</ps_37></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_37>1</ps_37><seamless>0</seamless></depends>
             </tax_type_37>
             <tax_37 translate="label">
               <label>Payment charge/discount</label>
@@ -1767,7 +1519,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_37>1</ps_37></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_37>1</ps_37><seamless>0</seamless></depends>
             </tax_37>
             <ps_38>
               <label>PS_38</label>
@@ -1778,7 +1530,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_38>
             <tax_type_38 translate="label">
               <label>Payment charge type</label>
@@ -1788,7 +1540,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_38>1</ps_38></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_38>1</ps_38><seamless>0</seamless></depends>
             </tax_type_38>
             <tax_38 translate="label">
               <label>Payment charge/discount</label>
@@ -1797,7 +1549,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_38>1</ps_38></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_38>1</ps_38><seamless>0</seamless></depends>
             </tax_38>
             <ps_39>
               <label>PS_39</label>
@@ -1808,7 +1560,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_39>
             <tax_type_39 translate="label">
               <label>Payment charge type</label>
@@ -1818,7 +1570,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_39>1</ps_39></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_39>1</ps_39><seamless>0</seamless></depends>
             </tax_type_39>
             <tax_39 translate="label">
               <label>Payment charge/discount</label>
@@ -1827,7 +1579,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_39>1</ps_39></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_39>1</ps_39><seamless>0</seamless></depends>
             </tax_39>
             <ps_40>
               <label>PS_40</label>
@@ -1838,7 +1590,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_40>
             <tax_type_40 translate="label">
               <label>Payment charge type</label>
@@ -1848,7 +1600,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_40>1</ps_40></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_40>1</ps_40><seamless>0</seamless></depends>
             </tax_type_40>
             <tax_40 translate="label">
               <label>Payment charge/discount</label>
@@ -1857,7 +1609,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_40>1</ps_40></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_40>1</ps_40><seamless>0</seamless></depends>
             </tax_40>
             <ps_41>
               <label>PS_41</label>
@@ -1868,7 +1620,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_41>
             <tax_type_41 translate="label">
               <label>Payment charge type</label>
@@ -1878,7 +1630,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_41>1</ps_41></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_41>1</ps_41><seamless>0</seamless></depends>
             </tax_type_41>
             <tax_41 translate="label">
               <label>Payment charge/discount</label>
@@ -1887,7 +1639,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_41>1</ps_41></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_41>1</ps_41><seamless>0</seamless></depends>
             </tax_41>
             <ps_42>
               <label>PS_42</label>
@@ -1898,7 +1650,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_42>
             <tax_type_42 translate="label">
               <label>Payment charge type</label>
@@ -1908,7 +1660,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_42>1</ps_42></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_42>1</ps_42><seamless>0</seamless></depends>
             </tax_type_42>
             <tax_42 translate="label">
               <label>Payment charge/discount</label>
@@ -1917,7 +1669,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_42>1</ps_42></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_42>1</ps_42><seamless>0</seamless></depends>
             </tax_42>
             <ps_43>
               <label>PS_43</label>
@@ -1928,7 +1680,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_43>
             <tax_type_43 translate="label">
               <label>Payment charge type</label>
@@ -1938,7 +1690,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_43>1</ps_43></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_43>1</ps_43><seamless>0</seamless></depends>
             </tax_type_43>
             <tax_43 translate="label">
               <label>Payment charge/discount</label>
@@ -1947,7 +1699,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_43>1</ps_43></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_43>1</ps_43><seamless>0</seamless></depends>
             </tax_43>
             <ps_44>
               <label>PS_44</label>
@@ -1958,7 +1710,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_44>
             <tax_type_44 translate="label">
               <label>Payment charge type</label>
@@ -1968,7 +1720,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_44>1</ps_44></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_44>1</ps_44><seamless>0</seamless></depends>
             </tax_type_44>
             <tax_44 translate="label">
               <label>Payment charge/discount</label>
@@ -1977,7 +1729,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_44>1</ps_44></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_44>1</ps_44><seamless>0</seamless></depends>
             </tax_44>
             <ps_45>
               <label>PS_45</label>
@@ -1988,7 +1740,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_45>  
             <tax_type_45 translate="label">
               <label>Payment charge type</label>
@@ -1998,7 +1750,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_45>1</ps_45></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_45>1</ps_45><seamless>0</seamless></depends>
             </tax_type_45>
             <tax_45 translate="label">
               <label>Payment charge/discount</label>
@@ -2007,7 +1759,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_45>1</ps_45></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_45>1</ps_45><seamless>0</seamless></depends>
             </tax_45>
             <ps_46>
               <label>PS_46</label>
@@ -2018,7 +1770,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_46>  
             <tax_type_46 translate="label">
               <label>Payment charge type</label>
@@ -2028,7 +1780,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_46>1</ps_46></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_46>1</ps_46><seamless>0</seamless></depends>
             </tax_type_46>
             <tax_46 translate="label">
               <label>Payment charge/discount</label>
@@ -2037,7 +1789,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_46>1</ps_46></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_46>1</ps_46><seamless>0</seamless></depends>
             </tax_46>
             <ps_47>
               <label>PS_49</label>
@@ -2048,7 +1800,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_47>
             <tax_type_47 translate="label">
               <label>Payment charge type</label>
@@ -2058,7 +1810,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_47>1</ps_47></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_47>1</ps_47><seamless>0</seamless></depends>
             </tax_type_47>
             <tax_47 translate="label">
               <label>Payment charge/discount</label>
@@ -2067,7 +1819,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_47>1</ps_47></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_47>1</ps_47><seamless>0</seamless></depends>
             </tax_47>
             <ps_48>
               <label>PS_48</label>
@@ -2078,7 +1830,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_48>
             <tax_type_48 translate="label">
               <label>Payment charge type</label>
@@ -2088,7 +1840,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_48>1</ps_48></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_48>1</ps_48><seamless>0</seamless></depends>
             </tax_type_48>
             <tax_48 translate="label">
               <label>Payment charge/discount</label>
@@ -2097,7 +1849,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_48>1</ps_48></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_48>1</ps_48><seamless>0</seamless></depends>
             </tax_48>
             <ps_49>
               <label>PS_49</label>
@@ -2108,7 +1860,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><payments_active>true</payments_active><seamless>0</seamless></depends>
             </ps_49>
             <tax_type_49 translate="label">
               <label>Payment charge type</label>
@@ -2118,7 +1870,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_49>1</ps_49></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_49>1</ps_49><seamless>0</seamless></depends>
             </tax_type_49>
             <tax_49 translate="label">
               <label>Payment charge/discount</label>
@@ -2127,7 +1879,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_49>1</ps_49></depends>
+              <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_49>1</ps_49><seamless>0</seamless></depends>
             </tax_49>
             <ps_50>
               <label>PS_50</label>
@@ -2138,28 +1890,8 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-              <depends><payments_active>true</payments_active></depends>
+              <depends><seamless>0</seamless></depends>
             </ps_50>
-            <!-- <payment_action translate="label">
-              <label>Automatic clearing for credit card payments</label>
-              <frontend_type>select</frontend_type>
-              <source_model>mpay24/source_clearingAction</source_model>
-              <config_path>payment/mpay24/paid_payment_action</config_path>
-              <sort_order>200</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </payment_action> -->
-            <!-- <paid_order_status translate="label">
-              <label>Status of paid orders</label>
-              <frontend_type>select</frontend_type>
-              <source_model>mpay24/source_paidOrder</source_model>
-              <config_path>payment/mpay24/paid_order_status</config_path>
-              <sort_order>210</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </paid_order_status> -->
             <billingAddressMode translate="label comment">
               <label>Billing address mode</label>
               <frontend_type>select</frontend_type>
@@ -2168,6 +1900,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
               <comment>The mode 'ReadWrite' will only work if the parameter 'BILLING_ADDR' was set by mPAY24. Please contact the mPAY24 Support: support@mpay24.com!</comment>
             </billingAddressMode>
             <show_free_products translate="label comment">
@@ -2178,6 +1911,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
               <comment>Show the free 'children' products of configurable products in the mPAY24 shopping cart</comment>
             </show_free_products>
             <notifyForFalseNOK translate="label comment">
@@ -2188,8 +1922,428 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
               <comment>Notifies the shop admin in case a SUCCESSFUL confirmation occurs for an already canceled order.</comment>
             </notifyForFalseNOK>
+            
+            <!-- pay page order settings -->
+            <style translate="label">
+              <label>Style</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>301</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </style>
+            <logostyle translate="label">
+              <label>LogoStyle</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>302</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </logostyle>
+            <pageheaderstyle translate="label">
+              <label>PageHeaderStyle</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>303</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </pageheaderstyle>
+            <pagecaptionstyle translate="label">
+              <label>PageCaptionStyle</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>304</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </pagecaptionstyle>
+            <pagestyle translate="label">
+              <label>PageStyle</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>305</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </pagestyle>
+            <inputfieldsstyle translate="label">
+              <label>InputFieldsStyle</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>306</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </inputfieldsstyle>
+            <dropdownlistsstyle translate="label">
+              <label>DropDownListsStyle</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>307</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </dropdownlistsstyle>
+            <buttonsstyle translate="label">
+              <label>ButtonsStyle</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>308</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </buttonsstyle>
+            <errorsstyle translate="label">
+              <label>ErrorsStyle</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>309</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </errorsstyle>
+            <successtitlestyle translate="label">
+              <label>SuccessTitleStyle</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>310</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </successtitlestyle>
+            <errortitlestyle translate="label">
+              <label>ErrorTitleStyle</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>311</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </errortitlestyle>
+            <footerstyle translate="label">
+              <label>FooterStyle</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>312</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </footerstyle>
+            
+            <!-- pay page shopping cart settings -->
+            <description translate="label">
+              <label>Description</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>449</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </description>
+            <sc_row translate="label">
+              <label>ShoppingCart Rows</label>
+              <frontend_type>multiselect</frontend_type>
+              <sort_order>450</sort_order>
+              <source_model>mpay24/source_shoppingCartRowsAction</source_model>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </sc_row>
+            <sc_style translate="label">
+              <label>Style</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>501</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </sc_style>
+            <sc_header translate="label">
+              <label>Header</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>502</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </sc_header>
+            <sc_headerstyle translate="label">
+              <label>HeaderStyle</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>503</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </sc_headerstyle>
+            <sc_captionstyle translate="label">
+              <label>CaptionStyle</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>504</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </sc_captionstyle>
+            <sc_numberheader translate="label">
+              <label>NumberHeader</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>505</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </sc_numberheader>
+            <sc_numberstyle translate="label">
+              <label>NumberStyle</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>506</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </sc_numberstyle>
+            <sc_productnrheader translate="label">
+              <label>ProductNrHeader</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>507</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </sc_productnrheader>
+            <sc_productnrstyle translate="label">
+              <label>ProductNrStyle</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>508</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </sc_productnrstyle>
+            <sc_descriptionheader translate="label">
+              <label>DescriptionHeader</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>509</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </sc_descriptionheader>
+            <sc_descriptionstyle translate="label">
+              <label>DescriptionStyle</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>510</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </sc_descriptionstyle>
+            <sc_packageheader translate="label">
+              <label>PackageHeader</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>511</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </sc_packageheader>
+            <sc_packagestyle translate="label">
+              <label>PackageStyle</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>512</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </sc_packagestyle>
+            <sc_quantityheader translate="label">
+              <label>QuantityHeader</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>513</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </sc_quantityheader>
+            <sc_quantitystyle translate="label">
+              <label>QuantityStyle</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>514</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </sc_quantitystyle>
+            <sc_itempriceheader translate="label">
+              <label>ItemPriceHeader</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>515</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </sc_itempriceheader>
+            <sc_itempricestyle translate="label">
+              <label>ItemPriceStyle</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>516</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </sc_itempricestyle>
+            <sc_priceheader translate="label">
+              <label>PriceHeader</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>517</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </sc_priceheader>
+            <sc_pricestyle translate="label">
+              <label>PriceStyle</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>518</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </sc_pricestyle>
+            <item_style1 translate="label">
+              <label>ItemStyle Line 1</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>520</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </item_style1>
+            <item_style2 translate="label">
+              <label>ItemStyle Line 2</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>521</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </item_style2>
+            <discount_headerstyle translate="label">
+              <label>Discount HeaderStyle</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>523</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </discount_headerstyle>
+            <discount_style translate="label">
+              <label>Discount Style</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>524</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </discount_style> 
+            <shipping_costs_headerstyle translate="label">
+              <label>Ship.Costs HeaderStyle</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>526</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </shipping_costs_headerstyle>
+            <shipping_costs_style translate="label">
+              <label>Ship.Costs Style</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>527</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </shipping_costs_style>
+            <tax_headerstyle translate="label">
+              <label>Tax HeaderStyle</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>529</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </tax_headerstyle>
+            <tax_style translate="label">
+              <label>Tax Style</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>530</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </tax_style>
+            <price_header translate="label">
+              <label>Price Header</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>532</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </price_header>
+            <price_headerstyle translate="label">
+              <label>Price HeaderStyle</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>533</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </price_headerstyle>
+            <price_style translate="label">
+              <label>Price Style</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>534</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </price_style>    
+            <subtotal_header translate="label">
+              <label>Subtotal Header</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>535</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </subtotal_header>
+            <subtotal_headerstyle translate="label">
+              <label>Subtotal HeaderStyle</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>536</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </subtotal_headerstyle>
+            <subtotal_style translate="label">
+              <label>Subtotal Style</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>537</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><seamless>0</seamless></depends>
+            </subtotal_style>
           </fields>
         </mpay24>
       </groups>

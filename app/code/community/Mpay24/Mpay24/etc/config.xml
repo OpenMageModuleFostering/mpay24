@@ -5,7 +5,7 @@
 <config>
   <modules>
     <Mpay24_Mpay24>
-      <version>1.6.5</version>
+      <version>2.0.0</version>
     </Mpay24_Mpay24>
   </modules>
 
@@ -27,6 +27,18 @@
         <class>Mpay24_Mpay24_Model</class>
         <resourceModel>mpay24_mysql4</resourceModel>
       </mpay24>
+      <mpay24_tokenizer>
+        <class>Mpay24_Mpay24_Model</class>
+        <resourceModel>mpay24_mysql4</resourceModel>
+      </mpay24_tokenizer>
+      <mpay24_eps>
+        <class>Mpay24_Mpay24_Model</class>
+        <resourceModel>mpay24_mysql4</resourceModel>
+      </mpay24_eps>
+      <mpay24_paypal>
+        <class>Mpay24_Mpay24_Model</class>
+        <resourceModel>mpay24_mysql4</resourceModel>
+      </mpay24_paypal>
       <mpay24_mysql4>
         <class>Mpay24_Mpay24_Model_Mysql4</class>
         <entities>
@@ -42,6 +54,15 @@
       <mpay24>
         <class>Mpay24_Mpay24_Block</class>
       </mpay24>
+      <mpay24_tokenizer>
+        <class>Mpay24_Mpay24_Block</class>
+      </mpay24_tokenizer>
+      <mpay24_eps>
+        <class>Mpay24_Mpay24_Block</class>
+      </mpay24_eps>
+      <mpay24_paypal>
+        <class>Mpay24_Mpay24_Block</class>
+      </mpay24_paypal>
       <sales>
         <rewrite>
           <order_totals>Mpay24_Mpay24_Block_Sales_Order_Totals</order_totals>
@@ -70,6 +91,15 @@
       <mpay24>
         <class>Mpay24_Mpay24_Helper</class>
       </mpay24>
+      <mpay24_tokenizer>
+        <class>Mpay24_Mpay24_Helper</class>
+      </mpay24_tokenizer>
+      <mpay24_eps>
+        <class>Mpay24_Mpay24_Helper</class>
+      </mpay24_eps>
+      <mpay24_paypal>
+        <class>Mpay24_Mpay24_Helper</class>
+      </mpay24_paypal>
     </helpers>
 
     <resources>
@@ -147,12 +177,6 @@
         </payment_discount>
       </totals>
     </pdf>
-
-<!--     <payment> -->
-<!--       <groups> -->
-<!--         <mpay24>mPAY24</mpay24> -->
-<!--       </groups> -->
-<!--     </payment> -->
   </global>
 
   <frontend>
@@ -168,6 +192,27 @@
           <frontName>mpay24</frontName>
         </args>
       </mpay24>
+      <mpay24_tokenizer>
+        <use>standard</use>
+        <args>
+          <module>Mpay24_Mpay24</module>
+          <frontName>mpay24_tokenizer</frontName>
+        </args>
+      </mpay24_tokenizer>
+      <mpay24_eps>
+        <use>standard</use>
+        <args>
+          <module>Mpay24_Mpay24</module>
+          <frontName>mpay24_eps</frontName>
+        </args>
+      </mpay24_eps>
+      <mpay24_paypal>
+        <use>standard</use>
+        <args>
+          <module>Mpay24_Mpay24</module>
+          <frontName>mpay24_paypal</frontName>
+        </args>
+      </mpay24_paypal>
     </routers>
 
     <layout>
@@ -247,63 +292,14 @@
         <old_merchantid />
         <soap_pass backend_model="adminhtml/system_config_backend_encrypted"/>
         <debug>0</debug>
-        <!-- <sofort_state>SUSPENDED</sofort_state> -->
         <use_proxy>0</use_proxy>
         <use_proxy_auth>0</use_proxy_auth>
         <verify_peer>1</verify_peer>
         <allowed_ips>213.164.23.169,213.164.25.245,127.0.0.1</allowed_ips>
       </mpay24as>
-      <mpay24sporder>
-        <style>margin-left: auto; margin-right: auto; color:#647378</style>
-        <logostyle></logostyle>
-        <pageheaderstyle>background-color: #FFF;margin-bottom:14px;</pageheaderstyle>
-        <pagecaptionstyle>background-color:#FFF;background:transparent;color:#647378;padding-left:0px;</pagecaptionstyle>
-        <pagestyle>border:1px solid #838F93;background-color:#FFF;</pagestyle>
-        <inputfieldsstyle>background-color:#ffffff;border:1px solid #DDE1E7;padding:2px 0px;margin-bottom:5px;</inputfieldsstyle>
-        <dropdownlistsstyle>padding:2px 0px;margin-bottom:5px;</dropdownlistsstyle>
-        <buttonsstyle>background-color: #005AC1;border: none;color: #FFFFFF;cursor: pointer;font-size:10px;font-weight:bold;padding:5px 10px;text-transform:uppercase;</buttonsstyle>
-        <errorsstyle>background-color: #FFF;padding: 10px 0px;</errorsstyle>
-        <successtitlestyle>background-color: #FFF;</successtitlestyle>
-        <errortitlestyle>background-color: #FFF;</errortitlestyle>
-        <footerstyle></footerstyle>
-      </mpay24sporder>
-      <mpay24spsc>
-        <description></description>
-        <sc_row>Description,Quantity,ItemPrice,Price</sc_row>
-        <sc_style></sc_style>
-        <sc_header></sc_header>
-        <sc_headerstyle>background-color:#FFF;margin-bottom:14px;color:#647378</sc_headerstyle>
-        <sc_captionstyle>background-color:#FFF;background:transparent;color:#647378;padding-left:0px;font-size:14px;</sc_captionstyle>
-        <sc_numberheader></sc_numberheader>
-        <sc_numberstyle>width:80px;background-color:#FFF;color:#647378;border: 1px solid #838F93;text-transform:uppercase;padding:5px;text-align:center;</sc_numberstyle>
-        <sc_productnrheader></sc_productnrheader>
-        <sc_productnrstyle>width:80px;background-color:#FFF;color:#647378;border: 1px solid #838F93;text-transform:uppercase;padding:5px;text-align:center;</sc_productnrstyle>
-        <sc_descriptionheader></sc_descriptionheader>
-        <sc_descriptionstyle>width:80px;background-color:#FFF;color:#647378;border: 1px solid #838F93;text-transform:uppercase;padding:5px;text-align:center;</sc_descriptionstyle>
-        <sc_packageheader></sc_packageheader>
-        <sc_packagestyle>width:80px;background-color:#FFF;color:#647378;border: 1px solid #838F93;text-transform:uppercase;padding:5px;text-align:center;</sc_packagestyle>
-        <sc_quantityheader></sc_quantityheader>
-        <sc_quantitystyle>width:80px;background-color:#FFF;color:#647378;border: 1px solid #838F93;text-transform:uppercase;padding:5px;text-align:center;</sc_quantitystyle>
-        <sc_itempriceheader></sc_itempriceheader>
-        <sc_itempricestyle>width:80px;background-color:#FFF;color:#647378;border: 1px solid #838F93;text-transform:uppercase;padding:5px;text-align:center;</sc_itempricestyle>
-        <sc_priceheader></sc_priceheader>
-        <sc_pricestyle>width:80px;background-color:#FFF;color:#647378;border: 1px solid #838F93;text-transform:uppercase;padding:5px;text-align:center;</sc_pricestyle>
-        <item_style1>background-color: #FFF;color: #647378; border: 1px solid #838F93;text-align:center;padding:5px 0px;</item_style1>
-        <item_style2>background-color: #FFF;color: #327F98; border: 1px solid #838F93;text-align:center;padding:5px 0px;</item_style2>
-        <discount_headerstyle>background-color: #FFF; color: #647378;font-weight:normal;padding:3px;</discount_headerstyle>
-        <discount_style>background-color:#FFF;color:#647378;border:none;padding:3px 20px;</discount_style>
-        <shipping_costs_headerstyle>background-color: #FFF; color: #647378;font-weight:normal;padding:3px;</shipping_costs_headerstyle>
-        <shipping_costs_style>background-color:#FFF;color:#647378;border:none;padding:3px 20px;</shipping_costs_style>
-        <tax_headerstyle>background-color:#FFF;color: #647378;padding:3px;font-weight:normal;</tax_headerstyle>
-        <tax_style>background-color:#FFF;color:#647378;border:none;font-weight:normal;padding:3px 20px;</tax_style>
-        <price_header></price_header>
-        <price_headerstyle>background-color:#FFF;color: #647378;padding:3px;font-weight:normal;border-top: 1px solid #838F93;</price_headerstyle>
-        <price_style>background-color:#FFF;color:#005AC1;border:none;padding:4px;font-weight:bold;padding:3px 20px;font-size:14px;border-top: 1px solid #838F93;</price_style>
-        <subtotal_header></subtotal_header>
-        <subtotal_headerstyle>background-color:#FFF;color: #647378;padding:3px;font-weight:normal;</subtotal_headerstyle>
-        <subtotal_style>background-color:#FFF;color:#647378;border:none;font-weight:normal;padding:3px 20px;</subtotal_style>
-      </mpay24spsc>
       <mpay24>
+        <seamless>1</seamless>
+        <credit_cards>AMEX=>AMEX,DINERS=>Diners Club,JCB=>JCB,MASTERCARD=>MasterCard,VISA=>VISA</credit_cards>
         <payments_active>false</payments_active>
         <checkout_template>onepage</checkout_template>
         <billingAddressMode>ReadOnly</billingAddressMode>
@@ -319,9 +315,34 @@
         <payments_count>0</payments_count>
         <payments_error></payments_error>
         <payment_action>authorize</payment_action>
-<!--         <paid_order_status>processing</paid_order_status> -->
-<!--         <group>mpay24</group> -->
       </mpay24>
+      <mpay24_tokenizer>
+        <model>mpay24/tokenizer</model>
+        <title>logo</title>
+        <active_payments></active_payments>
+        <active_payment_types></active_payment_types>
+        <payments_count>0</payments_count>
+        <payments_error></payments_error>
+        <payment_action>authorize</payment_action>
+      </mpay24_tokenizer>
+      <mpay24_eps>
+        <model>mpay24/eps</model>
+        <title>logo</title>
+        <active_payments></active_payments>
+        <active_payment_types></active_payment_types>
+        <payments_count>0</payments_count>
+        <payments_error></payments_error>
+        <payment_action>authorize</payment_action>
+      </mpay24_eps>
+      <mpay24_paypal>
+        <model>mpay24/paypal</model>
+        <title>logo</title>
+        <active_payments></active_payments>
+        <active_payment_types></active_payment_types>
+        <payments_count>0</payments_count>
+        <payments_error></payments_error>
+        <payment_action>authorize</payment_action>
+      </mpay24_paypal>
     </payment>
   </default>
 </config>

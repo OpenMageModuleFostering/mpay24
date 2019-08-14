@@ -1,0 +1,9 @@
+.error {
+  color: red;
+  font-weight: 700;
+  display: none;
+}
+
+.left-floating {
+  float: left;
+}

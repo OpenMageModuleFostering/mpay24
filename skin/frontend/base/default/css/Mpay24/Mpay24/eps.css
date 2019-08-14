@@ -1,0 +1,148 @@
+* {
+  border: 0;
+  outline: 0;
+  border-collapse: collapse; 
+  border-spacing: 0;
+  font-family: "Trebuchet MS", "Calibri", "Verdana", "Arial";
+  margin: auto;
+  padding: auto;
+}
+
+html {
+  overflow: auto;
+}
+
+.search {
+  background: url('images/search.png') no-repeat !important;
+  background-size: 20px !important;
+  background-position: right !important; 
+  padding-right: 25px !important;
+}
+
+.error {
+  color: #ff0000;
+}
+
+#main {
+  margin-top: 40px;
+  width: 800px;
+}
+
+#header {
+  text-align: center;
+}
+
+#epsLogo, #girLogo {
+  height: 120px;
+  display: inline;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#epsLogo {
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+#girLogo {
+  margin-left: 10px;
+  margin-right: auto;
+}
+
+#content {
+  background-color: #ddddff;
+  text-align: center;
+  border-radius: 10px;
+  border:2px solid #ddddff;
+  margin-top: 20px;
+}
+
+#content h1 {
+  text-transform: uppercase;
+  margin: 20px 0px 10px 0px;
+}
+
+#content h3 { 
+  margin-top: 10px;
+}
+
+#content #msgarea {
+  margin-top: -10px;
+}
+
+#content select {
+  border-radius: 5px;
+  border:1px solid #3c2381;
+  font-size: 110%;
+}
+
+#content input {
+  border-radius: 5px;
+  border:1px solid #3c2381;
+  font-size: 110%;
+  width: 500px;
+  padding-left: 5px;
+}
+
+#content tr {
+  line-height: 200%;
+}
+
+#content td {
+  min-width: 120px;
+  text-align: left;
+}
+
+#content #auswahl {
+  margin-top: 40px;
+}
+
+#buttonDiv{
+  margin-top: 40px;
+  margin-bottom: 20px;
+  padding-bottom: 5px;
+}
+
+#buttonDiv button{
+  background-color:#ffffff;
+  color: #000000;
+  height:100%;
+  border-radius: 5px;
+  border:1px solid #3c2381;
+  font-size: 100%;
+  padding: 5px 0px;
+}
+
+#buttonDiv button:hover{
+  background-color: #dddddd                       ;
+  cursor: hand; 
+  cursor: pointer;
+}
+
+#buttonDiv button:active{
+  background-color: #d9d9d9;
+}
+
+#abbrechenSubmit{
+  width: 190px;
+  margin-right: 10px;
+}
+
+#selectionSubmit{
+  width: 250px;
+  margin-left: 10px;
+}
+
+/* Wurde eingefuegt da im IE9 der erste Button im HTML fokusiert wird und damit groesser erscheinen wuerde als die restlichen Buttons */
+#buttonDiv #hiddenButton{
+  position:absolute;
+  border:0;
+  top:0px;
+  left:0px;
+  height:0px;
+  width:0px;
+}
+
+.ui-autocomplete {
+  overflow: auto;
+}

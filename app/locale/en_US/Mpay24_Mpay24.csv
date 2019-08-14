@@ -108,3 +108,7 @@
 "A SUCCESSFUL confirmation occured for an already canceled order!", "A SUCCESSFUL confirmation occured for an already canceled order!"
 "ATTENTION! - It is possible that the payment for the order ID '", "ATTENTION! - It is possible that the payment for the order ID '"
 "' was SUCCESSFUL, although the order is set as 'Canceled'! Please check in the mPAY24 Merchant Interface (https://www.mpay24.com) whether the amount was BILLED!", "' was SUCCESSFUL, although the order is set as 'Canceled'! Please check in the mPAY24 Merchant Interface (https://www.mpay24.com) whether the amount was BILLED!"
+"The payment was not successful! ", "The payment was not successful! "
+"Please try again or choose a different payment method.", "Please try again or choose a different payment method."
+"Redirected to an external page", "Redirected to an external page"
+"Credit cards", "Credit cards"

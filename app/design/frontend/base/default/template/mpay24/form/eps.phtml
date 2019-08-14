@@ -1,0 +1,35 @@
+<?php
+/**
+ * @category            design
+ * @package             base_defaut
+ * @author              Anna Sadriu (mPAY24 GmbH)
+ * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @version             $Id: eps.phtml 6253 2015-03-26 16:05:00Z anna $
+ */
+?>
+<?php
+$_code = $this->getMethodCode();
+?>
+<ul id="payment_form_<?= $_code ?>" style="display:none;" class="form-list">
+  <li>
+    <?=  $this->getRedirectMessage()?>
+    
+    <?php if($this->isInternational()):?>
+      <li>
+        <label class="required" for="country">Land</label>
+        <div class="input-box">
+          <select id="country" onchange="switchBankenliste()" name="country" class="required-entry" autocomplete="off">
+            <option value="AT">Österreich</option>
+            <option value="DE">Deutschland</option>
+          </select>
+        </div>
+      </li>
+    <?php endif; ?>
+    <li>
+      <label class="required" for="bankname">Bankname/BIC:</label>
+      <div class="input-box">
+        <input id="bankname" class="search input-text ui-autocomplete-input" type="text" value="" title="Bankname/BIC" name="bankname" autofocus="autofocus" autocomplete="off" onfocus="switchBankenliste()">
+      </div>
+    </li>
+  </li>
+</ul>

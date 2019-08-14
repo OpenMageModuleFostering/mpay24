@@ -23,7 +23,7 @@ class Mpay24_Mpay24_Block_Adminhtml_System_Config_Fieldset_Fieldset
   public function render(Varien_Data_Form_Element_Abstract $element) {
     $html = $this->_getHeaderHtml($element);
 
-    if(Mage::getStoreConfig('payment/mpay24/active') && Mage::getStoreConfig('mpay24/mpay24/active_payments') != '') {
+    if(Mage::getStoreConfig('mpay24/mpay24as/active') && Mage::getStoreConfig('mpay24/mpay24/active_payments') != '') {
       $elementName = $element->getHtmlId();
 
       $payments = Mage::getStoreConfig('mpay24/mpay24/active_payments');

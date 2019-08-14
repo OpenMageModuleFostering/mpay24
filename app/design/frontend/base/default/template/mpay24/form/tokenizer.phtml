@@ -1,0 +1,29 @@
+<?php
+/**
+ * @category            design
+ * @package             base_defaut
+ * @author              Anna Sadriu (mPAY24 GmbH)
+ * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @version             $Id: area.phtml 6253 2015-03-26 16:05:00Z anna $
+ */
+?>
+<?php
+$_code = $this->getMethodCode();
+$this->createToken();
+$location = $this->getTokenResponse()->getPaymentResponse()->location;
+$token = $this->getTokenResponse()->getToken();
+?>
+<ul id="payment_form_<?= $_code ?>" style="display:none;" class="form-list">
+  <li>
+    <iframe src='<?= $location; ?>' frameborder='0' width='360' height='160' scrolling='no'> </iframe>
+    <input type="hidden" name="token" value="<?= $token?>"/><br/>
+    <div id="tokenizer_error" class="error left-floating">The brand<div id="tokenizer_brand" class="left-floating"></div>is not supported.</div>
+    <br/>
+    
+    <input type="hidden" id="AMEX" value="<?= $this->isCCActive("AMEX");?>"/>
+    <input type="hidden" id="DINERS" value="<?= $this->isCCActive("DINERS");?>"/>
+    <input type="hidden" id="JCB" value="<?= $this->isCCActive("JCB");?>"/>
+    <input type="hidden" id="MASTERCARD" value="<?= $this->isCCActive("MASTERCARD");?>"/>
+    <input type="hidden" id="VISA" value="<?= $this->isCCActive("VISA");?>"/>
+  </li>
+</ul>

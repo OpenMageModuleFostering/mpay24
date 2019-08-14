@@ -14,8 +14,36 @@
         <name>css/Mpay24/Mpay24/mpay24.css</name>
       </action>
       <action method="addItem">
+        <type>skin_css</type>
+        <name>css/Mpay24/Mpay24/jquery-ui.min.css</name>
+      </action>
+      <action method="addItem">
+        <type>skin_css</type>
+        <name>css/Mpay24/Mpay24/eps.css</name>
+      </action>
+      <action method="addItem">
+        <type>skin_css</type>
+        <name>css/Mpay24/Mpay24/tokenizer.css</name>
+      </action>
+      <action method="addItem">
         <type>skin_js</type>
         <name>js/Mpay24/Mpay24/mpay24.js</name>
+      </action>
+      <action method="addItem">
+        <type>skin_js</type>
+        <name>js/Mpay24/Mpay24/eps.js</name>
+      </action>
+      <action method="addItem">
+        <type>skin_js</type>
+        <name>js/Mpay24/Mpay24/tokenizer.js</name>
+      </action>
+      <action method="addItem">
+        <type>skin_js</type>
+        <name>js/Mpay24/Mpay24/jquery-1.11.2.min.js</name>
+      </action>
+      <action method="addItem">
+        <type>skin_js</type>
+        <name>js/Mpay24/Mpay24/jquery-ui.min.js</name>
       </action>
     </reference>
   </default>

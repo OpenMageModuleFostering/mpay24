@@ -40,7 +40,7 @@ abstract class Mpay24_Mpay24_Model_Method_Selectpayment extends Mpay24_Mpay24_Mo
 
     $this->clearSession();
     $error = false;
-
+    
     if($amount>0) {
       $payment->setAmount($amount);
       $payment->setCcType("$type => $brand")->save();

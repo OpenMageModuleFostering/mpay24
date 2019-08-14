@@ -161,7 +161,8 @@ class MPay24Api {
      * An error message, that will be displayed to the user in case you are using the LIVE system
      * @const LIVE_ERROR_MSG
      */
-    define('LIVE_ERROR_MSG', "We are sorry, an error occured - please contact the merchant!");
+    if(!defined('LIVE_ERROR_MSG'))
+      define('LIVE_ERROR_MSG', "We are sorry, an error occured - please contact the merchant!");
     
     /**
      * The current directory, where the script is runnig from

@@ -9,10 +9,10 @@
 
 include_once Mage::getBaseDir('code')."/community/Mpay24/Mpay24/Model/Api/MPay24MagentoShop.php";
 
-class Mpay24_Mpay24_Model_Selectpayment extends Mpay24_Mpay24_Model_Method_Selectpayment {
-  protected $_code = 'mpay24';
-  protected $_formBlockType = 'mpay24/form_selectpayment';
-  protected $_infoBlockType = 'mpay24/info_selectpayment';
+class Mpay24_Mpay24_Model_Tokenizer extends Mpay24_Mpay24_Model_Method_AcceptPayment {
+  protected $_code = 'mpay24_tokenizer';
+  protected $_formBlockType = 'mpay24/form_tokenizer';
+  protected $_infoBlockType = 'mpay24/info_acceptpayment';
 
   /**
    * Availability options
@@ -28,7 +28,7 @@ class Mpay24_Mpay24_Model_Selectpayment extends Mpay24_Mpay24_Model_Method_Selec
   protected $_canUseInternal          = true;
   protected $_canUseCheckout          = true;
   protected $_isInitializeNeeded      = true;
-
+  
   public function validate() {
     parent::validate();
     return $this;

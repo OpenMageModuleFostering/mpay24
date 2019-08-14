@@ -4,15 +4,15 @@
  * @package             Mpay24_Mpay24
  * @author              Anna Sadriu (mPAY24 GmbH)
  * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- * @version             $Id: Selectpayment.php 6413 2015-07-14 12:50:34Z anna $
+ * @version             $Id: Paypal.php 6413 2015-07-14 12:50:34Z anna $
  */
 
 include_once Mage::getBaseDir('code')."/community/Mpay24/Mpay24/Model/Api/MPay24MagentoShop.php";
 
-class Mpay24_Mpay24_Model_Selectpayment extends Mpay24_Mpay24_Model_Method_Selectpayment {
-  protected $_code = 'mpay24';
-  protected $_formBlockType = 'mpay24/form_selectpayment';
-  protected $_infoBlockType = 'mpay24/info_selectpayment';
+class Mpay24_Mpay24_Model_Paypal extends Mpay24_Mpay24_Model_Method_AcceptPayment {
+  protected $_code = 'mpay24_paypal';
+  protected $_formBlockType = 'mpay24/form_paypal';
+  protected $_infoBlockType = 'mpay24/info_acceptpayment';
 
   /**
    * Availability options
