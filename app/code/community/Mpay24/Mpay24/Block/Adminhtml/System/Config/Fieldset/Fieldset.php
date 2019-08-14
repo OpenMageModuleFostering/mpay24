@@ -16,7 +16,7 @@
  * @package             Mpay24_Mpay24
  * @author              Firedrago Magento
  * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- * @version             $Id: Fieldset.php 5 2013-10-10 13:08:44Z sapolhei $
+ * @version             $Id: Fieldset.php 17 2013-12-10 07:18:39Z sapolhei $
  */
 
 include_once "app/code/community/Mpay24/Mpay24/Model/Api/MPay24MagentoShop.php";
@@ -53,7 +53,7 @@ class Mpay24_Mpay24_Block_Adminhtml_System_Config_Fieldset_Fieldset
           elseif(strlen($first_paymentID) == 2)
             $first_paymentID = "0$first_paymentID";
 
-          $field->setLabel("<img src='https://www.mpay24.com/merchadm/img/ptypes/$first_paymentID.png' alt='" . $payment['BRAND'] . ":" .  $payment['DESCR'] . "' title='" . $payment['P_TYPE'] . ":" .  $payment['DESCR'] . "'>");
+          $field->setLabel("<img src='https://www.mpay24.com/web/img/logos/ptypes/$first_paymentID.png' alt='" . $payment['BRAND'] . ":" .  $payment['DESCR'] . "' title='" . $payment['P_TYPE'] . ":" .  $payment['DESCR'] . "'>");
           $html.= $field->toHtml();
         } elseif(substr($field->getHtmlId(), 0, 17) != 'mpay24_mpay24_ps_' && strpos($field->getHtmlId(), 'mpay24_mpay24_tax_') === false )
             $html.= $field->toHtml();

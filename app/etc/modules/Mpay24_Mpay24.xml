@@ -10,7 +10,7 @@
       <depends>
         <Mage_Payment />
       </depends>
-      <version>1.4.8</version>
+      <version>1.4.9</version>
     </Mpay24_Mpay24>
   </modules>
 </config>

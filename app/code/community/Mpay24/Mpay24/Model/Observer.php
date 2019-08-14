@@ -16,7 +16,7 @@
  * @package             Mpay24_Mpay24
  * @author              Firedrago Magento
  * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- * @version             $Id: Observer.php 5 2013-10-10 13:08:44Z sapolhei $
+ * @version             $Id: Observer.php 17 2013-12-10 07:18:39Z sapolhei $
  */
 include_once "app/code/community/Mpay24/Mpay24/Model/Api/MPay24MagentoShop.php";
 
@@ -26,6 +26,9 @@ class Mpay24_Mpay24_Model_Observer extends Mage_Core_Model_Config_Data {
    * Retrieve active system payments
    */
   public function afterSave() {
+    if(!Mage::getStoreConfig('payment/mpay24/active'))
+      return false;
+    
     Mage::getConfig()->saveConfig("mpay24/mpay24/payments_count", 0);
     Mage::getConfig()->saveConfig("mpay24/mpay24/payments_error", "");
     Mage::getConfig()->saveConfig("mpay24/mpay24/active_payments", "");

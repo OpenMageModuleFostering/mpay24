@@ -16,7 +16,7 @@
  * @package             Mpay24_Mpay24
  * @author              Firedrago Magento
  * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- * @version             $Id: area.phtml 16 2013-11-12 15:30:44Z sapolhei $
+ * @version             $Id: area.phtml 17 2013-12-10 07:18:39Z sapolhei $
  */
 ?>
 <?php
@@ -145,7 +145,7 @@ if(Mage::getStoreConfig('mpay24/mpay24/payments_active') == 'true') {
                               document.getElementById('<?php echo $id;?>').disabled = true;
                               document.getElementById('mpay24_table').disabled = false;
                             }
-                            "><img src='https://www.mpay24.com/merchadm/img/ptypes/<?php echo $id?>.png' alt='<?php echo $payment['DESCR'] . $addInfo?>' title='<?php echo $payment['DESCR'] . $addInfo?>' ></a>
+                            "><img src='https://www.mpay24.com/web/img/logos/ptypes/<?php echo $id?>.png' alt='<?php echo $payment['DESCR'] . $addInfo?>' title='<?php echo $payment['DESCR'] . $addInfo?>' ></a>
                             <input type="hidden" id='<?php echo $id;?>' name='mpay24_ps' value='<?php echo $id . "_" . $j;?>' disabled />
                           </div>
                         </div>
