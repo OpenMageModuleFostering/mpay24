@@ -7,7 +7,7 @@
  */
 
 include_once(Mage::getBaseDir('code')."/community/Mpay24/Mpay24/Model/Api/MPay24Shop.php");
-define("MAGENTO_VERSION", "Magento v " . Mage::getVersion() . " Module v 1.6.2 ");
+define("MAGENTO_VERSION", "Magento v " . Mage::getVersion() . " Module v 1.6.3 ");
 
 class MPay24MagentoShop extends MPay24Shop {
 

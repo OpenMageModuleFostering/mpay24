@@ -16,7 +16,7 @@
  * @package             Mpay24_Mpay24
  * @author              Anna Sadriu (mPAY24 GmbH)
  * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- * @version             $Id: mysql4-install-1.6.2.php 6404 2015-07-08 09:25:24Z anna $
+ * @version             $Id: mysql4-install-1.6.3.php 6404 2015-07-08 09:25:24Z anna $
  */
 if(class_exists('Mage_Sales_Model_Resource_Setup'))
   $install = new Mage_Sales_Model_Resource_Setup('sales_setup');

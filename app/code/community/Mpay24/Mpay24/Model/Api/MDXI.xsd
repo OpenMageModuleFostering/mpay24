@@ -85,6 +85,7 @@
       <xs:enumeration value="BILLPAY"/>
       <xs:enumeration value="INVOICE"/>
       <xs:enumeration value="HP"/>
+      <xs:enumeration value="INTERNATIONAL"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="PaymentSubBrandType">

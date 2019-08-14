@@ -5,7 +5,7 @@
 <config>
   <modules>
     <Mpay24_Mpay24>
-      <version>1.6.2</version>
+      <version>1.6.3</version>
     </Mpay24_Mpay24>
   </modules>
 
@@ -268,25 +268,25 @@
         <footerstyle></footerstyle>
       </mpay24sporder>
       <mpay24spsc>
-        <description>BESTELLUNGSBESCHREIBUNG</description>
+        <description></description>
         <sc_row>Description,Quantity,ItemPrice,Price</sc_row>
         <sc_style></sc_style>
-        <sc_header>WARENKORB</sc_header>
+        <sc_header></sc_header>
         <sc_headerstyle>background-color:#FFF;margin-bottom:14px;color:#647378</sc_headerstyle>
         <sc_captionstyle>background-color:#FFF;background:transparent;color:#647378;padding-left:0px;font-size:14px;</sc_captionstyle>
-        <sc_numberheader>NUMMER</sc_numberheader>
+        <sc_numberheader></sc_numberheader>
         <sc_numberstyle>width:80px;background-color:#FFF;color:#647378;border: 1px solid #838F93;text-transform:uppercase;padding:5px;text-align:center;</sc_numberstyle>
-        <sc_productnrheader>ARTIKELNUMMER</sc_productnrheader>
+        <sc_productnrheader></sc_productnrheader>
         <sc_productnrstyle>width:80px;background-color:#FFF;color:#647378;border: 1px solid #838F93;text-transform:uppercase;padding:5px;text-align:center;</sc_productnrstyle>
-        <sc_descriptionheader>BESCHREIBUNG</sc_descriptionheader>
+        <sc_descriptionheader></sc_descriptionheader>
         <sc_descriptionstyle>width:80px;background-color:#FFF;color:#647378;border: 1px solid #838F93;text-transform:uppercase;padding:5px;text-align:center;</sc_descriptionstyle>
-        <sc_packageheader>PAKET</sc_packageheader>
+        <sc_packageheader></sc_packageheader>
         <sc_packagestyle>width:80px;background-color:#FFF;color:#647378;border: 1px solid #838F93;text-transform:uppercase;padding:5px;text-align:center;</sc_packagestyle>
-        <sc_quantityheader>ANZAHL</sc_quantityheader>
+        <sc_quantityheader></sc_quantityheader>
         <sc_quantitystyle>width:80px;background-color:#FFF;color:#647378;border: 1px solid #838F93;text-transform:uppercase;padding:5px;text-align:center;</sc_quantitystyle>
-        <sc_itempriceheader>EINZELPREIS</sc_itempriceheader>
+        <sc_itempriceheader></sc_itempriceheader>
         <sc_itempricestyle>width:80px;background-color:#FFF;color:#647378;border: 1px solid #838F93;text-transform:uppercase;padding:5px;text-align:center;</sc_itempricestyle>
-        <sc_priceheader>PREIS</sc_priceheader>
+        <sc_priceheader></sc_priceheader>
         <sc_pricestyle>width:80px;background-color:#FFF;color:#647378;border: 1px solid #838F93;text-transform:uppercase;padding:5px;text-align:center;</sc_pricestyle>
         <item_style1>background-color: #FFF;color: #647378; border: 1px solid #838F93;text-align:center;padding:5px 0px;</item_style1>
         <item_style2>background-color: #FFF;color: #327F98; border: 1px solid #838F93;text-align:center;padding:5px 0px;</item_style2>
@@ -296,10 +296,10 @@
         <shipping_costs_style>background-color:#FFF;color:#647378;border:none;padding:3px 20px;</shipping_costs_style>
         <tax_headerstyle>background-color:#FFF;color: #647378;padding:3px;font-weight:normal;</tax_headerstyle>
         <tax_style>background-color:#FFF;color:#647378;border:none;font-weight:normal;padding:3px 20px;</tax_style>
-        <price_header>ENDSUMME</price_header>
+        <price_header></price_header>
         <price_headerstyle>background-color:#FFF;color: #647378;padding:3px;font-weight:normal;border-top: 1px solid #838F93;</price_headerstyle>
         <price_style>background-color:#FFF;color:#005AC1;border:none;padding:4px;font-weight:bold;padding:3px 20px;font-size:14px;border-top: 1px solid #838F93;</price_style>
-        <subtotal_header>ZWISCHENSUMME</subtotal_header>
+        <subtotal_header></subtotal_header>
         <subtotal_headerstyle>background-color:#FFF;color: #647378;padding:3px;font-weight:normal;</subtotal_headerstyle>
         <subtotal_style>background-color:#FFF;color:#647378;border:none;font-weight:normal;padding:3px 20px;</subtotal_style>
       </mpay24spsc>

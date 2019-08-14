@@ -19,6 +19,18 @@
  * @version             $Id: mpay24.xml 6257 2015-03-26 16:08:09Z anna $
  -->
 <layout version="0.1.0">
+  <default>
+    <reference name="head">
+      <action method="addItem">
+        <type>skin_css</type>
+        <name>css/Mpay24/Mpay24/mpay24.css</name>
+      </action>
+      <action method="addItem">
+        <type>skin_js</type>
+        <name>js/Mpay24/Mpay24/mpay24.js</name>
+      </action>
+    </reference>
+  </default>
   <mpay24_payment_payment>
     <reference name="root">
       <action method="setTemplate"><template>page/1column.phtml</template></action>
