@@ -16,7 +16,7 @@
  * @package             Mpay24_Mpay24
  * @author              Firedrago Magento
  * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- * @version             $Id: Selectpayment.php 13 2013-10-31 14:44:29Z sapolhei $
+ * @version             $Id: Selectpayment.php 27 2014-08-27 13:59:46Z sapolhei $
  */
 
 class Mpay24_Mpay24_Block_Form_Selectpayment extends Mage_Payment_Block_Form {
@@ -44,11 +44,11 @@ class Mpay24_Mpay24_Block_Form_Selectpayment extends Mage_Payment_Block_Form {
     $payments = Mage::getStoreConfig('mpay24/mpay24/active_payments');
     $paymentsArray = unserialize($payments);
 
-    $firstPS = Mage::getStoreConfig('mpay24/mpay24/ps_1');
+    $firstPS = Mage::getStoreConfig('payment/mpay24_ps_1/active');
     $allPS = true;
 
     for($i=2; $i<=Mage::getStoreConfig('mpay24/mpay24/payments_count'); $i++) {
-      if($firstPS != Mage::getStoreConfig('mpay24/mpay24/ps_'.$i)) {
+      if($firstPS != Mage::getStoreConfig("payment/mpay24_ps_$i/active")) {
         $allPS = false;
         break;
       }
@@ -71,7 +71,7 @@ class Mpay24_Mpay24_Block_Form_Selectpayment extends Mage_Payment_Block_Form {
       $i=1;
       $payments = array();
       foreach($paymentsArray as $id => $payment) {
-        $payment['ACTIVE'] = Mage::getStoreConfig('mpay24/mpay24/ps_'.$i);
+        $payment['ACTIVE'] = Mage::getStoreConfig("payment/mpay24_ps_$i/active");
         $payments[$id] = $payment;
 
         $i++;

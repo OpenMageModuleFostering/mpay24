@@ -16,9 +16,9 @@
  * @package             Mpay24_Mpay24
  * @author              Firedrago Magento
  * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- * @version             $Id: Observer.php 17 2013-12-10 07:18:39Z sapolhei $
+ * @version             $Id: Observer.php 28 2014-09-29 09:31:11Z sapolhei $
  */
-include_once "app/code/community/Mpay24/Mpay24/Model/Api/MPay24MagentoShop.php";
+include_once Mage::getBaseDir('code')."/community/Mpay24/Mpay24/Model/Api/MPay24MagentoShop.php";
 
 class Mpay24_Mpay24_Model_Observer extends Mage_Core_Model_Config_Data {
 
@@ -38,8 +38,9 @@ class Mpay24_Mpay24_Model_Observer extends Mage_Core_Model_Config_Data {
 
     if(Mage::getStoreConfig('mpay24/mpay24as/old_merchantid') != Mage::getStoreConfig('mpay24/mpay24as/merchantid')) {
 
-      for($i=1; $i<=50; $i++)
-        Mage::getConfig()->saveConfig("mpay24/mpay24/ps_".$i, 1);
+      for($i=1; $i<=50; $i++) {
+        Mage::getConfig()->saveConfig("payment/mpay24_ps_$i/active", 1);
+      }
     }
 
     Mage::getConfig()->reinit();
@@ -61,8 +62,9 @@ class Mpay24_Mpay24_Model_Observer extends Mage_Core_Model_Config_Data {
 
         $i++;
 
-        if(Mage::getStoreConfig('mpay24/mpay24as/old_merchantid') != Mage::getStoreConfig('mpay24/mpay24as/merchantid'))
-          Mage::getConfig()->saveConfig("mpay24/mpay24/ps_".$i, 1);
+        if(Mage::getStoreConfig('mpay24/mpay24as/old_merchantid') != Mage::getStoreConfig('mpay24/mpay24as/merchantid')) {
+          Mage::getConfig()->saveConfig("payment/mpay24_ps_$i/active", 1);
+        }
       }
 
       Mage::getConfig()->saveConfig("mpay24/mpay24/active_payments", serialize($payments));

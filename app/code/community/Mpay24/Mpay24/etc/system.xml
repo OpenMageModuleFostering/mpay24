@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!-- 
- @version             $Id: system.xml 25 2014-06-24 15:33:56Z sapolhei $
+ @version             $Id: system.xml 27 2014-08-27 13:59:46Z sapolhei $
  -->
 <config>
   <sections>
@@ -116,7 +116,6 @@
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
               <depends><active>1</active></depends>
-              <comment>The SOAP password provided by mPAY24</comment>
             </sofort_state>
             <use_proxy translate="label">
               <label>API uses proxy</label>
@@ -197,7 +196,7 @@
           </fields>
         </mpay24as>
   
-  <!--  <mpay24sporder>
+        <mpay24sporder>
           <label>mPAY24 Selectpayment Order Design</label>
           <frontend_type>text</frontend_type>
           <sort_order>2</sort_order>
@@ -588,7 +587,7 @@
               <show_in_store>0</show_in_store>
             </subtotal_style>
           </fields>
-        </mpay24spsc>-->  
+        </mpay24spsc>
 
         <mpay24 translate="label" module="mpay24">
           <label>Payment systems</label>
@@ -625,12 +624,20 @@
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
               <comment>Your customers can choose the payment system in the shop only by 'Custom configuration'! The payment systems will be synchronized when the settings are saved!</comment>
-            </payments_active>         
+            </payments_active>
+            <checkout_template>
+              <label>Checkout-Template</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>1</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </checkout_template>
             <form_template translate="label comment">
               <label>Payment system selection</label>
               <frontend_type>select</frontend_type>
               <source_model>mpay24/source_formTemplate</source_model>
-              <sort_order>1</sort_order>
+              <sort_order>2</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -641,7 +648,7 @@
               <label>Forced preselection</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_yesno</source_model>
-              <sort_order>2</sort_order>
+              <sort_order>3</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -652,7 +659,8 @@
               <label>PS_1</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
-              <sort_order>3</sort_order>
+              <config_path>payment/mpay24_ps_1/active</config_path>
+              <sort_order>4</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -662,7 +670,7 @@
               <label>Payment charge type</label>
               <frontend_type>select</frontend_type>
               <source_model>mpay24/source_paymentCharge</source_model>
-              <sort_order>4</sort_order>
+              <sort_order>5</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -672,7 +680,7 @@
               <label>Payment charge</label>
               <frontend_type>text</frontend_type>
               <validate>validate-not-negative-number</validate>
-              <sort_order>5</sort_order>
+              <sort_order>6</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -682,7 +690,8 @@
               <label>PS_2</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
-              <sort_order>6</sort_order>
+              <config_path>payment/mpay24_ps_2/active</config_path>
+              <sort_order>7</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -692,7 +701,7 @@
               <label>Payment charge type</label>
               <frontend_type>select</frontend_type>
               <source_model>mpay24/source_paymentCharge</source_model>
-              <sort_order>7</sort_order>
+              <sort_order>8</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -701,6 +710,7 @@
             <tax_2 translate="label">
               <label>Payment charge</label>
               <frontend_type>text</frontend_type>
+              <sort_order>9</sort_order>
               <validate>validate-not-negative-number</validate><sort_order>8</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -711,7 +721,8 @@
               <label>PS_3</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
-              <sort_order>9</sort_order>
+              <config_path>payment/mpay24_ps_3/active</config_path>
+              <sort_order>10</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -721,7 +732,7 @@
               <label>Payment charge type</label>
               <frontend_type>select</frontend_type>
               <source_model>mpay24/source_paymentCharge</source_model>
-              <sort_order>10</sort_order>
+              <sort_order>11</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -740,6 +751,7 @@
               <label>PS_4</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_4/active</config_path>
               <sort_order>12</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -769,6 +781,7 @@
               <label>PS_5</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_5/active</config_path>
               <sort_order>15</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -798,6 +811,7 @@
               <label>PS_6</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_6/active</config_path>
               <sort_order>18</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -827,6 +841,7 @@
               <label>PS_7</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_7/active</config_path>
               <sort_order>21</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -856,6 +871,7 @@
               <label>PS_8</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_8/active</config_path>
               <sort_order>24</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -885,6 +901,7 @@
               <label>PS_9</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_9/active</config_path>
               <sort_order>27</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -914,6 +931,7 @@
               <label>PS_10</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_10/active</config_path>
               <sort_order>30</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -943,6 +961,7 @@
               <label>PS_11</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_11/active</config_path>
               <sort_order>33</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -972,6 +991,7 @@
               <label>PS_12</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_12/active</config_path>
               <sort_order>36</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1001,6 +1021,7 @@
               <label>PS_13</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_13/active</config_path>
               <sort_order>39</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1030,6 +1051,7 @@
               <label>PS_14</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_14/active</config_path>
               <sort_order>42</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1059,6 +1081,7 @@
               <label>PS_15</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_15/active</config_path>
               <sort_order>45</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1088,6 +1111,7 @@
               <label>PS_16</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_16/active</config_path>
               <sort_order>48</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1117,6 +1141,7 @@
               <label>PS_17</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_17/active</config_path>
               <sort_order>51</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1146,6 +1171,7 @@
               <label>PS_18</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_18/active</config_path>
               <sort_order>54</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1175,6 +1201,7 @@
               <label>PS_19</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_19/active</config_path>
               <sort_order>57</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1204,6 +1231,7 @@
               <label>PS_20</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_20/active</config_path>
               <sort_order>60</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1233,6 +1261,7 @@
               <label>PS_21</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_21/active</config_path>
               <sort_order>63</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1262,6 +1291,7 @@
               <label>PS_22</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_22/active</config_path>
               <sort_order>66</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1291,6 +1321,7 @@
               <label>PS_23</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_23/active</config_path>
               <sort_order>69</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1320,6 +1351,7 @@
               <label>PS_24</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_24/active</config_path>
               <sort_order>72</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1349,6 +1381,7 @@
               <label>PS_25</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_25/active</config_path>
               <sort_order>75</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1378,6 +1411,7 @@
               <label>PS_26</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_26/active</config_path>
               <sort_order>78</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1407,6 +1441,7 @@
               <label>PS_27</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_27/active</config_path>
               <sort_order>81</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1436,6 +1471,7 @@
               <label>PS_28</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_28/active</config_path>
               <sort_order>84</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1465,6 +1501,7 @@
               <label>PS_29</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_29/active</config_path>
               <sort_order>87</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1494,6 +1531,7 @@
               <label>PS_30</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_30/active</config_path>
               <sort_order>90</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1523,6 +1561,7 @@
               <label>PS_31</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_31/active</config_path>
               <sort_order>93</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1552,6 +1591,7 @@
               <label>PS_32</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_32/active</config_path>
               <sort_order>96</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1581,6 +1621,7 @@
               <label>PS_33</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_33/active</config_path>
               <sort_order>99</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1610,6 +1651,7 @@
               <label>PS_34</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_34/active</config_path>
               <sort_order>102</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1639,6 +1681,7 @@
               <label>PS_35</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_35/active</config_path>
               <sort_order>105</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1668,6 +1711,7 @@
               <label>PS_36</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_36/active</config_path>
               <sort_order>108</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1697,6 +1741,7 @@
               <label>PS_37</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_37/active</config_path>
               <sort_order>111</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1726,6 +1771,7 @@
               <label>PS_38</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_38/active</config_path>
               <sort_order>114</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1755,6 +1801,7 @@
               <label>PS_39</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_39/active</config_path>
               <sort_order>117</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1784,6 +1831,7 @@
               <label>PS_40</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_40/active</config_path>
               <sort_order>120</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1813,6 +1861,7 @@
               <label>PS_41</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_41/active</config_path>
               <sort_order>123</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1842,6 +1891,7 @@
               <label>PS_42</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_42/active</config_path>
               <sort_order>126</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1871,6 +1921,7 @@
               <label>PS_43</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_43/active</config_path>
               <sort_order>129</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1900,6 +1951,7 @@
               <label>PS_44</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_44/active</config_path>
               <sort_order>132</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1929,6 +1981,7 @@
               <label>PS_45</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_45/active</config_path>
               <sort_order>135</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1958,6 +2011,7 @@
               <label>PS_46</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_46/active</config_path>
               <sort_order>138</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -1987,6 +2041,7 @@
               <label>PS_49</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_47/active</config_path>
               <sort_order>141</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -2016,6 +2071,7 @@
               <label>PS_48</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_48/active</config_path>
               <sort_order>144</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -2045,6 +2101,7 @@
               <label>PS_49</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_49/active</config_path>
               <sort_order>147</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -2074,6 +2131,7 @@
               <label>PS_50</label>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <config_path>payment/mpay24_ps_50/active</config_path>
               <sort_order>150</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>

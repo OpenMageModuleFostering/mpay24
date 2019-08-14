@@ -16,7 +16,7 @@
  * @package             Mpay24_Mpay24
  * @author              Firedrago Magento
  * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- * @version             $Id: FormTemplate.php 5 2013-10-10 13:08:44Z sapolhei $
+ * @version             $Id: FormTemplate.php 27 2014-08-27 13:59:46Z sapolhei $
  */
 class Mpay24_Mpay24_Model_Source_FormTemplate {
 
@@ -29,6 +29,8 @@ class Mpay24_Mpay24_Model_Source_FormTemplate {
     return array(
                   array('value' => 'dropDown.phtml', 'label'=>'Drop-Down'),
                   array('value' => 'area.phtml', 'label'=>'Icons'),
+                  array('value' => 'radio.phtml', 'label'=>'Radio-Button'),
     );
   }
 }
+?>

@@ -16,10 +16,10 @@
  * @package             Mpay24_Mpay24
  * @author              Firedrago Magento
  * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- * @version             $Id: Selectpayment.php 10 2013-10-31 14:23:20Z sapolhei $
+ * @version             $Id: Selectpayment.php 28 2014-09-29 09:31:11Z sapolhei $
  */
 
-include_once "app/code/community/Mpay24/Mpay24/Model/Api/MPay24MagentoShop.php";
+include_once Mage::getBaseDir('code')."/community/Mpay24/Mpay24/Model/Api/MPay24MagentoShop.php";
 
 abstract class Mpay24_Mpay24_Model_Method_Selectpayment extends Mpay24_Mpay24_Model_Method_Abstract{
 
@@ -46,8 +46,8 @@ abstract class Mpay24_Mpay24_Model_Method_Selectpayment extends Mpay24_Mpay24_Mo
 
     if(isset($_REQUEST['mpay24_ps']) && $_REQUEST['mpay24_ps'] != 'false') {
       $ps = true;
-      $brand = $payments[substr($_REQUEST['mpay24_ps'],0,3)]['BRAND'];
-      $type = $payments[substr($_REQUEST['mpay24_ps'],0,3)]['P_TYPE'];
+      $brand = $payments[substr($_REQUEST['mpay24_ps'],7,3)]['BRAND'];
+      $type = $payments[substr($_REQUEST['mpay24_ps'],7,3)]['P_TYPE'];
     }
 
     $this->clearSession();
@@ -55,6 +55,7 @@ abstract class Mpay24_Mpay24_Model_Method_Selectpayment extends Mpay24_Mpay24_Mo
 
     if($amount>0) {
       $payment->setAmount($amount);
+      $payment->setCcType("$type => $brand")->save();
 
       $mPay24MagentoShop = MPay24MagentoShop::getMPay24Api();
       $mPay24MagentoShop->setVariables($payment->getOrder(), $ps, $type, $brand);
@@ -85,3 +86,4 @@ abstract class Mpay24_Mpay24_Model_Method_Selectpayment extends Mpay24_Mpay24_Mo
     return ($this->getPayment()->getAuth()) ? Mage::getUrl('mpay24/payment/redirect',array('_secure' => true)) : false;
   }
 }
+?>

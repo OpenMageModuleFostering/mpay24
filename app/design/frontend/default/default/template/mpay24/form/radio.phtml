@@ -1,0 +1,171 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category            design
+ * @package             default_defaut
+ * @author              Firedrago Magento
+ * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @version             $Id: radio.phtml 27 2014-08-27 13:59:46Z sapolhei $
+ */
+?>
+<?php
+$_code=$this->getMethodCode();
+
+if(Mage::getStoreConfig('mpay24/mpay24/payments_active') == 'true') {
+  $brandsAndTypes = explode(", ", Mage::getStoreConfig('mpay24/mpay24/active_payment_types'));
+  $brands = array();
+  foreach($brandsAndTypes as $brandAndType)
+    $brands[substr($brandAndType, 0, strpos($brandAndType, "=>"))] = substr($brandAndType, strpos($brandAndType, "=>")+2);
+
+  $temp_brand="";
+}
+?>
+<?php if(Mage::getStoreConfig('mpay24/mpay24/payments_active') == 'true' && Mage::getStoreConfig('mpay24/mpay24/forced_preselection') == 1): ?>
+  <script>
+    document.getElementById('p_method_mpay24').setAttribute('onClick', "var savePaymentButton = document.getElementById('payment-buttons-container').getElementsByTagName('button')[0]; " +
+        "if(savePaymentButton) " +
+        "if(document.getElementById('p_method_mpay24').checked == true) " +
+        "savePaymentButton.setAttribute('onClick', 'alert(\"<?php echo Mage::helper('mpay24')->__("Please choose a payment system..."); ?>\");return false;'); " +
+        "else " +
+        "savePaymentButton.setAttribute('onClick', 'payment.save();'); " +
+        "payment.switchMethod('mpay24');");
+  </script>
+<?php endif;?>
+<ul id="payment_form_<?php echo $_code ?>" style="display:none;" >
+  <li>
+    <b>
+      <?php if(Mage::getStoreConfig('mpay24/mpay24/payments_active') == 'true')
+              if(Mage::getStoreConfig('mpay24/mpay24/forced_preselection') == 1)
+                echo Mage::helper('mpay24')->__("Please choose a payment system...");
+              else
+                echo Mage::helper('mpay24')->__("You can choose the payment system you want to use now or do it when you are redirected to the mPAY24 pay page after placing the order.");
+            else
+              echo Mage::helper('mpay24')->__("You can choose the payment system you want to use after you are redirected to the mPAY24 pay page after placing the order.");
+      ?>
+    </b>
+  </li>
+  <?php if(Mage::getStoreConfig('mpay24/mpay24/payments_active') == 'true'):?>
+    <li>
+    <script type="text/javascript">
+    var firstRun = true;
+window.onload = function() {
+  var element = document.getElementById('onestepcheckout-place-order');
+
+  if(typeof (element) != undefined) {
+    element.setAttribute("onclick",oneStepFunc);
+    element.onclick= oneStepFunc;
+  };
+
+  }
+
+  function oneStepFunc () {//alert(firstRun);
+  if(firstRun) {
+    var radio = document.getElementsByName('payment[method]');
+    for(var i=0; i<radio.length; i++) {
+      if(radio[i].checked && radio[i].value.substring(0, 6) == "mpay24") {
+        <?php 
+          if(Mage::getStoreConfig('mpay24/mpay24/payments_active') == 'true' && Mage::getStoreConfig("mpay24/mpay24/forced_preselection") == 1)
+            echo "if(radio[i].value == 'mpay24'){alert('".Mage::helper('mpay24')->__("Please choose a payment system...")."');
+       $('onestepcheckout-place-order').stopObserving();window.location.reload();
+  }";
+        ?>
+        setPsId (radio[i].value.substr(7,3));
+        radio[i].value = "mpay24";
+      }
+    }
+  firstRun = false;
+  }
+  }
+
+  function setPsId (id) {
+    for(var i=0; i<document.getElementsByName("mpay24_ps").length; i++) {
+      document.getElementsByName("mpay24_ps")[i].disabled=true;
+    }
+    document.getElementById(id).disabled = false;
+  }
+</script>
+      <div id="myDIV" style="min-height:100px; padding-top:10px; padding-bottom: 15px; margin-left: -30px;">
+        <?php 
+          if(isset($_REQUEST['mpay24_ps']) && $_REQUEST['mpay24_ps'] != "")
+            $firstID = $_REQUEST['mpay24_ps'];
+          else
+            $firstID = "";
+          $j = 1;
+          foreach ($this->getActiveMethods() as $id => $payment):
+            if($payment['ACTIVE'] == 1):
+              if(strlen($id) == 1)
+                $id = "00$id";
+              elseif(strlen($id) == 2)
+                $id = "0$id";
+              
+              if(Mage::getStoreConfig('mpay24/mpay24/forced_preselection') == 1 && $firstID == "")
+                $firstID = $id;
+          ?>
+          
+        <input type="hidden" id='<?php echo $id;?>' name="mpay24_ps" value="<?php echo "mpay24_" . $id . "_" . $j ?>" disabled/>
+        <input type="radio" id="p_method_mpay24_<?php echo $id . "_" . $j ?>" class="radio validate-one-required-by-name" name="payment[method]" value="<?php echo "mpay24_" . $id . "_" . $j ?>" style='margin-left: 30px;'<?php if($firstID==$id) echo " checked"?> 
+      onclick="for(var i=0; i<document.getElementsByName('mpay24_ps').length; i++) {
+        document.getElementsByName('mpay24_ps')[i].disabled=true;
+      }
+      document.getElementById('<?php echo $id?>').disabled = false;
+      var savePaymentButton = document.getElementById('payment-buttons-container').getElementsByTagName('button')[0];
+      if(typeof (savePaymentButton) != undefined) {
+       savePaymentButton.setAttribute('onclick',oneStepFunc);
+       savePaymentButton.onclick= oneStepFunc;
+      };
+      
+      function oneStepFunc () {
+    <?php 
+      if(Mage::getStoreConfig("mpay24/mpay24/checkout_template") != "onepage" && Mage::getStoreConfig('mpay24/mpay24/payments_active') == 'true' && Mage::getStoreConfig("mpay24/mpay24/forced_preselection") == 1)
+        echo "window.location.reload();";
+    ?>
+    var radio = document.getElementsByName('payment[method]');
+    for(var i=0; i<radio.length; i++) {
+      if(radio[i].checked && radio[i].value.substring(0, 6) == 'mpay24') {
+        <?php 
+          if(Mage::getStoreConfig('mpay24/mpay24/payments_active') == 'true' && Mage::getStoreConfig("mpay24/mpay24/forced_preselection") == 1) {
+            echo "if(radio[i].value == 'mpay24'){alert('".Mage::helper('mpay24')->__("Please choose a payment system...")."');";
+            if(Mage::getStoreConfig("mpay24/mpay24/checkout_template") != "onepage")
+             echo "$('onestepcheckout-place-order').stopObserving();";
+            else echo "var savePaymentButton = document.getElementById('payment-buttons-container').getElementsByTagName('button')[0].onclick='';";
+}
+echo "  }";
+        ?>
+        radio[i].value = 'mpay24';
+      }
+    }
+    payment.save();
+  }
+   "><?php 
+          echo "<img id='mpay24_img' src='https://www.mpay24.com/web/img/logos/ptypes/$id.png' style='margin-left: 5px;margin-right: 15px; display: inline;'>";
+          echo $payment['DESCR']; 
+          if(Mage::getStoreConfig("mpay24/mpay24/forced_preselection") == 1) {
+            if(Mage::getStoreConfig("mpay24/mpay24/tax_$j") > 0) {
+              if(Mage::getStoreConfig("mpay24/mpay24/tax_type_$j") == 'absolute') 
+                echo " - " . Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol(); 
+              echo " " . number_format(Mage::getStoreConfig("mpay24/mpay24/tax_$j"),2,',','.');
+              
+              if(Mage::getStoreConfig("mpay24/mpay24/tax_type_$j") == 'percent') 
+                echo "%";
+              
+              echo " " . Mage::helper('mpay24')->__("Payment fee");
+            }
+          }
+          ?>
+        <?php echo "<br/><br/>"; endif; $j++; endforeach; echo Mage::helper('mpay24')->__("You will be redirected to the mPAY24 pay page...");?>
+      </div>
+    </li>
+  <?php endif;?>
+  <input type="hidden" id='mpay24_general' name="mpay24_ps" value="false" />
+</ul>

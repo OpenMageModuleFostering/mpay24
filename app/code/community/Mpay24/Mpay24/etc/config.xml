@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <!-- 
- @version             $Id: config.xml 25 2014-06-24 15:33:56Z sapolhei $
+ @version             $Id: config.xml 27 2014-08-27 13:59:46Z sapolhei $
  -->
 <config>
   <modules>
     <Mpay24_Mpay24>
-      <version>1.5.1</version>
+      <version>1.5.2</version>
     </Mpay24_Mpay24>
   </modules>
 
@@ -246,7 +246,7 @@
         <allowed_ips>213.164.23.169,213.164.25.245,127.0.0.1</allowed_ips>
       </mpay24as>
       <mpay24sporder>
-        <style>margin-left: auto; margin-right: auto; width: 600px;</style>
+        <style>margin-left: auto; margin-right: auto;</style>
         <logostyle></logostyle>
         <pageheaderstyle></pageheaderstyle>
         <pagecaptionstyle></pagecaptionstyle>
@@ -297,6 +297,7 @@
       </mpay24spsc>
       <mpay24>
         <payments_active>false</payments_active>
+        <checkout_template>onepage</checkout_template>
         <billingAddressMode>ReadOnly</billingAddressMode>
         <show_free_products>0</show_free_products>
       </mpay24>

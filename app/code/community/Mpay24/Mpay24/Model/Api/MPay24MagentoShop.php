@@ -1,12 +1,12 @@
 <?php
 /**
  * @author              support@mpay24.com
- * @version             $Id: MPay24MagentoShop.php 25 2014-06-24 15:33:56Z sapolhei $
+ * @version             $Id: MPay24MagentoShop.php 28 2014-09-29 09:31:11Z sapolhei $
  * @filesource          test.php
  * @license             http://ec.europa.eu/idabc/eupl.html EUPL, Version 1.1
  */
 
-include_once("MPay24Shop.php");
+include_once(Mage::getBaseDir('code')."/community/Mpay24/Mpay24/Model/Api/MPay24Shop.php");
 
 class MPay24MagentoShop extends MPay24Shop {
 
@@ -20,7 +20,7 @@ class MPay24MagentoShop extends MPay24Shop {
 
   const CANCEL_URL = 'mpay24/payment/cancel';
 
-  const MAGENTO_VERSION = "Magento 1.5.1 ";
+  const MAGENTO_VERSION = "Magento 1.5.2 ";
 
   var $tid;
   var $price;
@@ -279,7 +279,8 @@ class MPay24MagentoShop extends MPay24Shop {
       $mdxi->Order->TemplateSet->setLanguage(strtoupper($lang[0]));
     else
       $mdxi->Order->TemplateSet->setLanguage("EN");
-
+    
+    $mdxi->Order->TemplateSet->setCSSName("MOBILE");
 
     if($this->ps) {
       $this->order->getPayment()->setCcType($this->type . " => " . $this->brand)->save();
@@ -451,7 +452,7 @@ class MPay24MagentoShop extends MPay24Shop {
     if($this->order->getPaymentCharge() > 0) {
       if($this->order->getPaymentChargeType() == "percent") {
         $mdxi->Order->ShoppingCart->ShippingCosts($s, number_format($this->order->getData('subtotal')*$this->order->getBasePaymentCharge()/100,2,'.',''));
-        $mdxi->Order->ShoppingCart->ShippingCosts($s)->setHeader(Mage::helper('mpay24')->__("Payment charge") . " (" . $this->order->getBasePaymentCharge() . "%)");
+        $mdxi->Order->ShoppingCart->ShippingCosts($s)->setHeader(Mage::helper('mpay24')->__("Payment charge") . " (" . number_format($this->order->getBasePaymentCharge(),2,'.','') . "%)");
       } else {
         $mdxi->Order->ShoppingCart->ShippingCosts($s, number_format($this->order->getPaymentCharge(),2,'.',''));
         $mdxi->Order->ShoppingCart->ShippingCosts($s)->setHeader(Mage::helper('mpay24')->__("Payment charge") . " (" . Mage::helper('mpay24')->__("Absolute value") . ")");
@@ -517,7 +518,7 @@ class MPay24MagentoShop extends MPay24Shop {
     $mdxi->Order->Price->setHeaderStyle(Mage::getStoreConfig('mpay24/mpay24spsc/price_headerstyle'));
     $mdxi->Order->Price->setStyle(Mage::getStoreConfig('mpay24/mpay24spsc/price_style'));
 
-    $mdxi->Order->Currency = $this->xmlentities($this->order->getBaseCurrencyCode());
+    $mdxi->Order->Currency = $this->xmlentities($this->order->getOrderCurrencyCode());
     $mdxi->Order->Customer = $this->xmlentities(substr($this->order->getCustomerName(),0,50));
     $mdxi->Order->Customer->setId($this->order->getCustomerId());
 
@@ -591,7 +592,7 @@ class MPay24MagentoShop extends MPay24Shop {
     $mdxi->Order->URL->Cancel = Mage::getUrl(MPay24MagentoShop::CANCEL_URL,array('_secure' => true, '_query' => "TID=" . substr($this->order->getIncrementId(),0,32) ));
 
     if(Mage::getStoreConfig('mpay24/mpay24as/debug') == 1) {
-      $myFile = "app/code/community/Mpay24/Mpay24/Model/Api/xmls/".$transaction->TID.".xml";
+      $myFile = Mage::getBaseDir('code')."/community/Mpay24/Mpay24/Model/Api/xmls/".$transaction->TID.".xml";
       $fh = fopen($myFile, 'w') or die("can't open file");
       fwrite($fh, $mdxi->toXML());
       fclose($fh);

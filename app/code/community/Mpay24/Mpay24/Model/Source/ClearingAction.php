@@ -16,10 +16,10 @@
  * @package             Mpay24_Mpay24
  * @author              Firedrago Magento
  * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- * @version             $Id: ClearingAction.php 5 2013-10-10 13:08:44Z sapolhei $
+ * @version             $Id: ClearingAction.php 28 2014-09-29 09:31:11Z sapolhei $
  */
 
-include_once "app/code/community/Mpay24/Mpay24/Model/Api/MPay24MagentoShop.php";
+include_once Mage::getBaseDir('code')."/community/Mpay24/Mpay24/Model/Api/MPay24MagentoShop.php";
 
 class Mpay24_Mpay24_Model_Source_ClearingAction {
   public function toOptionArray() {

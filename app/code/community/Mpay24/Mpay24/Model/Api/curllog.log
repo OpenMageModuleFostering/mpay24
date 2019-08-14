@@ -225,3 +225,265 @@ Content-Type: application/x-www-form-urlencoded
 < Content-Type: text/xml; charset=utf-8
 < 
 * Connection #16 to host test.mpay24.com left intact
+* Hostname was NOT found in DNS cache
+*   Trying 192.168.10.14...
+* Connected to test.mpay24.com (192.168.10.14) port 443 (#2)
+* successfully set certificate verify locations:
+*   CAfile: E:\Users\sadrian\workspace\anna-2\magento_module\app\code\community\Mpay24\Mpay24\Model\Api/cacert.pem
+  CApath: none
+* SSL connection using TLSv1.2 / DHE-RSA-AES256-GCM-SHA384
+* Server certificate:
+* 	 subject: OU=Domain Control Validated; OU=Provided by EUNETIC GmbH; OU=EuropeanSSL Single; CN=test.mpay24.com
+* 	 start date: 2013-05-13 00:00:00 GMT
+* 	 expire date: 2015-05-13 23:59:59 GMT
+* 	 subjectAltName: test.mpay24.com matched
+* 	 issuer: C=DE; O=EUNETIC GmbH; CN=EuropeanSSL Server CA
+* 	 SSL certificate verify ok.
+* Server auth using Basic with user 'u99999'
+> POST /app/bin/etpproxy_v15 HTTP/1.1
+Authorization: Basic dTk5OTk5OlZhcm5hLjMwMTIyMDEx
+User-Agent: mPAY24 PHP API $Rev: 9 $ ($Date:: 2013-10-29 #$)
+Host: test.mpay24.com
+Accept: */*
+Content-Length: 423
+Content-Type: application/x-www-form-urlencoded
+
+* upload completely sent off: 423 out of 423 bytes
+< HTTP/1.1 200 OK
+< Date: Wed, 16 Jul 2014 06:43:39 GMT
+* Server  is not blacklisted
+< Server: 
+< Content-Length: 2367
+< Content-Type: text/xml; charset=utf-8
+< 
+* Connection #2 to host test.mpay24.com left intact
+* Hostname was found in DNS cache
+* Hostname in DNS cache was stale, zapped
+*   Trying 192.168.10.14...
+* Connected to test.mpay24.com (192.168.10.14) port 443 (#5)
+* successfully set certificate verify locations:
+*   CAfile: E:\Users\sadrian\workspace\anna-2\magento_module\app\code\community\Mpay24\Mpay24\Model\Api/cacert.pem
+  CApath: none
+* SSL connection using TLSv1.2 / DHE-RSA-AES256-GCM-SHA384
+* Server certificate:
+* 	 subject: OU=Domain Control Validated; OU=Provided by EUNETIC GmbH; OU=EuropeanSSL Single; CN=test.mpay24.com
+* 	 start date: 2013-05-13 00:00:00 GMT
+* 	 expire date: 2015-05-13 23:59:59 GMT
+* 	 subjectAltName: test.mpay24.com matched
+* 	 issuer: C=DE; O=EUNETIC GmbH; CN=EuropeanSSL Server CA
+* 	 SSL certificate verify ok.
+* Server auth using Basic with user 'u99999'
+> POST /app/bin/etpproxy_v15 HTTP/1.1
+Authorization: Basic dTk5OTk5OlZhcm5hLjMwMTIyMDEx
+User-Agent: mPAY24 PHP API $Rev: 9 $ ($Date:: 2013-10-29 #$)
+Host: test.mpay24.com
+Accept: */*
+Content-Length: 423
+Content-Type: application/x-www-form-urlencoded
+
+* upload completely sent off: 423 out of 423 bytes
+< HTTP/1.1 200 OK
+< Date: Wed, 16 Jul 2014 06:46:05 GMT
+* Server  is not blacklisted
+< Server: 
+< Content-Length: 2367
+< Content-Type: text/xml; charset=utf-8
+< 
+* Connection #5 to host test.mpay24.com left intact
+* Hostname was found in DNS cache
+* Hostname in DNS cache was stale, zapped
+*   Trying 192.168.10.14...
+* Connected to test.mpay24.com (192.168.10.14) port 443 (#8)
+* successfully set certificate verify locations:
+*   CAfile: E:\Users\sadrian\workspace\anna-2\magento_module\app\code\community\Mpay24\Mpay24\Model\Api/cacert.pem
+  CApath: none
+* SSL connection using TLSv1.2 / DHE-RSA-AES256-GCM-SHA384
+* Server certificate:
+* 	 subject: OU=Domain Control Validated; OU=Provided by EUNETIC GmbH; OU=EuropeanSSL Single; CN=test.mpay24.com
+* 	 start date: 2013-05-13 00:00:00 GMT
+* 	 expire date: 2015-05-13 23:59:59 GMT
+* 	 subjectAltName: test.mpay24.com matched
+* 	 issuer: C=DE; O=EUNETIC GmbH; CN=EuropeanSSL Server CA
+* 	 SSL certificate verify ok.
+* Server auth using Basic with user 'u99999'
+> POST /app/bin/etpproxy_v15 HTTP/1.1
+Authorization: Basic dTk5OTk5OlZhcm5hLjMwMTIyMDEx
+User-Agent: mPAY24 PHP API $Rev: 9 $ ($Date:: 2013-10-29 #$)
+Host: test.mpay24.com
+Accept: */*
+Content-Length: 423
+Content-Type: application/x-www-form-urlencoded
+
+* upload completely sent off: 423 out of 423 bytes
+< HTTP/1.1 200 OK
+< Date: Wed, 16 Jul 2014 06:49:08 GMT
+* Server  is not blacklisted
+< Server: 
+< Content-Length: 2367
+< Content-Type: text/xml; charset=utf-8
+< 
+* Connection #8 to host test.mpay24.com left intact
+* Hostname was found in DNS cache
+* Hostname in DNS cache was stale, zapped
+*   Trying 192.168.10.14...
+* Connected to test.mpay24.com (192.168.10.14) port 443 (#13)
+* successfully set certificate verify locations:
+*   CAfile: E:\Users\sadrian\workspace\anna-2\magento_module\app\code\community\Mpay24\Mpay24\Model\Api/cacert.pem
+  CApath: none
+* SSL connection using TLSv1.2 / DHE-RSA-AES256-GCM-SHA384
+* Server certificate:
+* 	 subject: OU=Domain Control Validated; OU=Provided by EUNETIC GmbH; OU=EuropeanSSL Single; CN=test.mpay24.com
+* 	 start date: 2013-05-13 00:00:00 GMT
+* 	 expire date: 2015-05-13 23:59:59 GMT
+* 	 subjectAltName: test.mpay24.com matched
+* 	 issuer: C=DE; O=EUNETIC GmbH; CN=EuropeanSSL Server CA
+* 	 SSL certificate verify ok.
+* Server auth using Basic with user 'u99999'
+> POST /app/bin/etpproxy_v15 HTTP/1.1
+Authorization: Basic dTk5OTk5OlZhcm5hLjMwMTIyMDEx
+User-Agent: mPAY24 PHP API $Rev: 9 $ ($Date:: 2013-10-29 #$)
+Host: test.mpay24.com
+Accept: */*
+Content-Length: 423
+Content-Type: application/x-www-form-urlencoded
+
+* upload completely sent off: 423 out of 423 bytes
+< HTTP/1.1 200 OK
+< Date: Wed, 16 Jul 2014 06:58:55 GMT
+* Server  is not blacklisted
+< Server: 
+< Content-Length: 2367
+< Content-Type: text/xml; charset=utf-8
+< 
+* Connection #13 to host test.mpay24.com left intact
+* Hostname was found in DNS cache
+* Hostname in DNS cache was stale, zapped
+*   Trying 192.168.10.14...
+* Connected to test.mpay24.com (192.168.10.14) port 443 (#17)
+* successfully set certificate verify locations:
+*   CAfile: E:\Users\sadrian\workspace\anna-2\magento_module\app\code\community\Mpay24\Mpay24\Model\Api/cacert.pem
+  CApath: none
+* SSL connection using TLSv1.2 / DHE-RSA-AES256-GCM-SHA384
+* Server certificate:
+* 	 subject: OU=Domain Control Validated; OU=Provided by EUNETIC GmbH; OU=EuropeanSSL Single; CN=test.mpay24.com
+* 	 start date: 2013-05-13 00:00:00 GMT
+* 	 expire date: 2015-05-13 23:59:59 GMT
+* 	 subjectAltName: test.mpay24.com matched
+* 	 issuer: C=DE; O=EUNETIC GmbH; CN=EuropeanSSL Server CA
+* 	 SSL certificate verify ok.
+* Server auth using Basic with user 'u99999'
+> POST /app/bin/etpproxy_v15 HTTP/1.1
+Authorization: Basic dTk5OTk5OlZhcm5hLjMwMTIyMDEx
+User-Agent: mPAY24 PHP API $Rev: 9 $ ($Date:: 2013-10-29 #$)
+Host: test.mpay24.com
+Accept: */*
+Content-Length: 423
+Content-Type: application/x-www-form-urlencoded
+
+* upload completely sent off: 423 out of 423 bytes
+< HTTP/1.1 200 OK
+< Date: Wed, 16 Jul 2014 07:33:45 GMT
+* Server  is not blacklisted
+< Server: 
+< Content-Length: 2367
+< Content-Type: text/xml; charset=utf-8
+< 
+* Connection #17 to host test.mpay24.com left intact
+* Hostname was found in DNS cache
+* Hostname in DNS cache was stale, zapped
+*   Trying 192.168.10.14...
+* Connected to test.mpay24.com (192.168.10.14) port 443 (#18)
+* successfully set certificate verify locations:
+*   CAfile: E:\Users\sadrian\workspace\anna-2\magento_module\app\code\community\Mpay24\Mpay24\Model\Api/cacert.pem
+  CApath: none
+* SSL connection using TLSv1.2 / DHE-RSA-AES256-GCM-SHA384
+* Server certificate:
+* 	 subject: OU=Domain Control Validated; OU=Provided by EUNETIC GmbH; OU=EuropeanSSL Single; CN=test.mpay24.com
+* 	 start date: 2013-05-13 00:00:00 GMT
+* 	 expire date: 2015-05-13 23:59:59 GMT
+* 	 subjectAltName: test.mpay24.com matched
+* 	 issuer: C=DE; O=EUNETIC GmbH; CN=EuropeanSSL Server CA
+* 	 SSL certificate verify ok.
+* Server auth using Basic with user 'u99999'
+> POST /app/bin/etpproxy_v15 HTTP/1.1
+Authorization: Basic dTk5OTk5OlZhcm5hLjMwMTIyMDEx
+User-Agent: mPAY24 PHP API $Rev: 9 $ ($Date:: 2013-10-29 #$)
+Host: test.mpay24.com
+Accept: */*
+Content-Length: 423
+Content-Type: application/x-www-form-urlencoded
+
+* upload completely sent off: 423 out of 423 bytes
+< HTTP/1.1 200 OK
+< Date: Wed, 16 Jul 2014 07:38:04 GMT
+* Server  is not blacklisted
+< Server: 
+< Content-Length: 2367
+< Content-Type: text/xml; charset=utf-8
+< 
+* Connection #18 to host test.mpay24.com left intact
+* Hostname was found in DNS cache
+* Hostname in DNS cache was stale, zapped
+*   Trying 192.168.10.14...
+* Connected to test.mpay24.com (192.168.10.14) port 443 (#19)
+* successfully set certificate verify locations:
+*   CAfile: E:\Users\sadrian\workspace\anna-2\magento_module\app\code\community\Mpay24\Mpay24\Model\Api/cacert.pem
+  CApath: none
+* SSL connection using TLSv1.2 / DHE-RSA-AES256-GCM-SHA384
+* Server certificate:
+* 	 subject: OU=Domain Control Validated; OU=Provided by EUNETIC GmbH; OU=EuropeanSSL Single; CN=test.mpay24.com
+* 	 start date: 2013-05-13 00:00:00 GMT
+* 	 expire date: 2015-05-13 23:59:59 GMT
+* 	 subjectAltName: test.mpay24.com matched
+* 	 issuer: C=DE; O=EUNETIC GmbH; CN=EuropeanSSL Server CA
+* 	 SSL certificate verify ok.
+* Server auth using Basic with user 'u99999'
+> POST /app/bin/etpproxy_v15 HTTP/1.1
+Authorization: Basic dTk5OTk5OlZhcm5hLjMwMTIyMDEx
+User-Agent: mPAY24 PHP API $Rev: 9 $ ($Date:: 2013-10-29 #$)
+Host: test.mpay24.com
+Accept: */*
+Content-Length: 423
+Content-Type: application/x-www-form-urlencoded
+
+* upload completely sent off: 423 out of 423 bytes
+< HTTP/1.1 200 OK
+< Date: Wed, 16 Jul 2014 07:41:47 GMT
+* Server  is not blacklisted
+< Server: 
+< Content-Length: 2367
+< Content-Type: text/xml; charset=utf-8
+< 
+* Connection #19 to host test.mpay24.com left intact
+* Hostname was NOT found in DNS cache
+*   Trying 192.168.10.14...
+* Connected to test.mpay24.com (192.168.10.14) port 443 (#5)
+* successfully set certificate verify locations:
+*   CAfile: E:\Users\sadrian\workspace\anna-2\magento_module\app\code\community\Mpay24\Mpay24\Model\Api/cacert.pem
+  CApath: none
+* SSL connection using TLSv1.2 / ECDHE-RSA-AES256-GCM-SHA384
+* Server certificate:
+* 	 subject: OU=Domain Control Validated; OU=Provided by EUNETIC GmbH; OU=EuropeanSSL Single; CN=test.mpay24.com
+* 	 start date: 2013-05-13 00:00:00 GMT
+* 	 expire date: 2015-05-13 23:59:59 GMT
+* 	 subjectAltName: test.mpay24.com matched
+* 	 issuer: C=DE; O=EUNETIC GmbH; CN=EuropeanSSL Server CA
+* 	 SSL certificate verify ok.
+* Server auth using Basic with user 'u99999'
+> POST /app/bin/etpproxy_v15 HTTP/1.1
+Authorization: Basic dTk5OTk5OlZhcm5hLjMwMTIyMDEx
+User-Agent: mPAY24 PHP API $Rev: 9 $ ($Date:: 2013-10-29 #$)
+Host: test.mpay24.com
+Accept: */*
+Content-Length: 423
+Content-Type: application/x-www-form-urlencoded
+
+* upload completely sent off: 423 out of 423 bytes
+< HTTP/1.1 200 OK
+< Date: Tue, 29 Jul 2014 08:15:28 GMT
+* Server  is not blacklisted
+< Server: 
+< Content-Length: 2367
+< Content-Type: text/xml; charset=utf-8
+< 
+* Connection #5 to host test.mpay24.com left intact

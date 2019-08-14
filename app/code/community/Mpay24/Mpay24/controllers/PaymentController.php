@@ -16,9 +16,9 @@
  * @package             Mpay24_Mpay24
  * @author              Firedrago Magento
  * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- * @version             $Id: PaymentController.php 25 2014-06-24 15:33:56Z sapolhei $
+ * @version             $Id: PaymentController.php 28 2014-09-29 09:31:11Z sapolhei $
  */
-include_once "app/code/community/Mpay24/Mpay24/Model/Api/MPay24MagentoShop.php";
+include_once Mage::getBaseDir('code')."/community/Mpay24/Mpay24/Model/Api/MPay24MagentoShop.php";
 
 class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action {
 
@@ -111,7 +111,7 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
 
     $this->getTransactionStatus($_REQUEST['TID']);
 
-    Mage::getSingleton('mpay24/session')->setParentRedirectUrl('checkout/onepage/');
+    Mage::getSingleton('mpay24/session')->setParentRedirectUrl('checkout/'.Mage::getStoreConfig('mpay24/mpay24/checkout_template').'/');
     $this->getResponse()->setBody($this->getLayout()->createBlock("mpay24/parentRedirect")->toHtml());
   }
 
@@ -153,7 +153,7 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
 
     $this->getTransactionStatus($_REQUEST['TID']);
 
-    Mage::getSingleton('mpay24/session')->setParentRedirectUrl('checkout/onepage/');
+    Mage::getSingleton('mpay24/session')->setParentRedirectUrl('checkout/'.Mage::getStoreConfig('mpay24/mpay24/checkout_template').'/');
     $this->getResponse()->setBody($this->getLayout()->createBlock("mpay24/parentRedirect")->toHtml());
   }
 
