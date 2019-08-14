@@ -14,9 +14,9 @@
  *
  * @category            Mpay24
  * @package             Mpay24_Mpay24
- * @author              Firedrago Magento
+ * @author              Anna Sadriu (mPAY24 GmbH)
  * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- * @version             $Id: Selectpayment.php 36 2015-01-27 16:48:06Z sapolhei $
+ * @version             $Id: Selectpayment.php 6280 2015-04-16 13:00:22Z anna $
  */
 
 include_once Mage::getBaseDir('code')."/community/Mpay24/Mpay24/Model/Api/MPay24MagentoShop.php";
@@ -67,10 +67,13 @@ class Mpay24_Mpay24_Model_Selectpayment extends Mpay24_Mpay24_Model_Method_Selec
     
         $order = $payment->getOrder();
         $order->setCanSendNewEmailFlag(false);
+        
+        $payment->setAdditionalInformation('amex_addr_ver', "UNKNOWN")->save();
+        $payment->setAdditionalInformation('amex_cid_ver', "UNKNOWN")->save();
 
-        $stateObject->setState(Mage_Sales_Model_Order::STATE_PENDING_PAYMENT);
-        $stateObject->setStatus('pending_payment');
-        $stateObject->setIsNotified(false);
+//         $stateObject->setState(Mage_Sales_Model_Order::STATE_PENDING_PAYMENT);
+//         $stateObject->setStatus('pending_payment');
+//         $stateObject->setIsNotified(false);
         break;
       default:
         break;
@@ -87,7 +90,7 @@ class Mpay24_Mpay24_Model_Selectpayment extends Mpay24_Mpay24_Model_Method_Selec
    * @return            bool|Mpay24_Mpay24_Model_PaymentMethod
    */
   public function capture(Varien_Object $payment, $amount) {
-//     if(!$payment->getAdditionalInformation('MIFClear') && Mage::getStoreConfig('payment/mpay24/paid_payment_action') != MPay24MagentoShop::PAYMENT_TYPE_SALE && !$payment->getAdditionalInformation('error')) {
+    if($payment->getAdditionalInformation('confirmation') !== true) {
       $this->clearSession();
       $mPay24MagentoShop = MPay24MagentoShop::getMPay24Api();
       $mPAY24Result = $mPay24MagentoShop->clearAmount($payment->getOrder()->getIncrementId(),$amount*100);
@@ -97,12 +100,12 @@ class Mpay24_Mpay24_Model_Selectpayment extends Mpay24_Mpay24_Model_Method_Selec
         Mage::throwException(Mage::helper('mpay24')->__("The order could not be captured! For mor information see the log files!"));
         return false;
       }
-//     }
+    }
 
     parent::capture($payment, $amount);
 
     if($payment->getOrder()->getIsNotVirtual())
-      $s = Mage::getStoreConfig('payment/mpay24/paid_order_status');
+      $s = Mage_Sales_Model_Order::STATE_PROCESSING;
     else
       $s = Mage_Sales_Model_Order::STATE_COMPLETE;
 

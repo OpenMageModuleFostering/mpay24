@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!-- 
- @version             $Id: system.xml 36 2015-01-27 16:48:06Z sapolhei $
+ @version             $Id: system.xml 6252 2015-03-26 15:57:57Z anna $
  -->
 <config>
   <sections>
@@ -10,12 +10,12 @@
           <tab>sales</tab>
           <fields>
             <payment_charge translate="label">
-              <label>Payment Charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
               <sort_order>3</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </payment_charge>
           </fields>
         </totals_sort>
@@ -213,7 +213,7 @@
               <sort_order>101</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </style>
             <logostyle translate="label">
               <label>LogoStyle</label>
@@ -221,7 +221,7 @@
               <sort_order>102</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </logostyle>
             <pageheaderstyle translate="label">
               <label>PageHeaderStyle</label>
@@ -229,7 +229,7 @@
               <sort_order>103</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </pageheaderstyle>
             <pagecaptionstyle translate="label">
               <label>PageCaptionStyle</label>
@@ -237,7 +237,7 @@
               <sort_order>104</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </pagecaptionstyle>
             <pagestyle translate="label">
               <label>PageStyle</label>
@@ -245,7 +245,7 @@
               <sort_order>105</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </pagestyle>
             <inputfieldsstyle translate="label">
               <label>InputFieldsStyle</label>
@@ -253,7 +253,7 @@
               <sort_order>106</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </inputfieldsstyle>
             <dropdownlistsstyle translate="label">
               <label>DropDownListsStyle</label>
@@ -261,7 +261,7 @@
               <sort_order>107</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </dropdownlistsstyle>
             <buttonsstyle translate="label">
               <label>ButtonsStyle</label>
@@ -269,7 +269,7 @@
               <sort_order>108</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </buttonsstyle>
             <errorsstyle translate="label">
               <label>ErrorsStyle</label>
@@ -277,7 +277,7 @@
               <sort_order>109</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </errorsstyle>
             <successtitlestyle translate="label">
               <label>SuccessTitleStyle</label>
@@ -285,7 +285,7 @@
               <sort_order>110</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </successtitlestyle>
             <errortitlestyle translate="label">
               <label>ErrorTitleStyle</label>
@@ -293,7 +293,7 @@
               <sort_order>111</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </errortitlestyle>
             <footerstyle translate="label">
               <label>FooterStyle</label>
@@ -301,7 +301,7 @@
               <sort_order>112</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </footerstyle>
           </fields>
         </mpay24sporder>
@@ -321,7 +321,7 @@
               <sort_order>49</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </description>
             <sc_row translate="label">
               <label>ShoppingCart Rows</label>
@@ -330,7 +330,7 @@
               <source_model>mpay24/source_shoppingCartRowsAction</source_model>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </sc_row>
             <sc_style translate="label">
               <label>Style</label>
@@ -338,7 +338,7 @@
               <sort_order>101</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </sc_style>
             <sc_header translate="label">
               <label>Header</label>
@@ -346,7 +346,7 @@
               <sort_order>102</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </sc_header>
             <sc_headerstyle translate="label">
               <label>HeaderStyle</label>
@@ -354,7 +354,7 @@
               <sort_order>103</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </sc_headerstyle>
             <sc_captionstyle translate="label">
               <label>CaptionStyle</label>
@@ -362,7 +362,7 @@
               <sort_order>104</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </sc_captionstyle>
             <sc_numberheader translate="label">
               <label>NumberHeader</label>
@@ -370,7 +370,7 @@
               <sort_order>105</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </sc_numberheader>
             <sc_numberstyle translate="label">
               <label>NumberStyle</label>
@@ -378,7 +378,7 @@
               <sort_order>106</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </sc_numberstyle>
             <sc_productnrheader translate="label">
               <label>ProductNrHeader</label>
@@ -386,7 +386,7 @@
               <sort_order>107</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </sc_productnrheader>
             <sc_productnrstyle translate="label">
               <label>ProductNrStyle</label>
@@ -394,7 +394,7 @@
               <sort_order>108</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </sc_productnrstyle>
             <sc_descriptionheader translate="label">
               <label>DescriptionHeader</label>
@@ -402,7 +402,7 @@
               <sort_order>109</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </sc_descriptionheader>
             <sc_descriptionstyle translate="label">
               <label>DescriptionStyle</label>
@@ -410,7 +410,7 @@
               <sort_order>110</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </sc_descriptionstyle>
             <sc_packageheader translate="label">
               <label>PackageHeader</label>
@@ -418,7 +418,7 @@
               <sort_order>111</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </sc_packageheader>
             <sc_packagestyle translate="label">
               <label>PackageStyle</label>
@@ -426,7 +426,7 @@
               <sort_order>112</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </sc_packagestyle>
             <sc_quantityheader translate="label">
               <label>QuantityHeader</label>
@@ -434,7 +434,7 @@
               <sort_order>113</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </sc_quantityheader>
             <sc_quantitystyle translate="label">
               <label>QuantityStyle</label>
@@ -442,7 +442,7 @@
               <sort_order>114</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </sc_quantitystyle>
             <sc_itempriceheader translate="label">
               <label>ItemPriceHeader</label>
@@ -450,7 +450,7 @@
               <sort_order>115</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </sc_itempriceheader>
             <sc_itempricestyle translate="label">
               <label>ItemPriceStyle</label>
@@ -458,7 +458,7 @@
               <sort_order>116</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </sc_itempricestyle>
             <sc_priceheader translate="label">
               <label>PriceHeader</label>
@@ -466,7 +466,7 @@
               <sort_order>117</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </sc_priceheader>
             <sc_pricestyle translate="label">
               <label>PriceStyle</label>
@@ -474,7 +474,7 @@
               <sort_order>118</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </sc_pricestyle>
             <item_style1 translate="label">
               <label>ItemStyle Line 1</label>
@@ -482,7 +482,7 @@
               <sort_order>120</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </item_style1>
             <item_style2 translate="label">
               <label>ItemStyle Line 2</label>
@@ -490,7 +490,7 @@
               <sort_order>121</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </item_style2>
             <discount_headerstyle translate="label">
               <label>Discount HeaderStyle</label>
@@ -498,7 +498,7 @@
               <sort_order>123</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </discount_headerstyle>
             <discount_style translate="label">
               <label>Discount Style</label>
@@ -506,7 +506,7 @@
               <sort_order>124</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </discount_style> 
             <shipping_costs_headerstyle translate="label">
               <label>Ship.Costs HeaderStyle</label>
@@ -514,7 +514,7 @@
               <sort_order>126</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </shipping_costs_headerstyle>
             <shipping_costs_style translate="label">
               <label>Ship.Costs Style</label>
@@ -522,7 +522,7 @@
               <sort_order>127</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </shipping_costs_style>
             <tax_headerstyle translate="label">
               <label>Tax HeaderStyle</label>
@@ -530,7 +530,7 @@
               <sort_order>129</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </tax_headerstyle>
             <tax_style translate="label">
               <label>Tax Style</label>
@@ -538,7 +538,7 @@
               <sort_order>130</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </tax_style>
             <price_header translate="label">
               <label>Price Header</label>
@@ -546,7 +546,7 @@
               <sort_order>132</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </price_header>
             <price_headerstyle translate="label">
               <label>Price HeaderStyle</label>
@@ -554,7 +554,7 @@
               <sort_order>133</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </price_headerstyle>
             <price_style translate="label">
               <label>Price Style</label>
@@ -562,7 +562,7 @@
               <sort_order>134</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </price_style>    
             <subtotal_header translate="label">
               <label>Subtotal Header</label>
@@ -570,7 +570,7 @@
               <sort_order>135</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </subtotal_header>
             <subtotal_headerstyle translate="label">
               <label>Subtotal HeaderStyle</label>
@@ -578,7 +578,7 @@
               <sort_order>136</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </subtotal_headerstyle>
             <subtotal_style translate="label">
               <label>Subtotal Style</label>
@@ -586,7 +586,7 @@
               <sort_order>137</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </subtotal_style>
           </fields>
         </mpay24spsc>
@@ -679,9 +679,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_1>1</ps_1></depends>
             </tax_type_1>
             <tax_1 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate>
+              <validate>validate-number</validate>
               <sort_order>6</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
@@ -710,10 +710,10 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_2>1</ps_2></depends>
             </tax_type_2>
             <tax_2 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
               <sort_order>9</sort_order>
-              <validate>validate-not-negative-number</validate><sort_order>8</sort_order>
+              <validate>validate-number</validate><sort_order>8</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -741,9 +741,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_3>1</ps_3></depends>
             </tax_type_3>
             <tax_3 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>11</sort_order>
+              <validate>validate-number</validate><sort_order>11</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -771,9 +771,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_4>1</ps_4></depends>
             </tax_type_4>
             <tax_4 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>14</sort_order>
+              <validate>validate-number</validate><sort_order>14</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -801,9 +801,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_5>1</ps_5></depends>
             </tax_type_5>
             <tax_5 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>17</sort_order>
+              <validate>validate-number</validate><sort_order>17</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -831,9 +831,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_6>1</ps_6></depends>
             </tax_type_6>
             <tax_6 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>20</sort_order>
+              <validate>validate-number</validate><sort_order>20</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -861,9 +861,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_7>1</ps_7></depends>
             </tax_type_7>
             <tax_7 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>23</sort_order>
+              <validate>validate-number</validate><sort_order>23</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -891,9 +891,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_8>1</ps_8></depends>
             </tax_type_8>
             <tax_8 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>26</sort_order>
+              <validate>validate-number</validate><sort_order>26</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -921,9 +921,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_9>1</ps_9></depends>
             </tax_type_9>
             <tax_9 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>29</sort_order>
+              <validate>validate-number</validate><sort_order>29</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -951,9 +951,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_10>1</ps_10></depends>
             </tax_type_10>
             <tax_10 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>32</sort_order>
+              <validate>validate-number</validate><sort_order>32</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -981,9 +981,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_11>1</ps_11></depends>
             </tax_type_11>
             <tax_11 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>35</sort_order>
+              <validate>validate-number</validate><sort_order>35</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -1011,9 +1011,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_12>1</ps_12></depends>
             </tax_type_12>
             <tax_12 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>38</sort_order>
+              <validate>validate-number</validate><sort_order>38</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -1041,9 +1041,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_13>1</ps_13></depends>
             </tax_type_13>
             <tax_13 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>41</sort_order>
+              <validate>validate-number</validate><sort_order>41</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -1071,9 +1071,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_14>1</ps_14></depends>
             </tax_type_14>
             <tax_14 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>44</sort_order>
+              <validate>validate-number</validate><sort_order>44</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -1101,9 +1101,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_15>1</ps_15></depends>
             </tax_type_15>
             <tax_15 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>47</sort_order>
+              <validate>validate-number</validate><sort_order>47</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -1131,9 +1131,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_16>1</ps_16></depends>
             </tax_type_16>
             <tax_16 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>50</sort_order>
+              <validate>validate-number</validate><sort_order>50</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -1161,9 +1161,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_17>1</ps_17></depends>
             </tax_type_17>
             <tax_17 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>53</sort_order>
+              <validate>validate-number</validate><sort_order>53</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -1191,9 +1191,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_18>1</ps_18></depends>
             </tax_type_18>
             <tax_18 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>56</sort_order>
+              <validate>validate-number</validate><sort_order>56</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -1221,9 +1221,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_19>1</ps_19></depends>
             </tax_type_19>
             <tax_19 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>59</sort_order>
+              <validate>validate-number</validate><sort_order>59</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -1251,9 +1251,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_20>1</ps_20></depends>
             </tax_type_20>
             <tax_20 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>62</sort_order>
+              <validate>validate-number</validate><sort_order>62</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -1281,9 +1281,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_21>1</ps_21></depends>
             </tax_type_21>
             <tax_21 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>65</sort_order>
+              <validate>validate-number</validate><sort_order>65</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -1311,9 +1311,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_22>1</ps_22></depends>
             </tax_type_22>
             <tax_22 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>68</sort_order>
+              <validate>validate-number</validate><sort_order>68</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -1341,9 +1341,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_23>1</ps_23></depends>
             </tax_type_23>
             <tax_23 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>71</sort_order>
+              <validate>validate-number</validate><sort_order>71</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -1371,9 +1371,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_24>1</ps_24></depends>
             </tax_type_24>
             <tax_24 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>74</sort_order>
+              <validate>validate-number</validate><sort_order>74</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -1401,9 +1401,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_25>1</ps_25></depends>
             </tax_type_25>
             <tax_25 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>77</sort_order>
+              <validate>validate-number</validate><sort_order>77</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -1431,9 +1431,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_26>1</ps_26></depends>
             </tax_type_26>
             <tax_26 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>80</sort_order>
+              <validate>validate-number</validate><sort_order>80</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -1461,9 +1461,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_27>1</ps_27></depends>
             </tax_type_27>
             <tax_27 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>83</sort_order>
+              <validate>validate-number</validate><sort_order>83</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -1491,9 +1491,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_28>1</ps_28></depends>
             </tax_type_28>
             <tax_28 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>86</sort_order>
+              <validate>validate-number</validate><sort_order>86</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -1521,9 +1521,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_29>1</ps_29></depends>
             </tax_type_29>
             <tax_29 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>89</sort_order>
+              <validate>validate-number</validate><sort_order>89</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -1551,9 +1551,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_30>1</ps_30></depends>
             </tax_type_30>
             <tax_30 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>92</sort_order>
+              <validate>validate-number</validate><sort_order>92</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -1581,9 +1581,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_31>1</ps_31></depends>
             </tax_type_31>
             <tax_31 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>95</sort_order>
+              <validate>validate-number</validate><sort_order>95</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -1611,9 +1611,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_32>1</ps_32></depends>
             </tax_type_32>
             <tax_32 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>98</sort_order>
+              <validate>validate-number</validate><sort_order>98</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -1641,9 +1641,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_33>1</ps_33></depends>
             </tax_type_33>
             <tax_33 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>101</sort_order>
+              <validate>validate-number</validate><sort_order>101</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -1671,9 +1671,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_34>1</ps_34></depends>
             </tax_type_34>
             <tax_34 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>104</sort_order>
+              <validate>validate-number</validate><sort_order>104</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -1701,9 +1701,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_35>1</ps_35></depends>
             </tax_type_35>
             <tax_35 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>107</sort_order>
+              <validate>validate-number</validate><sort_order>107</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -1731,9 +1731,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_36>1</ps_36></depends>
             </tax_type_36>
             <tax_36 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>110</sort_order>
+              <validate>validate-number</validate><sort_order>110</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -1761,9 +1761,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_37>1</ps_37></depends>
             </tax_type_37>
             <tax_37 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>113</sort_order>
+              <validate>validate-number</validate><sort_order>113</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -1791,9 +1791,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_38>1</ps_38></depends>
             </tax_type_38>
             <tax_38 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>116</sort_order>
+              <validate>validate-number</validate><sort_order>116</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -1821,9 +1821,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_39>1</ps_39></depends>
             </tax_type_39>
             <tax_39 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>119</sort_order>
+              <validate>validate-number</validate><sort_order>119</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -1851,9 +1851,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_40>1</ps_40></depends>
             </tax_type_40>
             <tax_40 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>122</sort_order>
+              <validate>validate-number</validate><sort_order>122</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -1881,9 +1881,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_41>1</ps_41></depends>
             </tax_type_41>
             <tax_41 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>125</sort_order>
+              <validate>validate-number</validate><sort_order>125</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -1911,9 +1911,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_42>1</ps_42></depends>
             </tax_type_42>
             <tax_42 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>128</sort_order>
+              <validate>validate-number</validate><sort_order>128</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -1941,9 +1941,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_43>1</ps_43></depends>
             </tax_type_43>
             <tax_43 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>131</sort_order>
+              <validate>validate-number</validate><sort_order>131</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -1971,9 +1971,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_44>1</ps_44></depends>
             </tax_type_44>
             <tax_44 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>134</sort_order>
+              <validate>validate-number</validate><sort_order>134</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -2001,9 +2001,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_45>1</ps_45></depends>
             </tax_type_45>
             <tax_45 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>137</sort_order>
+              <validate>validate-number</validate><sort_order>137</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -2031,9 +2031,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_46>1</ps_46></depends>
             </tax_type_46>
             <tax_46 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>140</sort_order>
+              <validate>validate-number</validate><sort_order>140</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -2061,9 +2061,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_47>1</ps_47></depends>
             </tax_type_47>
             <tax_47 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>143</sort_order>
+              <validate>validate-number</validate><sort_order>143</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -2091,9 +2091,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_48>1</ps_48></depends>
             </tax_type_48>
             <tax_48 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>146</sort_order>
+              <validate>validate-number</validate><sort_order>146</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -2121,9 +2121,9 @@
               <depends><forced_preselection>1</forced_preselection><payments_active>true</payments_active><ps_49>1</ps_49></depends>
             </tax_type_49>
             <tax_49 translate="label">
-              <label>Payment charge</label>
+              <label>Payment charge/discount</label>
               <frontend_type>text</frontend_type>
-              <validate>validate-not-negative-number</validate><sort_order>149</sort_order>
+              <validate>validate-number</validate><sort_order>149</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -2150,7 +2150,7 @@
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
             </payment_action> -->
-            <paid_order_status translate="label">
+            <!-- <paid_order_status translate="label">
               <label>Status of paid orders</label>
               <frontend_type>select</frontend_type>
               <source_model>mpay24/source_paidOrder</source_model>
@@ -2159,7 +2159,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-            </paid_order_status>
+            </paid_order_status> -->
             <billingAddressMode translate="label comment">
               <label>Billing address mode</label>
               <frontend_type>select</frontend_type>

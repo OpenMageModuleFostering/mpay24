@@ -9,7 +9,7 @@ define ("MDXI_SCHEMA","https://www.mpay24.com/schemas/MDXI/v3.0/MDXI.xsd");
  * The ORDER class provides the functioanallity to create a XML, which is validatable with the MDXI.xsd
  *
  * @author              mPAY24 GmbH <support@mpay24.com>
- * @version             $Id: orderXML.php 5 2013-10-10 13:08:44Z sapolhei $
+ * @version             $Id: orderXML.php 6252 2015-03-26 15:57:57Z anna $
  * @filesource          orderXML.php
  * @license             http://ec.europa.eu/idabc/eupl.html EUPL, Version 1.1
  */

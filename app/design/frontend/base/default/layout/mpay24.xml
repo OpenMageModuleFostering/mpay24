@@ -14,9 +14,9 @@
  *
  * @category            design
  * @package             base_defaut
- * @author              Firedrago Magento
+ * @author              Anna Sadriu (mPAY24 GmbH)
  * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- * @version             $Id: mpay24.xml 5 2013-10-10 13:08:44Z sapolhei $
+ * @version             $Id: mpay24.xml 6257 2015-03-26 16:08:09Z anna $
  -->
 <layout version="0.1.0">
   <mpay24_payment_payment>

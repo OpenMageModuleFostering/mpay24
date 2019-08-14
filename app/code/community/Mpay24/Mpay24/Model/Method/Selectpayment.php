@@ -14,9 +14,9 @@
  *
  * @category            Mpay24
  * @package             Mpay24_Mpay24
- * @author              Firedrago Magento
+ * @author              Anna Sadriu (mPAY24 GmbH)
  * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- * @version             $Id: Selectpayment.php 36 2015-01-27 16:48:06Z sapolhei $
+ * @version             $Id: Selectpayment.php 6252 2015-03-26 15:57:57Z anna $
  */
 
 include_once Mage::getBaseDir('code')."/community/Mpay24/Mpay24/Model/Api/MPay24MagentoShop.php";

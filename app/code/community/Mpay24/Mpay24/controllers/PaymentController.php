@@ -14,9 +14,9 @@
  *
  * @category            Mpay24
  * @package             Mpay24_Mpay24
- * @author              Firedrago Magento
+ * @author              Anna Sadriu (mPAY24 GmbH)
  * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- * @version             $Id: PaymentController.php 38 2015-02-09 10:32:52Z sapolhei $
+ * @version             $Id: PaymentController.php 6280 2015-04-16 13:00:22Z anna $
  */
 include_once Mage::getBaseDir('code')."/community/Mpay24/Mpay24/Model/Api/MPay24MagentoShop.php";
 
@@ -218,7 +218,6 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
   * @return             Mage_Sales_Model_Order
   */
   public function getOrder($tid=null) {
-//     Mage::log('mPAY24 Extension ('.debug_backtrace()[2]['function'].'): get order called');
     $arrBacktrace = debug_backtrace();
     Mage::log('mPAY24 Extension ('.$arrBacktrace[2]['function'].'): get order called');
     $order = Mage::getSingleton('sales/order');
@@ -236,7 +235,6 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
   * @return             string
   */
   public function getTransactionStatus($tid=null, $confirmation=false) {
-//     Mage::log('mPAY24 Extension ('.debug_backtrace()[1]['function'].'): getTransactionStatus called for order '.$tid);
     $arrBacktrace = debug_backtrace();
     Mage::log('mPAY24 Extension ('.$arrBacktrace[1]['function'].'): getTransactionStatus called for order '.$tid);
     $orderHistoryText = "";
@@ -249,11 +247,14 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
 
     if($order->getPayment()) {
       if(!$confirmation || !in_array($this->getRequest()->getClientIp(), explode(',', Mage::getStoreConfig('mpay24/mpay24as/allowed_ips')))) {
+        if(!in_array($this->getRequest()->getClientIp(), explode(',', Mage::getStoreConfig('mpay24/mpay24as/allowed_ips'))))
+          Mage::log("mPAY24 Extension: The IP '".$this->getRequest()->getClientIp()."', which is calling the confirmation URL is not white-listed! The allowed IPs are " . Mage::getStoreConfig('mpay24/mpay24as/allowed_ips'));
+        
         $mPay24MagentoShop = MPay24MagentoShop::getMPay24Api();
         $mPAY24Result = $mPay24MagentoShop->updateTransactionStatus($tid);
         $res = $mPAY24Result->getGeneralResponse()->getStatus();
 
-        if($mPAY24Result->getGeneralResponse()->getStatus() != 'OK' || $mPAY24Result->getParam('APPR_CODE') == '')
+        if($res != 'OK' || $mPAY24Result->getParam('APPR_CODE') == '')
            $apprCode = 'N/A';
         else
            $apprCode = $mPAY24Result->getParam('APPR_CODE');
@@ -277,13 +278,91 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
       $order->getPayment()->setAdditionalInformation('mpay_tid', $mPAY24Result->getParam('MPAYTID'))->save();
       $order->getPayment()->setAdditionalInformation('appr_code', $apprCode)->save();
       
-//       //SOFORT Ueberweisung status check
-//       if($mPAY24Result->getParam('P_TYPE') == 'SOFORT' && ($mPAY24Result->getParam('TSTATUS') == 'BILLED' || $mPAY24Result->getParam('TSTATUS') == 'RESERVED' || $mPAY24Result->getParam('TSTATUS') == 'SUSPENDED'))
-//         $status = Mage::getStoreConfig('mpay24/mpay24as/sofort_state');
-//       else
-        $status = $mPAY24Result->getParam('TSTATUS');
+      $status = $mPAY24Result->getParam('TSTATUS');
 
       $order->getPayment()->setAdditionalInformation('confirmed', $status)->save();
+
+      $addr_ver = Mage::helper('mpay24')->__("The 'AMEX_ADDR_VER' parameter was not returned!");
+      
+      if($mPAY24Result->getParam('AMEX_ADDR_VER')) {
+        switch ($mPAY24Result->getParam('AMEX_ADDR_VER')) {
+          case "Y":
+            $addr_ver = Mage::helper('mpay24')->__("Yes, Customer Address and Postal Code are both correct.");
+            break;
+          case "N":
+            $addr_ver = Mage::helper('mpay24')->__("No, Customer Address and Postal Code are both incorrect.");
+            break;
+          case "A":
+            $addr_ver = Mage::helper('mpay24')->__("Customer Address only correct.");
+            break;
+          case "Z":
+            $addr_ver = Mage::helper('mpay24')->__("Customer Postal Code only correct.");
+            break;
+          case "U":
+            $addr_ver = Mage::helper('mpay24')->__("Information unavailable.");
+            break;
+          case "S":
+            $addr_ver = Mage::helper('mpay24')->__("SE not allowed AAV function.");
+            break;
+          case "R":
+            $addr_ver = Mage::helper('mpay24')->__("System unavailable; retry.");
+            break;
+          case "L":
+            $addr_ver = Mage::helper('mpay24')->__("Customer Name and Postal Code match.");
+            break;
+          case "M":
+            $addr_ver = Mage::helper('mpay24')->__("Customer Name, Address and Postal Code match.");
+            break;
+          case "O":
+            $addr_ver = Mage::helper('mpay24')->__("Customer Name and Address match.");
+            break;
+          case "K":
+            $addr_ver = Mage::helper('mpay24')->__("Customer Name matches.");
+            break;
+          case "D":
+            $addr_ver = Mage::helper('mpay24')->__("Customer Name incorrect, Postal Code matches.");
+            break;
+          case "E":
+            $addr_ver = Mage::helper('mpay24')->__("Customer Name incorrect, Address and Postal Code match.");
+            break;
+          case "F":
+            $addr_ver = Mage::helper('mpay24')->__("Customer Name incorrect, Address matches.");
+            break;
+          case "W":
+            $addr_ver = Mage::helper('mpay24')->__("No, Customer Name, Address and Postal Code are all incorrect.");
+            break;
+          default:
+            $addr_ver = Mage::helper('mpay24')->__("Unknown returned value:") . " '" . $mPAY24Result->getParam('AMEX_ADDR_VER') . "'";
+            break;
+        }
+        
+      }
+      $order->getPayment()->setAdditionalInformation('amex_addr_ver', $addr_ver)->save();
+      
+      $cid_ver = Mage::helper('mpay24')->__("The 'AMEX_CVC_VER' parameter was not returned!");
+      
+      if($mPAY24Result->getParam('AMEX_CVC_VER')) {
+        switch ($mPAY24Result->getParam('AMEX_CVC_VER')) {
+          case "Y":
+            $cid_ver = Mage::helper('mpay24')->__("CID/4DBC/4CSC matched.");
+            break;
+          case "N":
+            $cid_ver = Mage::helper('mpay24')->__("CID/4DBC/4CSC did not match.");
+            break;
+          case "U":
+            $cid_ver = Mage::helper('mpay24')->__("CID/4DBC/4CSC was not checked.");
+            break;
+          default:
+            $cid_ver = Mage::helper('mpay24')->__("Unknown returned value:") . " '" . $mPAY24Result->getParam('AMEX_CVC_VER') . "'";
+            break;
+        }
+      
+      }
+      $order->getPayment()->setAdditionalInformation('amex_cid_ver', $cid_ver)->save();
+      
+      
+      if($mPAY24Result->getParam('AMEX_CVC_VER'))
+        $order->getPayment()->setAdditionalInformation('amex_cid_ver', $mPAY24Result->getParam('AMEX_CVC_VER'))->save();
       
       switch ($res) {
         case "OK":
@@ -298,28 +377,14 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
             $orderHistoryText .= "\n\t\t\tMPAYTID: " . $mPAY24Result->getParam('MPAYTID');
             $orderHistoryText .= "\n\t\t\tAppr_code: " . $apprCode;
 
-//             if($order->getIsNotVirtual())
-//               $s = Mage::getStoreConfig('payment/mpay24/paid_order_status');
-//             else
-//               $s = Mage_Sales_Model_Order::STATE_COMPLETE;
-
             if($order->getState() == Mage_Sales_Model_Order::STATE_PENDING_PAYMENT) {
               $order->sendNewOrderEmail()->save();
-              Mage::log("new order mail sent!!!");
+              Mage::log("mPAY24 Extension: New order mail sent!!!");
             }
             
             switch($status) {
               case 'RESERVED':
                 $this->setBillpayData($order, $mPAY24Result);
-//                 $order->getPayment()->setAmountAuthorized($mPAY24Result->getParam('PRICE')/100)->save();
-//                 $order->addStatusToHistory(Mage_Sales_Model_Order::STATE_PROCESSING, Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("RESERVED") . ' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]' . " (" . $this->getRequest()->getClientIp() . ")");
-//                 $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING)->save();
-                
-//                 if($order->getInvoiceCollection()->count() == 0)
-//                   if(Mage::getStoreConfig('payment/mpay24/paid_payment_action') == MPay24MagentoShop::PAYMENT_TYPE_SALE)
-//                     $this->_createInvoice($order, true);
-//                 else
-//                   $this->_createInvoice($order);
                 
                 $order->getPayment()->authorize(false, $mPAY24Result->getParam('PRICE')/100)->save();
                 $order->sendOrderUpdateEmail(true, Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("RESERVED") . ' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]')->save();
@@ -327,38 +392,13 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
               case 'BILLED':
                 $this->setBillpayData($order, $mPAY24Result);
 
-//                 if(!$order->getPayment()->getTransaction($order->getIncrementId()) && $order->getPayment()->getTransaction($order->getIncrementId())->getTxnType() != Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH)
-//                 $order->getPayment()->authorize(false, $mPAY24Result->getParam('PRICE')/100)->save();
-
-//                 $order = $this->getOrder($tid);
-                
-//                 if($order->getInvoiceCollection()->count() == 0) {
-//                   $order->sendNewOrderEmail();
-//                    if(in_array($mPAY24Result->getParam('P_TYPE'), MPay24MagentoShop::getAllowedAuth())) {
-//                      $onlineCapture = false;
-//                      $mif = true;
-//                    } else {
-//                      $onlineCapture = true;
-//                      $mif = false;
-//                    }
-
-//                   $order->getPayment()->setAmountCharged($mPAY24Result->getParam('PRICE')/100)->save();
-//                   $order->sendOrderUpdateEmail();
-
-//                   if($order->getInvoiceCollection()->count() == 0) {
-//                     if($confirmation)//!
-//                       $invoice = $this->_createInvoice($order, true, true, $onlineCapture);//$MIF=TRUE, $onlineCapture
-//                     else
-//                       $invoice = $this->_createInvoice($order, true, $mif, $onlineCapture);
-//                   }
-//                 }
                 if($order->getInvoiceCollection()->count() == 0)
                   $invoice = $this->_createInvoice($order);
-                
-                $order->addStatusHistoryComment(Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("BILLED") .' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]' . " (" . $this->getRequest()->getClientIp() . ")")->save();
-//                 $order->addStatusToHistory($s, Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("BILLED") .' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]' . " (" . $this->getRequest()->getClientIp() . ")", true)->save();
-                
-                $order->sendOrderUpdateEmail(true, Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("BILLED") .' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]')->save();
+
+//                 $order->addStatusHistoryComment(Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("BILLED") .' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]' . " (" . $this->getRequest()->getClientIp() . ")")->save();
+
+                $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, 'processing', Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("BILLED") .' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]' . " (" . $this->getRequest()->getClientIp() . ")", true);
+//                 $order->sendOrderUpdateEmail(true, Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("BILLED") .' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]')->save();
                 
                 $order->save();
                 break;
@@ -379,10 +419,6 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
                 }
                 
                 
-//                 $this->_addChildTransaction(Mage_Sales_Model_Order_Payment_Transaction::TYPE_REFUND,
-//                                             Mage_Sales_Model_Order_Payment_Transaction::TYPE_CAPTURE);
-
-//                 $order->addStatusToHistory(Mage_Sales_Model_Order::STATE_COMPLETE, Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("CREDITED") . ' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]' . " (" . $this->getRequest()->getClientIp() . ")")->save();
                 $order->addStatusHistoryComment(Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("CREDITED") .' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]' . " (" . $this->getRequest()->getClientIp() . ")")->save();
                 $order->sendOrderUpdateEmail(true, Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("CREDITED") .' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]')->save();
                 $order->save();
@@ -587,9 +623,6 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
           else
             $orderHistoryText = 'The transaction was not found!';
 
-//           if($order->canCancel() && $order->getState() != Mage_Sales_Model_Order::STATE_CANCELED && $order->getData('status') != Mage_Sales_Model_Order::STATE_CANCELED)
-//             $order->cancel($order->getPayment())->save();
-
           $order->addStatusToHistory($order->getStatus(), Mage::helper('mpay24')->__($orderHistoryText), true)->save();
           $order->getPayment()->setAdditionalInformation('status', true)->save();
           $order->getPayment()->setAdditionalInformation('mpay_tid', 'N/A')->save();
@@ -622,8 +655,7 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
     return $model;
   }
 
-  public function _createInvoice($order, $capture=false, $mif=false, $onlineCapture=true) {
-//     Mage::log('mPAY24 Extension ('.debug_backtrace()[2]['function'].'): create invoice called');
+  public function _createInvoice($order) {
     $arrBacktrace = debug_backtrace();
     Mage::log('mPAY24 Extension ('.$arrBacktrace[2]['function'].'): create invoice called');
     if ($order->canInvoice()) {
@@ -632,12 +664,12 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
       if (!$invoice->getTotalQty())
         Mage::throwException(Mage::helper('core')->__('Cannot create an invoice without products.'));
 
-//       if($capture && $onlineCapture)
+      $order->getPayment()->setAdditionalInformation('confirmation', true);
       $invoice->setRequestedCaptureCase(Mage_Sales_Model_Order_Invoice::CAPTURE_ONLINE);
-
+      $order->getPayment()->setAdditionalInformation('confirmation', false);
+      
       $invoice->register();
 
-//       Mage::log("mPAY24 Extension (".debug_backtrace()[2]['function']."): Invoice registered!");
       $arrBacktrace = debug_backtrace();
       Mage::log("mPAY24 Extension (".$arrBacktrace[2]['function']."): Invoice registered!");
 
@@ -648,14 +680,10 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
 
       $order->save();
 
-//       if($capture)
       foreach ($order->getInvoiceCollection() as $orderInvoice)
         if ($order->getTotalPaid() == 0.00) {
           $orderInvoice->pay();
           $orderInvoice->save();
-
-//           if($mif)
-//             $order->getPayment()->setAdditionalInformation('MIFClear', true)->save();
 
           $order->getPayment()->capture($orderInvoice)->save();
         }

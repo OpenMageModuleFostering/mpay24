@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <!-- 
- @version             $Id: config.xml 36 2015-01-27 16:48:06Z sapolhei $
+ @version             $Id: config.xml 6281 2015-04-20 09:16:16Z anna $
  -->
 <config>
   <modules>
     <Mpay24_Mpay24>
-      <version>1.5.7</version>
+      <version>1.6.0</version>
     </Mpay24_Mpay24>
   </modules>
 
@@ -137,6 +137,14 @@
           <display_zero>0</display_zero>
           <sort_order>500</sort_order>
         </payment_charge>
+        <payment_discount translate="title">
+          <title>Payment discount</title>
+          <source_field>payment_discount</source_field>
+          <amount_prefix>-</amount_prefix>
+          <font_size>7</font_size>
+          <display_zero>0</display_zero>
+          <sort_order>500</sort_order>
+        </payment_discount>
       </totals>
     </pdf>
 
@@ -251,13 +259,13 @@
         <pageheaderstyle>background-color: #FFF;margin-bottom:14px;</pageheaderstyle>
         <pagecaptionstyle>background-color:#FFF;background:transparent;color:#647378;padding-left:0px;</pagecaptionstyle>
         <pagestyle>border:1px solid #838F93;background-color:#FFF;</pagestyle>
-        <inputfieldsstyle>background-color:#ffffff;border:1px solid #DDE1E7;padding:2px 0px;margin-bottom:5px;width:100%;max-width:200px;</inputfieldsstyle>
+        <inputfieldsstyle>background-color:#ffffff;border:1px solid #DDE1E7;padding:2px 0px;margin-bottom:5px;</inputfieldsstyle>
         <dropdownlistsstyle>padding:2px 0px;margin-bottom:5px;</dropdownlistsstyle>
         <buttonsstyle>background-color: #005AC1;border: none;color: #FFFFFF;cursor: pointer;font-size:10px;font-weight:bold;padding:5px 10px;text-transform:uppercase;</buttonsstyle>
         <errorsstyle>background-color: #FFF;padding: 10px 0px;</errorsstyle>
         <successtitlestyle>background-color: #FFF;</successtitlestyle>
         <errortitlestyle>background-color: #FFF;</errortitlestyle>
-        <footerstyle>display: none;</footerstyle>
+        <footerstyle></footerstyle>
       </mpay24sporder>
       <mpay24spsc>
         <description>BESTELLUNGSBESCHREIBUNG</description>
@@ -310,7 +318,7 @@
         <payments_count>0</payments_count>
         <payments_error></payments_error>
         <payment_action>authorize</payment_action>
-        <paid_order_status>processing</paid_order_status>
+<!--         <paid_order_status>processing</paid_order_status> -->
 <!--         <group>mpay24</group> -->
       </mpay24>
     </payment>

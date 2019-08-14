@@ -6,7 +6,7 @@ include_once(Mage::getBaseDir('code')."/community/Mpay24/Mpay24/Model/Api/orderX
  * The abstract MPay24Shop class provides abstract functions, which are used from the other functions in order to make a payment or a request to mPAY24
  *
  * @author              mPAY24 GmbH <support@mpay24.com>
- * @version             $Id: MPay24Shop.php 28 2014-09-29 09:31:11Z sapolhei $
+ * @version             $Id: MPay24Shop.php 6252 2015-03-26 15:57:57Z anna $
  * @filesource          MPay24Shop.php
  * @license             http://ec.europa.eu/idabc/eupl.html EUPL, Version 1.1
  */
@@ -651,7 +651,7 @@ define("TRANSACTION_PROPERTIES", "SECRET,TID,STATUS,MPAYTID,APPR_CODE,P_TYPE,
  * * STRING:            FILTER_STATUS
  * * STRING:            APPR_CODE
  * @author              mPAY24 GmbH <support@mpay24.com>
- * @version             $Id: MPay24Shop.php 28 2014-09-29 09:31:11Z sapolhei $
+ * @version             $Id: MPay24Shop.php 6252 2015-03-26 15:57:57Z anna $
  * @filesource          MPay24Shop.php
  * @license             http://ec.europa.eu/idabc/eupl.html EUPL, Version 1.1
  */
@@ -723,7 +723,7 @@ class Transaction {
  * The abstract MPay24flexLINK class provides abstract functions, which are used from the other functions in order to create a flexLINK
  *
  * @author              mPAY24 GmbH <support@mpay24.com>
- * @version             $Id: MPay24Shop.php 28 2014-09-29 09:31:11Z sapolhei $
+ * @version             $Id: MPay24Shop.php 6252 2015-03-26 15:57:57Z anna $
  * @filesource          MPay24Shop.php
  * @license             http://ec.europa.eu/idabc/eupl.html EUPL, Version 1.1
  */

@@ -6,8 +6,8 @@
     "description": "A payment gateway, based on the mPAY24 PHP API (Webservices/SOAP v. 1.5).",
     "authors": [
     {
-        "name": "Filipp Akinfiev",
-        "email": "firedrago.magento@gmail.com"
+        "name": "Anna Sadriu",
+        "email": "dev@mpay24.com"
     }
 ],
     "suggest": {

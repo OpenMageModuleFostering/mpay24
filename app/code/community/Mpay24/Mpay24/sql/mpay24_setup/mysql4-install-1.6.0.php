@@ -14,15 +14,15 @@
  *
  * @category            Mpay24
  * @package             Mpay24_Mpay24
- * @author              Firedrago Magento
+ * @author              Anna Sadriu (mPAY24 GmbH)
  * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- * @version             $Id: mysql4-upgrade-1.5.2-1.5.4.php 30 2014-11-10 14:00:27Z sapolhei $
+ * @version             $Id: mysql4-install-1.6.0.php 6280 2015-04-16 13:00:22Z anna $
  */
 if(class_exists('Mage_Sales_Model_Resource_Setup'))
   $install = new Mage_Sales_Model_Resource_Setup('sales_setup');
 else
   $install = $this;
-
+  
 $install->startSetup();
 
 $install->run("DELETE FROM {$this->getTable('core_config_data')} WHERE `path` LIKE '%mpay%'");

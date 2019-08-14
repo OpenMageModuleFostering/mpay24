@@ -14,9 +14,9 @@
  *
  * @category            design
  * @package             base_defaut
- * @author              Firedrago Magento
+ * @author              Anna Sadriu (mPAY24 GmbH)
  * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- * @version             $Id: radio.phtml 36 2015-01-27 16:48:06Z sapolhei $
+ * @version             $Id: radio.phtml 6253 2015-03-26 16:05:00Z anna $
  */
 ?>
 <?php
@@ -150,17 +150,21 @@ echo "  }";
    "><?php 
           echo "<img id='mpay24_img' src='https://www.mpay24.com/web/img/logos/ptypes/$id.png' style='margin-left: 5px;margin-right: 15px; display: inline;'>";
           echo $payment['DESCR']; 
-          if(Mage::getStoreConfig("mpay24/mpay24/forced_preselection") == 1) {
-            if(Mage::getStoreConfig("mpay24/mpay24/tax_$j") > 0) {
-              if(Mage::getStoreConfig("mpay24/mpay24/tax_type_$j") == 'absolute') 
-                echo " - " . Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol(); 
-              echo " " . number_format(Mage::getStoreConfig("mpay24/mpay24/tax_$j"),2,',','.');
-              
-              if(Mage::getStoreConfig("mpay24/mpay24/tax_type_$j") == 'percent') 
-                echo "%";
-              
-              echo " " . Mage::helper('mpay24')->__("Payment fee");
-            }
+          if(Mage::getStoreConfig("mpay24/mpay24/forced_preselection") == 1 && Mage::getStoreConfig("mpay24/mpay24/tax_$j") <> 0) {
+            $lab = "";
+            if(Mage::getStoreConfig("mpay24/mpay24/tax_$j") > 0)
+              $lab = Mage::helper('mpay24')->__("Payment charge");
+            else
+              $lab = Mage::helper('mpay24')->__("Payment discount");
+
+            if(Mage::getStoreConfig("mpay24/mpay24/tax_type_$j") == 'absolute') 
+              echo " - " . Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol(); 
+            echo " " . abs(Mage::getStoreConfig("mpay24/mpay24/tax_$j"));
+            
+            if(Mage::getStoreConfig("mpay24/mpay24/tax_type_$j") == 'percent') 
+              echo "%";
+            
+            echo " " . $lab;
           }
           ?>
         <?php echo "<br/><br/>"; endif; $j++; endforeach; echo Mage::helper('mpay24')->__("You will be redirected to the mPAY24 pay page...");?>

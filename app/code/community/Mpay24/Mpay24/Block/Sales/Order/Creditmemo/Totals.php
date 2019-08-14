@@ -14,9 +14,9 @@
  *
  * @category            Mpay24
  * @package             Mpay24_Mpay24
- * @author              Firedrago Magento
+ * @author              Anna Sadriu (mPAY24 GmbH)
  * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- * @version             $Id: Totals.php 5 2013-10-10 13:08:44Z sapolhei $
+ * @version             $Id: Totals.php 6252 2015-03-26 15:57:57Z anna $
  */
 
 class Mpay24_Mpay24_Block_Sales_order_Creditmemo_Totals extends Mpay24_Mpay24_Block_Sales_Order_Totals {

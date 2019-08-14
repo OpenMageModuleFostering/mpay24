@@ -4,7 +4,7 @@
  * build the SOAP request, sent to mPAY24
  *
  * @author              mPAY24 GmbH <support@mpay24.com>
- * @version             $Id: MPay24Api.php 9 2013-10-29 15:36:26Z sapolhei $
+ * @version             $Id: MPay24Api.php 6252 2015-03-26 15:57:57Z anna $
  * @filesource          MPay24Api.php
  * @license             http://ec.europa.eu/idabc/eupl.html EUPL, Version 1.1
  */
@@ -714,7 +714,7 @@ class MPay24Api {
    * Create a curl request and send the cretaed SOAP XML
    */
   private function send() {
-    $userAgent = 'mPAY24 PHP API $Rev: 9 $ ($Date:: 2013-10-29 #$)';
+    $userAgent = 'mPAY24 PHP API $Rev: 6252 $ ($Date:: 2015-03-26 #$)';
 
     if($this->shop != '') {
       $userAgent = $this->shop;
@@ -819,7 +819,7 @@ class MPay24Api {
  * The GeneralResponse class contains the status of a response and return code, which was delivered by mPAY24 as an answer of your request
  *
  * @author              mPAY24 GmbH <support@mpay24.com>
- * @version             $Id: MPay24Api.php 9 2013-10-29 15:36:26Z sapolhei $
+ * @version             $Id: MPay24Api.php 6252 2015-03-26 15:57:57Z anna $
  * @filesource          MPay24Api.php
  * @license             http://ec.europa.eu/idabc/eupl.html EUPL, Version 1.1
  */
@@ -895,7 +895,7 @@ class GeneralResponse {
  * The PaymentResponse class contains a generalResponse object and the location(URL), which will be used for the payment session
  *
  * @author              mPAY24 GmbH <support@mpay24.com>
- * @version             $Id: MPay24Api.php 9 2013-10-29 15:36:26Z sapolhei $
+ * @version             $Id: MPay24Api.php 6252 2015-03-26 15:57:57Z anna $
  * @filesource          MPay24Api.php
  * @license             http://ec.europa.eu/idabc/eupl.html EUPL, Version 1.1
  */
@@ -951,7 +951,7 @@ class PaymentResponse extends GeneralResponse {
  * The ManagePaymentResponse class contains a generalResponse object and the mPAYTID and/or tid of the transaction which was managed
  *
  * @author              mPAY24 GmbH <support@mpay24.com>
- * @version             $Id: MPay24Api.php 9 2013-10-29 15:36:26Z sapolhei $
+ * @version             $Id: MPay24Api.php 6252 2015-03-26 15:57:57Z anna $
  * @filesource          MPay24Api.php
  * @license             http://ec.europa.eu/idabc/eupl.html EUPL, Version 1.1
  */
@@ -1022,7 +1022,7 @@ class ManagePaymentResponse extends GeneralResponse {
  * The ListPaymentMethodsResponse class contains a generalResponse object and all the needed informarion for the active payment mothods (payment methods count, payment types, brands and descriptions)
  *
  * @author              mPAY24 GmbH <support@mpay24.com>
- * @version             $Id: MPay24Api.php 9 2013-10-29 15:36:26Z sapolhei $
+ * @version             $Id: MPay24Api.php 6252 2015-03-26 15:57:57Z anna $
  * @filesource          MPay24Api.php
  * @license             http://ec.europa.eu/idabc/eupl.html EUPL, Version 1.1
  */
@@ -1175,7 +1175,7 @@ class ListPaymentMethodsResponse extends GeneralResponse {
  * The TransactionStatusResponse class contains a generalResponse object and all the parameters, returned with the confirmation from mPAY24
  *
  * @author              mPAY24 GmbH <support@mpay24.com>
- * @version             $Id: MPay24Api.php 9 2013-10-29 15:36:26Z sapolhei $
+ * @version             $Id: MPay24Api.php 6252 2015-03-26 15:57:57Z anna $
  * @filesource          MPay24Api.php
  * @license             http://ec.europa.eu/idabc/eupl.html EUPL, Version 1.1
  */
