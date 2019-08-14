@@ -21,7 +21,7 @@
 ?>
 <p><b>
 <?php
-  echo "<img onerror='if(typeof selectedPayment === \"undefined\") selectedPayment=\"../../../web/img/logos/payment-mpay24\"; this.src=\"https://www.mpay24.com/web/img/logos/ptypes/\" + selectedPayment + \".png\";this.title=brand;this.alt=brand;' style='max-width: 40%;padding-top: 5px;' src='https://www.mpay24.com/web/img/logos/ptypes/".$this->getPMethId().".png' alt='".$this->getPType()."-".$this->getBrand()."' title='".$this->getPType()."-".$this->getBrand()."'>".' ('.Mage::getStoreConfig('payment/mpay24/title').')' ?></b><br/>
+  echo "<img onerror='if(typeof selectedPayment === \"undefined\") selectedPayment=\"../../../img/logos/payment-mpay24\"; this.src=\"https://www.mpay24.com/web/img/logos/ptypes/\" + selectedPayment + \".png\";this.title=brand;this.alt=brand;' style='max-width: 40%;padding-top: 5px;' src='https://www.mpay24.com/web/img/logos/ptypes/".$this->getPMethId().".png' alt='".$this->getPType()."-".$this->getBrand()."' title='".$this->getPType()."-".$this->getBrand()."'>".' ('.Mage::getStoreConfig('payment/mpay24/title').')' ?></b><br/>
 
 <?php if($this->getMethod()->getData('info_instance')->getOrder() !== null): ?>
   <?php echo Mage::helper('mpay24')->__("Approval code") . ": " . $this->htmlEscape($this->getInfo()->getOrder()->getPayment()->getAdditionalInformation('appr_code')) ?><br/>

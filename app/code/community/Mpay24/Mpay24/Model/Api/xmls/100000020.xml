@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Order Style="margin-left: auto; margin-right: auto; width: 600px;">
+  <ClientIP>80.110.33.70</ClientIP>
+  <UserField>Magento 1.4.9 100000020_2014-01-14</UserField>
+  <Tid>100000020</Tid>
+  <TemplateSet Language="DE"/>
+  <ShoppingCart>
+    <Item>
+      <Number>1</Number>
+      <ProductNr>1111</ProductNr>
+      <Description>Ottoman</Description>
+      <Package/>
+      <Quantity>1</Quantity>
+      <ItemPrice>299.99</ItemPrice>
+      <Price>299.99</Price>
+    </Item>
+    <SubTotal>299.99</SubTotal>
+    <ShippingCosts Header="Flat Rate - Fixed">5.00</ShippingCosts>
+  </ShoppingCart>
+  <Price>304.99</Price>
+  <Currency>EUR</Currency>
+  <Customer Id="2">Max Musterman</Customer>
+  <BillingAddr Mode="ReadWrite">
+    <Name Birthday="1970-01-01">Max Musterman</Name>
+    <Street>Teststraße 123</Street>
+    <Street2>Tür Nr 5</Street2>
+    <Zip>1234</Zip>
+    <City>Wien</City>
+    <Country Code="AT"/>
+    <Email>sapolhei@hotmail.com</Email>
+    <Phone>0043123456789</Phone>
+  </BillingAddr>
+  <ShippingAddr Mode="ReadOnly">
+    <Name Birthday="1970-01-01">Max Musterman</Name>
+    <Street>Teststraße 123</Street>
+    <Street2>Tür Nr 5</Street2>
+    <Zip>1234</Zip>
+    <City>Wien</City>
+    <Country Code="AT"/>
+    <Email>sapolhei@hotmail.com</Email>
+    <Phone>0043123456789</Phone>
+  </ShippingAddr>
+  <URL>
+    <Success>http://magento.mpay24.info/index.php/mpay24/payment/success/?TID=100000020</Success>
+    <Error>http://magento.mpay24.info/index.php/mpay24/payment/error/?TID=100000020</Error>
+    <Confirmation>http://magento.mpay24.info/index.php/mpay24/payment/confirmation/</Confirmation>
+    <Cancel>http://magento.mpay24.info/index.php/mpay24/payment/cancel/?TID=100000020</Cancel>
+  </URL>
+</Order>

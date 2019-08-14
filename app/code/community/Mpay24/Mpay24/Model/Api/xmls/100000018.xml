@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Order Style="margin-left: auto; margin-right: auto; width: 600px;">
+  <ClientIP>80.110.33.70</ClientIP>
+  <UserField>Magento 1.4.8 100000018_2013-12-18</UserField>
+  <Tid>100000018</Tid>
+  <TemplateSet Language="DE"/>
+  <PaymentTypes Enable="true">
+    <Payment Type="CC" Brand="VISA"/>
+  </PaymentTypes>
+  <ShoppingCart>
+    <Item>
+      <Number>1</Number>
+      <ProductNr>coal_sm</ProductNr>
+      <Description>Coalesce: Functioning On Impatience T-Shirt</Description>
+      <Package/>
+      <Quantity>1</Quantity>
+      <ItemPrice>15.00</ItemPrice>
+      <Price>15</Price>
+    </Item>
+    <SubTotal>15.00</SubTotal>
+    <ShippingCosts Header="Flat Rate - Fixed">5.00</ShippingCosts>
+  </ShoppingCart>
+  <Price>20.00</Price>
+  <Currency>EUR</Currency>
+  <Customer Id="2">Max Musterman</Customer>
+  <BillingAddr Mode="ReadWrite">
+    <Name Birthday="1970-01-01">Max Musterman</Name>
+    <Street>Teststraße 123</Street>
+    <Street2>Tür Nr 5</Street2>
+    <Zip>1234</Zip>
+    <City>Wien</City>
+    <Country Code="AT"/>
+    <Email>sapolhei@hotmail.com</Email>
+    <Phone>0043123456789</Phone>
+  </BillingAddr>
+  <ShippingAddr Mode="ReadOnly">
+    <Name Birthday="1970-01-01">Max Musterman</Name>
+    <Street>Teststraße 123</Street>
+    <Street2>Tür Nr 5</Street2>
+    <Zip>1234</Zip>
+    <City>Wien</City>
+    <Country Code="AT"/>
+    <Email>sapolhei@hotmail.com</Email>
+    <Phone>0043123456789</Phone>
+  </ShippingAddr>
+  <URL>
+    <Success>http://magento.mpay24.info/index.php/mpay24/payment/success/?TID=100000018</Success>
+    <Error>http://magento.mpay24.info/index.php/mpay24/payment/error/?TID=100000018</Error>
+    <Confirmation>http://magento.mpay24.info/index.php/mpay24/payment/confirmation/</Confirmation>
+    <Cancel>http://magento.mpay24.info/index.php/mpay24/payment/cancel/?TID=100000018</Cancel>
+  </URL>
+</Order>

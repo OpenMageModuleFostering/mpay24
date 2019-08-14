@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Order Style="margin-left: auto; margin-right: auto; width: 600px;">
+  <ClientIP>91.119.59.34</ClientIP>
+  <UserField>Magento 1.4.8 100000004_2013-11-13</UserField>
+  <Tid>100000004</Tid>
+  <TemplateSet Language="DE"/>
+  <PaymentTypes Enable="true">
+    <Payment Type="CC" Brand="VISA"/>
+  </PaymentTypes>
+  <ShoppingCart>
+    <Item>
+      <Number>1</Number>
+      <ProductNr>nine_4</ProductNr>
+      <Description>Nine West Women's Lucero Pump</Description>
+      <Package/>
+      <Quantity>1</Quantity>
+      <ItemPrice>89.99</ItemPrice>
+      <Price>89.99</Price>
+    </Item>
+    <SubTotal>89.99</SubTotal>
+    <ShippingCosts Header="Flat Rate - Fixed">5.00</ShippingCosts>
+    <ShippingCosts Header="Zahlungsgebühr (2%)">1.80</ShippingCosts>
+  </ShoppingCart>
+  <Price>96.79</Price>
+  <Currency>EUR</Currency>
+  <Customer Id="3">P Z</Customer>
+  <BillingAddr Mode="ReadOnly">
+    <Name Birthday="1970-01-01">P Z</Name>
+    <Street>Teststr 1</Street>
+    <Zip>1234</Zip>
+    <City>Testhausen</City>
+    <Country Code="AT"/>
+    <Email>hallodriho@gmail.com</Email>
+    <Phone>0123456789</Phone>
+  </BillingAddr>
+  <ShippingAddr Mode="ReadOnly">
+    <Name Birthday="1970-01-01">P Z</Name>
+    <Street>Teststr 1</Street>
+    <Zip>1234</Zip>
+    <City>Testhausen</City>
+    <Country Code="AT"/>
+    <Email>hallodriho@gmail.com</Email>
+    <Phone>0123456789</Phone>
+  </ShippingAddr>
+  <URL>
+    <Success>http://magento.mpay24.info/index.php/mpay24/payment/guestsuccess/?tid=100000004</Success>
+    <Error>http://magento.mpay24.info/index.php/mpay24/payment/error/?TID=100000004</Error>
+    <Confirmation>http://magento.mpay24.info/index.php/mpay24/payment/confirmation/</Confirmation>
+    <Cancel>http://magento.mpay24.info/index.php/mpay24/payment/cancel/?TID=100000004</Cancel>
+  </URL>
+</Order>
