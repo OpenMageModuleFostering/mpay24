@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!-- 
- @version             $Id: system.xml 6252 2015-03-26 15:57:57Z anna $
+ @version             $Id: system.xml 6401 2015-07-08 09:18:00Z anna $
  -->
 <config>
   <sections>
@@ -2180,6 +2180,16 @@
               <show_in_store>1</show_in_store>
               <comment>Show the free 'children' products of configurable products in the mPAY24 shopping cart</comment>
             </show_free_products>
+            <notifyForFalseNOK translate="label comment">
+              <label>Notifies for FALSE NOK transactions</label>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <sort_order>240</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <comment>Notifies the shop admin in case a SUCCESSFUL confirmation occurs for an already canceled order.</comment>
+            </notifyForFalseNOK>
           </fields>
         </mpay24>
       </groups>

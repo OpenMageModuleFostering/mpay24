@@ -16,7 +16,7 @@
  * @package             Mpay24_Mpay24
  * @author              Anna Sadriu (mPAY24 GmbH)
  * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- * @version             $Id: PaymentController.php 6280 2015-04-16 13:00:22Z anna $
+ * @version             $Id: PaymentController.php 6401 2015-07-08 09:18:00Z anna $
  */
 include_once Mage::getBaseDir('code')."/community/Mpay24/Mpay24/Model/Api/MPay24MagentoShop.php";
 
@@ -282,87 +282,89 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
 
       $order->getPayment()->setAdditionalInformation('confirmed', $status)->save();
 
-      $addr_ver = Mage::helper('mpay24')->__("The 'AMEX_ADDR_VER' parameter was not returned!");
-      
-      if($mPAY24Result->getParam('AMEX_ADDR_VER')) {
-        switch ($mPAY24Result->getParam('AMEX_ADDR_VER')) {
-          case "Y":
-            $addr_ver = Mage::helper('mpay24')->__("Yes, Customer Address and Postal Code are both correct.");
-            break;
-          case "N":
-            $addr_ver = Mage::helper('mpay24')->__("No, Customer Address and Postal Code are both incorrect.");
-            break;
-          case "A":
-            $addr_ver = Mage::helper('mpay24')->__("Customer Address only correct.");
-            break;
-          case "Z":
-            $addr_ver = Mage::helper('mpay24')->__("Customer Postal Code only correct.");
-            break;
-          case "U":
-            $addr_ver = Mage::helper('mpay24')->__("Information unavailable.");
-            break;
-          case "S":
-            $addr_ver = Mage::helper('mpay24')->__("SE not allowed AAV function.");
-            break;
-          case "R":
-            $addr_ver = Mage::helper('mpay24')->__("System unavailable; retry.");
-            break;
-          case "L":
-            $addr_ver = Mage::helper('mpay24')->__("Customer Name and Postal Code match.");
-            break;
-          case "M":
-            $addr_ver = Mage::helper('mpay24')->__("Customer Name, Address and Postal Code match.");
-            break;
-          case "O":
-            $addr_ver = Mage::helper('mpay24')->__("Customer Name and Address match.");
-            break;
-          case "K":
-            $addr_ver = Mage::helper('mpay24')->__("Customer Name matches.");
-            break;
-          case "D":
-            $addr_ver = Mage::helper('mpay24')->__("Customer Name incorrect, Postal Code matches.");
-            break;
-          case "E":
-            $addr_ver = Mage::helper('mpay24')->__("Customer Name incorrect, Address and Postal Code match.");
-            break;
-          case "F":
-            $addr_ver = Mage::helper('mpay24')->__("Customer Name incorrect, Address matches.");
-            break;
-          case "W":
-            $addr_ver = Mage::helper('mpay24')->__("No, Customer Name, Address and Postal Code are all incorrect.");
-            break;
-          default:
-            $addr_ver = Mage::helper('mpay24')->__("Unknown returned value:") . " '" . $mPAY24Result->getParam('AMEX_ADDR_VER') . "'";
-            break;
+      if($mPAY24Result->getParam('BRAND') == 'AMEX') {
+        $addr_ver = Mage::helper('mpay24')->__("The 'AMEX_ADDR_VER' parameter was not returned!");
+        
+        if($mPAY24Result->getParam('AMEX_ADDR_VER')) {
+          switch ($mPAY24Result->getParam('AMEX_ADDR_VER')) {
+            case "Y":
+              $addr_ver = Mage::helper('mpay24')->__("Yes, Customer Address and Postal Code are both correct.");
+              break;
+            case "N":
+              $addr_ver = Mage::helper('mpay24')->__("No, Customer Address and Postal Code are both incorrect.");
+              break;
+            case "A":
+              $addr_ver = Mage::helper('mpay24')->__("Customer Address only correct.");
+              break;
+            case "Z":
+              $addr_ver = Mage::helper('mpay24')->__("Customer Postal Code only correct.");
+              break;
+            case "U":
+              $addr_ver = Mage::helper('mpay24')->__("Information unavailable.");
+              break;
+            case "S":
+              $addr_ver = Mage::helper('mpay24')->__("SE not allowed AAV function.");
+              break;
+            case "R":
+              $addr_ver = Mage::helper('mpay24')->__("System unavailable; retry.");
+              break;
+            case "L":
+              $addr_ver = Mage::helper('mpay24')->__("Customer Name and Postal Code match.");
+              break;
+            case "M":
+              $addr_ver = Mage::helper('mpay24')->__("Customer Name, Address and Postal Code match.");
+              break;
+            case "O":
+              $addr_ver = Mage::helper('mpay24')->__("Customer Name and Address match.");
+              break;
+            case "K":
+              $addr_ver = Mage::helper('mpay24')->__("Customer Name matches.");
+              break;
+            case "D":
+              $addr_ver = Mage::helper('mpay24')->__("Customer Name incorrect, Postal Code matches.");
+              break;
+            case "E":
+              $addr_ver = Mage::helper('mpay24')->__("Customer Name incorrect, Address and Postal Code match.");
+              break;
+            case "F":
+              $addr_ver = Mage::helper('mpay24')->__("Customer Name incorrect, Address matches.");
+              break;
+            case "W":
+              $addr_ver = Mage::helper('mpay24')->__("No, Customer Name, Address and Postal Code are all incorrect.");
+              break;
+            default:
+              $addr_ver = Mage::helper('mpay24')->__("Unknown returned value:") . " '" . $mPAY24Result->getParam('AMEX_ADDR_VER') . "'";
+              break;
+          }
+          
+        }
+        $order->getPayment()->setAdditionalInformation('amex_addr_ver', $addr_ver)->save();
+        
+        $cid_ver = Mage::helper('mpay24')->__("The 'AMEX_CVC_VER' parameter was not returned!");
+        
+        if($mPAY24Result->getParam('AMEX_CVC_VER')) {
+          switch ($mPAY24Result->getParam('AMEX_CVC_VER')) {
+            case "Y":
+              $cid_ver = Mage::helper('mpay24')->__("CID/4DBC/4CSC matched.");
+              break;
+            case "N":
+              $cid_ver = Mage::helper('mpay24')->__("CID/4DBC/4CSC did not match.");
+              break;
+            case "U":
+              $cid_ver = Mage::helper('mpay24')->__("CID/4DBC/4CSC was not checked.");
+              break;
+            default:
+              $cid_ver = Mage::helper('mpay24')->__("Unknown returned value:") . " '" . $mPAY24Result->getParam('AMEX_CVC_VER') . "'";
+              break;
+          }
         }
         
+        $order->getPayment()->setAdditionalInformation('amex_cid_ver', $cid_ver)->save();
+        
+        
+        if($mPAY24Result->getParam('AMEX_CVC_VER'))
+          $order->getPayment()->setAdditionalInformation('amex_cid_ver', $mPAY24Result->getParam('AMEX_CVC_VER'))->save();
       }
-      $order->getPayment()->setAdditionalInformation('amex_addr_ver', $addr_ver)->save();
-      
-      $cid_ver = Mage::helper('mpay24')->__("The 'AMEX_CVC_VER' parameter was not returned!");
-      
-      if($mPAY24Result->getParam('AMEX_CVC_VER')) {
-        switch ($mPAY24Result->getParam('AMEX_CVC_VER')) {
-          case "Y":
-            $cid_ver = Mage::helper('mpay24')->__("CID/4DBC/4CSC matched.");
-            break;
-          case "N":
-            $cid_ver = Mage::helper('mpay24')->__("CID/4DBC/4CSC did not match.");
-            break;
-          case "U":
-            $cid_ver = Mage::helper('mpay24')->__("CID/4DBC/4CSC was not checked.");
-            break;
-          default:
-            $cid_ver = Mage::helper('mpay24')->__("Unknown returned value:") . " '" . $mPAY24Result->getParam('AMEX_CVC_VER') . "'";
-            break;
-        }
-      
-      }
-      $order->getPayment()->setAdditionalInformation('amex_cid_ver', $cid_ver)->save();
-      
-      
-      if($mPAY24Result->getParam('AMEX_CVC_VER'))
-        $order->getPayment()->setAdditionalInformation('amex_cid_ver', $mPAY24Result->getParam('AMEX_CVC_VER'))->save();
       
       switch ($res) {
         case "OK":
@@ -380,6 +382,75 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
             if($order->getState() == Mage_Sales_Model_Order::STATE_PENDING_PAYMENT) {
               $order->sendNewOrderEmail()->save();
               Mage::log("mPAY24 Extension: New order mail sent!!!");
+            }
+            
+
+            if($status != 'ERROR' && $order->getState() == Mage_Sales_Model_Order::STATE_CANCELED && Mage::getStoreConfig('mpay24/mpay24/notifyForFalseNOK')) {
+              $request = $this->getRequest();
+            
+              $template = $this->_initTemplate('id');
+            
+              $template->setTemplateSubject(Mage::helper('mpay24')->__("ATTENTION!"))
+              ->setTemplateCode('FALSE_NOK')
+              ->setTemplateText('<table>
+                               <thead>
+                               <tr>
+                               <th>'.Mage::helper('mpay24')->__("A SUCCESSFUL confirmation occured for an already canceled order!").'</th>
+                               </tr>
+                               </thead>
+                               <tbody>
+                               <tr>
+                               <td>
+                               <p>
+                               {{var reason}}
+                               </p>
+                               </td>
+                               </tr>
+                               </tbody>
+                               </table>');
+            
+              // The Id you just marked...
+              if (!$template->getId())
+                $template->setTemplateType(Mage_Core_Model_Email_Template::TYPE_HTML);
+            
+              if($request->getParam('_change_type_flag')) {
+                $template->setTemplateType(Mage_Core_Model_Email_Template::TYPE_TEXT);
+                $template->setTemplateStyles('');
+              }
+            
+              $template->save();
+            
+              // Define the sender, here we query Magento default email (in the configuration)
+              // For customer support email, use : 'trans_email/ident_support/...'
+              $sender = Array('name' => Mage::getStoreConfig('trans_email/ident_general/name'),
+                  'email' => Mage::getStoreConfig('trans_email/ident_general/email'));
+            
+              // Set you store
+              // This information may be taken from the current logged in user
+              $store = Mage::app()->getStore();
+            
+              // In this array, you set the variables you use in your template
+              $vars = Array(
+                  'reason' => Mage::helper('mpay24')->__("ATTENTION! - It is possible that the payment for the order ID '") .
+                  $order->getIncrementId() . Mage::helper('mpay24')->__("' was SUCCESSFUL, although the order is set as 'Canceled'! Please check in the mPAY24 Merchant Interface (https://www.mpay24.com) whether the amount was BILLED!"));
+            
+              // You don't care about this...
+              $translate  = Mage::getSingleton('core/translate');
+            
+              // Send your email
+              Mage::getModel('core/email_template')->sendTransactional($template->getId(),
+                  $sender,
+                  Mage::getStoreConfig('trans_email/ident_general/email'),
+                  Mage::getStoreConfig('trans_email/ident_general/name'),
+                  $vars,
+                  $store->getId());
+            
+              // You don't care as well
+              $translate->setTranslateInline(true);
+            
+              $template->delete();
+              
+              return $orderHistoryText . "\nThe order could not be billed!";
             }
             
             switch($status) {
@@ -465,7 +536,7 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
                            ->setTemplateText('<table>
                                <thead>
                                <tr>
-                               <th>'.Mage::helper('mpay24')->__("The billing address las not returned by mPAY24!").'</th>
+                               <th>'.Mage::helper('mpay24')->__("The billing address was not returned by mPAY24!").'</th>
                                </tr>
                                </thead>
                                <tbody>
@@ -490,7 +561,6 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
 
                 $template->save();
 
-
                 // Define the sender, here we query Magento default email (in the configuration)
                 // For customer support email, use : 'trans_email/ident_support/...'
                 $sender = Array('name' => Mage::getStoreConfig('trans_email/ident_general/name'),
@@ -503,7 +573,7 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
                 // In this array, you set the variables you use in your template
                 $vars = Array(
                          'reason' => Mage::helper('mpay24')->__("ATTENTION! - It is possible that the billing address for the order ID '") .
-                         $order->getIncrementId() . Mage::helper('mpay24')->__("was changed by the customer, but not in your shop! The billing address mode was set back to 'ReadOnly'! If you want to use the mode 'ReadWrite', the variable 'BILLING_ADDR' has to be activated for the 'TRANSACTIONSTATUS' request by mPAY24. Please contact (including your merchant ID '") . Mage::getStoreConfig('mpay24/mpay24as/merchantid')
+                         $order->getIncrementId() . Mage::helper('mpay24')->__("' was changed by the customer, but not in your shop! The billing address mode was set back to 'ReadOnly'! If you want to use the mode 'ReadWrite', the variable 'BILLING_ADDR' has to be activated for the 'TRANSACTIONSTATUS' request by mPAY24. Please contact (including your merchant ID '") . Mage::getStoreConfig('mpay24/mpay24as/merchantid')
                          . Mage::helper('mpay24')->__("') mPAY24 (support@mpay24.com)!"));
 
                 // You don't care about this...

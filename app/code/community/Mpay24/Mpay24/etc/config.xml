@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <!-- 
- @version             $Id: config.xml 6281 2015-04-20 09:16:16Z anna $
+ @version             $Id: config.xml 6403 2015-07-08 09:24:45Z anna $
  -->
 <config>
   <modules>
     <Mpay24_Mpay24>
-      <version>1.6.0</version>
+      <version>1.6.1</version>
     </Mpay24_Mpay24>
   </modules>
 
@@ -308,6 +308,7 @@
         <checkout_template>onepage</checkout_template>
         <billingAddressMode>ReadOnly</billingAddressMode>
         <show_free_products>0</show_free_products>
+        <notifyForFalseNOK>0</notifyForFalseNOK>
       </mpay24>
     </mpay24>
     <payment>
