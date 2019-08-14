@@ -277,10 +277,10 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
       $order->getPayment()->setAdditionalInformation('mpay_tid', $mPAY24Result->getParam('MPAYTID'))->save();
       $order->getPayment()->setAdditionalInformation('appr_code', $apprCode)->save();
       
-      //SOFORT Ueberweisung status check
-      if($mPAY24Result->getParam('P_TYPE') == 'SOFORT' && ($mPAY24Result->getParam('TSTATUS') == 'BILLED' || $mPAY24Result->getParam('TSTATUS') == 'RESERVED' || $mPAY24Result->getParam('TSTATUS') == 'SUSPENDED'))
-        $status = Mage::getStoreConfig('mpay24/mpay24as/sofort_state');
-      else
+//       //SOFORT Ueberweisung status check
+//       if($mPAY24Result->getParam('P_TYPE') == 'SOFORT' && ($mPAY24Result->getParam('TSTATUS') == 'BILLED' || $mPAY24Result->getParam('TSTATUS') == 'RESERVED' || $mPAY24Result->getParam('TSTATUS') == 'SUSPENDED'))
+//         $status = Mage::getStoreConfig('mpay24/mpay24as/sofort_state');
+//       else
         $status = $mPAY24Result->getParam('TSTATUS');
 
       $order->getPayment()->setAdditionalInformation('confirmed', $status)->save();
@@ -302,14 +302,18 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
 //               $s = Mage::getStoreConfig('payment/mpay24/paid_order_status');
 //             else
 //               $s = Mage_Sales_Model_Order::STATE_COMPLETE;
-                        
+
+            if($order->getState() == Mage_Sales_Model_Order::STATE_PENDING_PAYMENT) {
+              $order->sendNewOrderEmail()->save();
+              Mage::log("new order mail sent!!!");
+            }
+            
             switch($status) {
               case 'RESERVED':
                 $this->setBillpayData($order, $mPAY24Result);
 //                 $order->getPayment()->setAmountAuthorized($mPAY24Result->getParam('PRICE')/100)->save();
 //                 $order->addStatusToHistory(Mage_Sales_Model_Order::STATE_PROCESSING, Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("RESERVED") . ' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]' . " (" . $this->getRequest()->getClientIp() . ")");
 //                 $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING)->save();
-//                 $order->sendNewOrderEmail();
                 
 //                 if($order->getInvoiceCollection()->count() == 0)
 //                   if(Mage::getStoreConfig('payment/mpay24/paid_payment_action') == MPay24MagentoShop::PAYMENT_TYPE_SALE)
@@ -318,6 +322,7 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
 //                   $this->_createInvoice($order);
                 
                 $order->getPayment()->authorize(false, $mPAY24Result->getParam('PRICE')/100)->save();
+                $order->sendOrderUpdateEmail(true, Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("RESERVED") . ' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]')->save();
                 break;
               case 'BILLED':
                 $this->setBillpayData($order, $mPAY24Result);
@@ -348,14 +353,18 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
 //                   }
 //                 }
                 if($order->getInvoiceCollection()->count() == 0)
-                  $order->getPayment()->capture()->save();
+                  $invoice = $this->_createInvoice($order);
                 
                 $order->addStatusHistoryComment(Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("BILLED") .' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]' . " (" . $this->getRequest()->getClientIp() . ")")->save();
 //                 $order->addStatusToHistory($s, Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("BILLED") .' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]' . " (" . $this->getRequest()->getClientIp() . ")", true)->save();
                 
+                $order->sendOrderUpdateEmail(true, Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("BILLED") .' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]')->save();
+                
                 $order->save();
                 break;
               case 'CREDITED':
+                $this->setBillpayData($order, $mPAY24Result);
+                
                 if ($order->getTotalOnlineRefunded() == 0.00) {
                   $creditmemo = Mage::getModel('sales/service_order', $order)
                                                ->prepareCreditmemo()
@@ -367,18 +376,16 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
                   $creditmemo->save();
 
                   $order->getPayment()->refund($creditmemo)->save();
-                  $order->sendOrderUpdateEmail();
                 }
                 
-                $this->setBillpayData($order, $mPAY24Result);
                 
 //                 $this->_addChildTransaction(Mage_Sales_Model_Order_Payment_Transaction::TYPE_REFUND,
 //                                             Mage_Sales_Model_Order_Payment_Transaction::TYPE_CAPTURE);
 
 //                 $order->addStatusToHistory(Mage_Sales_Model_Order::STATE_COMPLETE, Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("CREDITED") . ' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]' . " (" . $this->getRequest()->getClientIp() . ")")->save();
                 $order->addStatusHistoryComment(Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("CREDITED") .' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]' . " (" . $this->getRequest()->getClientIp() . ")")->save();
+                $order->sendOrderUpdateEmail(true, Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("CREDITED") .' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]')->save();
                 $order->save();
-
                 break;
               case 'SUSPENDED':
                 $order->addStatusToHistory(Mage_Sales_Model_Order::STATE_PENDING_PAYMENT, Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("SUSPENDED") . ' [ '.$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]' . " (" . $this->getRequest()->getClientIp() . ")");
@@ -391,8 +398,8 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
                     $order->getPayment()->void($orderInvoice)->save();
                   }
 
-                $order->sendOrderUpdateEmail();
                 $order->addStatusToHistory($order->getState(), Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("REVERSED") .' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]' . " (" . $this->getRequest()->getClientIp() . ")", true)->save();
+                $order->sendOrderUpdateEmail(true, Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("REVERSED") .' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]')->save();
                 $order->save();
                 break;
               case 'ERROR':
@@ -401,8 +408,8 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
                 $order->getPayment()->setAdditionalInformation('error', true)->save();
 
                 $order->addStatusToHistory($order->getStatus(), Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("ERROR") . " " . $order->getPayment()->getAdditionalInformation('error_text') . " (" . $this->getRequest()->getClientIp() . ")");
+                $order->sendOrderUpdateEmail(true, Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("ERROR") . " " . $order->getPayment()->getAdditionalInformation('error_text'))->save();
                 $order->save();
-
                 break;
               default:
                 break;
@@ -615,49 +622,49 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
     return $model;
   }
 
-//   public function _createInvoice($order, $capture=false, $mif=false, $onlineCapture=true) {
+  public function _createInvoice($order, $capture=false, $mif=false, $onlineCapture=true) {
 //     Mage::log('mPAY24 Extension ('.debug_backtrace()[2]['function'].'): create invoice called');
-//   $arrBacktrace = debug_backtrace();
-//   Mage::log('mPAY24 Extension ('.$arrBacktrace[2]['function'].'): create invoice called');
-//     if ($order->canInvoice()) {
-//       $invoice = Mage::getModel('sales/service_order', $order)->prepareInvoice();
+    $arrBacktrace = debug_backtrace();
+    Mage::log('mPAY24 Extension ('.$arrBacktrace[2]['function'].'): create invoice called');
+    if ($order->canInvoice()) {
+      $invoice = Mage::getModel('sales/service_order', $order)->prepareInvoice();
 
-//       if (!$invoice->getTotalQty())
-//         Mage::throwException(Mage::helper('core')->__('Cannot create an invoice without products.'));
+      if (!$invoice->getTotalQty())
+        Mage::throwException(Mage::helper('core')->__('Cannot create an invoice without products.'));
 
 //       if($capture && $onlineCapture)
-//         $invoice->setRequestedCaptureCase(Mage_Sales_Model_Order_Invoice::CAPTURE_ONLINE);
+      $invoice->setRequestedCaptureCase(Mage_Sales_Model_Order_Invoice::CAPTURE_ONLINE);
 
-//       $invoice->register();
+      $invoice->register();
 
 //       Mage::log("mPAY24 Extension (".debug_backtrace()[2]['function']."): Invoice registered!");
-//   $arrBacktrace = debug_backtrace();
-//   Mage::log("mPAY24 Extension (".$arrBacktrace[2]['function']."): Invoice registered!");
+      $arrBacktrace = debug_backtrace();
+      Mage::log("mPAY24 Extension (".$arrBacktrace[2]['function']."): Invoice registered!");
 
-//       Mage::getModel('core/resource_transaction')
-//                       ->addObject($invoice)
-//                       ->addObject($invoice->getOrder())
-//                       ->save();
+      Mage::getModel('core/resource_transaction')
+                      ->addObject($invoice)
+                      ->addObject($invoice->getOrder())
+                      ->save();
 
-//       $order->save();
+      $order->save();
 
 //       if($capture)
-//         foreach ($order->getInvoiceCollection() as $orderInvoice)
-//           if ($order->getTotalPaid() == 0.00) {
-//             $orderInvoice->pay();
-//             $orderInvoice->save();
+      foreach ($order->getInvoiceCollection() as $orderInvoice)
+        if ($order->getTotalPaid() == 0.00) {
+          $orderInvoice->pay();
+          $orderInvoice->save();
 
-//             if($mif)
-//               $order->getPayment()->setAdditionalInformation('MIFClear', true)->save();
+//           if($mif)
+//             $order->getPayment()->setAdditionalInformation('MIFClear', true)->save();
 
-//             $order->getPayment()->capture($orderInvoice)->save();
-//           }
+          $order->getPayment()->capture($orderInvoice)->save();
+        }
 
-//       $invoice->sendEmail(true, '');
-//       return $invoice;
-//     } else
-//       Mage::throwException(Mage::helper('core')->__('Cannot create an invoice.'));
-//   }
+      $invoice->sendEmail(true, '');
+      return $invoice;
+    } else
+      Mage::throwException(Mage::helper('core')->__('Cannot create an invoice.'));
+  }
 
   /**
   * Add transaction to payment with defined type

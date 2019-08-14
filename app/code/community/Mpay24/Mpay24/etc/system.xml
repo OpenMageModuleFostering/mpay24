@@ -107,7 +107,7 @@
               <show_in_store>1</show_in_store>
               <depends><active>1</active></depends>
             </debug>
-            <sofort_state translate="label comment">
+            <!-- <sofort_state translate="label comment">
               <label>SOFORT Banking end-state</label>
               <frontend_type>select</frontend_type>
               <source_model>mpay24/source_sOFORTState</source_model>
@@ -117,7 +117,7 @@
               <show_in_store>1</show_in_store>
               <depends><active>1</active></depends>
               <comment>ONLY FOR 'SOFORT Überweisung' merchants: Please contact support@mpay24.com for more information!</comment>
-            </sofort_state>
+            </sofort_state> -->
             <use_proxy translate="label">
               <label>API uses proxy</label>
               <frontend_type>select</frontend_type>
@@ -193,6 +193,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
+              <depends><active>1</active></depends>
             </allowed_ips>
           </fields>
         </mpay24as>
@@ -2139,7 +2140,7 @@
               <show_in_store>1</show_in_store>
               <depends><payments_active>true</payments_active></depends>
             </ps_50>
-            <payment_action translate="label">
+            <!-- <payment_action translate="label">
               <label>Automatic clearing for credit card payments</label>
               <frontend_type>select</frontend_type>
               <source_model>mpay24/source_clearingAction</source_model>
@@ -2148,7 +2149,7 @@
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-            </payment_action>
+            </payment_action> -->
             <paid_order_status translate="label">
               <label>Status of paid orders</label>
               <frontend_type>select</frontend_type>

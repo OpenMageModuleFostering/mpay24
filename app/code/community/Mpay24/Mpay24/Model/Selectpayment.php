@@ -87,7 +87,7 @@ class Mpay24_Mpay24_Model_Selectpayment extends Mpay24_Mpay24_Model_Method_Selec
    * @return            bool|Mpay24_Mpay24_Model_PaymentMethod
    */
   public function capture(Varien_Object $payment, $amount) {
-    if(!$payment->getAdditionalInformation('MIFClear') && Mage::getStoreConfig('payment/mpay24/paid_payment_action') != MPay24MagentoShop::PAYMENT_TYPE_SALE && !$payment->getAdditionalInformation('error')) {
+//     if(!$payment->getAdditionalInformation('MIFClear') && Mage::getStoreConfig('payment/mpay24/paid_payment_action') != MPay24MagentoShop::PAYMENT_TYPE_SALE && !$payment->getAdditionalInformation('error')) {
       $this->clearSession();
       $mPay24MagentoShop = MPay24MagentoShop::getMPay24Api();
       $mPAY24Result = $mPay24MagentoShop->clearAmount($payment->getOrder()->getIncrementId(),$amount*100);
@@ -97,7 +97,7 @@ class Mpay24_Mpay24_Model_Selectpayment extends Mpay24_Mpay24_Model_Method_Selec
         Mage::throwException(Mage::helper('mpay24')->__("The order could not be captured! For mor information see the log files!"));
         return false;
       }
-    }
+//     }
 
     parent::capture($payment, $amount);
 

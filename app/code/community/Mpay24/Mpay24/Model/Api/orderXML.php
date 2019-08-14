@@ -57,10 +57,10 @@ class ORDER {
 
       $value = $args[0];
 
-      if(preg_match('/[0-9]+,[0-9]+/', $value, $match))
+      if(preg_match('/\b[0-9]+,[0-9]+\b/', $value, $match))
         $value = str_replace(',', '.', $match[0]);
 
-      if(preg_match('/[0-9]+.[0-9]+/', $value, $match) && $value == $match[0] && $attributeName != 'shippingCosts' && (is_int(strpos($attributeName, 'price')) || is_int(strpos($attributeName, 'Price')) || is_int(strpos($attributeName, 'Tax')) || is_int(strpos($attributeName, 'cost')) || is_int(strpos($attributeName, 'Cost'))))
+      if(preg_match('/\b[0-9]+.[0-9]+\b/', $value, $match) && $value == $match[0] && $attributeName != 'shippingCosts' && (is_int(strpos($attributeName, 'price')) || is_int(strpos($attributeName, 'Price')) || is_int(strpos($attributeName, 'Tax')) || is_int(strpos($attributeName, 'cost')) || is_int(strpos($attributeName, 'Cost'))))
         $value = number_format(floatval($match[0]), 2, '.', '');
 
         $this->node->setAttribute($attributeName, $value);
@@ -81,10 +81,10 @@ class ORDER {
         if(array_key_exists(1, $args)) {
           $value = $args[1];
 
-          if(preg_match('/[0-9]+,[0-9]+/', $value, $match))
+          if(preg_match('/\b[0-9]+,[0-9]+\b/', $value, $match))
             $value = str_replace(',', '.', $match[0]);
 
-          if(preg_match('/[0-9]+.[0-9]+/', $value, $match) && $value == $match[0] && $name != 'shippingCosts' && (is_int(strpos($name, 'price')) || is_int(strpos($name, 'Price')) || is_int(strpos($name, 'Tax')) || is_int(strpos($name, 'cost')) || is_int(strpos($name, 'Cost'))))
+          if(preg_match('/\b[0-9]+.[0-9]+\b/', $value, $match) && $value == $match[0] && $name != 'shippingCosts' && (is_int(strpos($name, 'price')) || is_int(strpos($name, 'Price')) || is_int(strpos($name, 'Tax')) || is_int(strpos($name, 'cost')) || is_int(strpos($name, 'Cost'))))
             $value = number_format(floatval($match[0]), 2, '.', '');
 
           $node = $this->doc->createElement($method, $value);
@@ -127,10 +127,10 @@ class ORDER {
 
     $value = str_replace('&', '&amp;', $value);
 
-    if(preg_match('/[0-9]+,[0-9]+/', $value, $match))
+    if(preg_match('/\b[0-9]+,[0-9]+\b/', $value, $match))
       $value = str_replace(',', '.', $match[0]);
 
-    if(preg_match('/[0-9]+.[0-9]+/', $value, $match) && $value == $match[0] && $name != 'shippingCosts' && (is_int(strpos($name, 'price')) || is_int(strpos($name, 'Price')) || is_int(strpos($name, 'Tax')) || is_int(strpos($name, 'cost')) || is_int(strpos($name, 'Cost'))))
+    if(preg_match('/\b[0-9]+.[0-9]+\b/', $value, $match) && $value == $match[0] && $name != 'shippingCosts' && (is_int(strpos($name, 'price')) || is_int(strpos($name, 'Price')) || is_int(strpos($name, 'Tax')) || is_int(strpos($name, 'cost')) || is_int(strpos($name, 'Cost'))))
       $value = number_format(floatval($match[0]), 2, '.', '');
 
     if(strpos($value, "<") || strpos($value, ">"))

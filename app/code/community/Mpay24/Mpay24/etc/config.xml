@@ -5,7 +5,7 @@
 <config>
   <modules>
     <Mpay24_Mpay24>
-      <version>1.5.6</version>
+      <version>1.5.7</version>
     </Mpay24_Mpay24>
   </modules>
 
@@ -239,7 +239,7 @@
         <old_merchantid />
         <soap_pass backend_model="adminhtml/system_config_backend_encrypted"/>
         <debug>0</debug>
-        <sofort_state>SUSPENDED</sofort_state>
+        <!-- <sofort_state>SUSPENDED</sofort_state> -->
         <use_proxy>0</use_proxy>
         <use_proxy_auth>0</use_proxy_auth>
         <verify_peer>1</verify_peer>

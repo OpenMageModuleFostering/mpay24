@@ -20,7 +20,7 @@ class MPay24MagentoShop extends MPay24Shop {
 
   const CANCEL_URL = 'mpay24/payment/cancel';
 
-  const MAGENTO_VERSION = "Magento 1.5.6 ";
+  const MAGENTO_VERSION = "Magento 1.5.7 ";
 
   var $tid;
   var $price;
@@ -89,10 +89,10 @@ class MPay24MagentoShop extends MPay24Shop {
                   $order->sendNewOrderEmail();
 
                   if($order->getInvoiceCollection()->count() == 0)
-                    if(Mage::getStoreConfig('payment/mpay24/paid_payment_action') == MPay24MagentoShop::PAYMENT_TYPE_SALE) {
-                      $order->getPayment()->setAdditionalInformation('mpay24AutoClearing', true)->save();
-                      $this->_createInvoice($order, true);
-                    } else
+//                     if(Mage::getStoreConfig('payment/mpay24/paid_payment_action') == MPay24MagentoShop::PAYMENT_TYPE_SALE) {
+//                       $order->getPayment()->setAdditionalInformation('mpay24AutoClearing', true)->save();
+//                       $this->_createInvoice($order, true);
+//                     } else
                       $this->_createInvoice($order);
                 }
 
@@ -590,7 +590,7 @@ class MPay24MagentoShop extends MPay24Shop {
       $mdxi->Order->ShippingAddr->Email = substr($this->xmlentities($this->order->getShippingAddress()->getEmail()),0,50);
       $mdxi->Order->ShippingAddr->Phone = substr($this->xmlentities($this->order->getShippingAddress()->getTelephone()),0,20);
     }
-
+    
     if(Mage::helper('customer')->isLoggedIn())
       $mdxi->Order->URL->Success = Mage::getUrl(MPay24MagentoShop::SUCCESS_URL,array('_secure' => true, '_query' => "TID=" . substr($this->order->getIncrementId(),0,32) ));
     else
