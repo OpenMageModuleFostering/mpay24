@@ -1,12 +1,13 @@
 <?php
 /**
  * @author              support@mpay24.com
- * @version             $Id: MPay24MagentoShop.php 6403 2015-07-08 09:24:45Z anna $
+ * @version             $Id: MPay24MagentoShop.php 6413 2015-07-14 12:50:34Z anna $
  * @filesource          test.php
  * @license             http://ec.europa.eu/idabc/eupl.html EUPL, Version 1.1
  */
 
 include_once(Mage::getBaseDir('code')."/community/Mpay24/Mpay24/Model/Api/MPay24Shop.php");
+define("MAGENTO_VERSION", "Magento v " . Mage::getVersion() . " Module v 1.6.2 ");
 
 class MPay24MagentoShop extends MPay24Shop {
 
@@ -19,9 +20,7 @@ class MPay24MagentoShop extends MPay24Shop {
   const CONFIRMATION_URL = 'mpay24/payment/confirmation';
 
   const CANCEL_URL = 'mpay24/payment/cancel';
-
-  const MAGENTO_VERSION = "Magento 1.6.1 ";
-
+  
   var $tid;
   var $price;
   var $order;
@@ -268,7 +267,7 @@ class MPay24MagentoShop extends MPay24Shop {
     $mdxi->Order->setErrorTitleStyle(Mage::getStoreConfig('mpay24/mpay24sporder/errortitlestyle'));
     $mdxi->Order->setFooterStyle(Mage::getStoreConfig('mpay24/mpay24sporder/footerstyle'));
 
-    $this->order->getPayment()->setAdditionalInformation('user_field', MPay24MagentoShop::MAGENTO_VERSION.$transaction->TID.'_'.date('Y-m-d'))->save();
+    $this->order->getPayment()->setAdditionalInformation('user_field', MAGENTO_VERSION.$transaction->TID.'_'.date('Y-m-d'))->save();
     
     //validates IPv4
     $validIPv4 = filter_var($this->order->getRemoteIp(), FILTER_VALIDATE_IP,FILTER_FLAG_IPV4);
@@ -279,7 +278,7 @@ class MPay24MagentoShop extends MPay24Shop {
     if($validIPv4)
       $mdxi->Order->ClientIP = $this->order->getRemoteIp();
     
-    $mdxi->Order->UserField = MPay24MagentoShop::MAGENTO_VERSION.$transaction->TID.'_'.date('Y-m-d');
+    $mdxi->Order->UserField = MAGENTO_VERSION.$transaction->TID.'_'.date('Y-m-d');
     $mdxi->Order->Tid = $transaction->TID;
 
     $lang = explode('_', Mage::getStoreConfig('general/locale/code'));
@@ -633,7 +632,7 @@ class MPay24MagentoShop extends MPay24Shop {
     $version=$m->getVersion();
     $this->mPay24Api->shop = "Magento";
     $this->mPay24Api->shopVersion = $version;
-    $this->mPay24Api->moduleVersion = MPay24MagentoShop::MAGENTO_VERSION;
+    $this->mPay24Api->moduleVersion = MAGENTO_VERSION;
   }
 
   private function xmlentities($string) {

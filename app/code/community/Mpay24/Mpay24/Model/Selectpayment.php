@@ -16,7 +16,7 @@
  * @package             Mpay24_Mpay24
  * @author              Anna Sadriu (mPAY24 GmbH)
  * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- * @version             $Id: Selectpayment.php 6402 2015-07-08 09:22:01Z anna $
+ * @version             $Id: Selectpayment.php 6413 2015-07-14 12:50:34Z anna $
  */
 
 include_once Mage::getBaseDir('code')."/community/Mpay24/Mpay24/Model/Api/MPay24MagentoShop.php";
@@ -61,19 +61,9 @@ class Mpay24_Mpay24_Model_Selectpayment extends Mpay24_Mpay24_Model_Method_Selec
       case MPay24MagentoShop::PAYMENT_TYPE_SALE:
         $payment = $this->getInfoInstance();
         $order = $payment->getOrder();
-        $order->setCanSendNewEmailFlag(false);
         $payment->setAmountAuthorized($order->getTotalDue());
         $payment->setBaseAmountAuthorized($order->getBaseTotalDue());
-    
-        $order = $payment->getOrder();
-        $order->setCanSendNewEmailFlag(false);
-        
-//         $payment->setAdditionalInformation('amex_addr_ver', "UNKNOWN")->save();
-//         $payment->setAdditionalInformation('amex_cid_ver', "UNKNOWN")->save();
 
-//         $stateObject->setState(Mage_Sales_Model_Order::STATE_PENDING_PAYMENT);
-//         $stateObject->setStatus('pending_payment');
-//         $stateObject->setIsNotified(false);
         break;
       default:
         break;

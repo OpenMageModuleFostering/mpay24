@@ -16,7 +16,7 @@
  * @package             Mpay24_Mpay24
  * @author              Anna Sadriu (mPAY24 GmbH)
  * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- * @version             $Id: Fieldset.php 6252 2015-03-26 15:57:57Z anna $
+ * @version             $Id: Fieldset.php 6413 2015-07-14 12:50:34Z anna $
  */
 
 include_once Mage::getBaseDir('code')."/community/Mpay24/Mpay24/Model/Api/MPay24MagentoShop.php";
@@ -64,7 +64,7 @@ class Mpay24_Mpay24_Block_Adminhtml_System_Config_Fieldset_Fieldset
       $html .= '<div style="color:red;">' . Mage::getStoreConfig('mpay24/mpay24/payments_error') . "</div>";
 
     $html .= $this->_getFooterHtml($element);
-    $html .= "<h1>Extension Version: " . MPay24MagentoShop::MAGENTO_VERSION . "</h1>";
+    $html .= "<h1>Extension Version: " . MAGENTO_VERSION . "</h1>";
 
     $comment = Mage::helper('mpay24')->__("The payment systems will be synchronized when the settings are saved!");
 

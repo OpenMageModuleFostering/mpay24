@@ -16,7 +16,7 @@
  * @package             Mpay24_Mpay24
  * @author              Anna Sadriu (mPAY24 GmbH)
  * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- * @version             $Id: PaymentController.php 6401 2015-07-08 09:18:00Z anna $
+ * @version             $Id: PaymentController.php 6413 2015-07-14 12:50:34Z anna $
  */
 include_once Mage::getBaseDir('code')."/community/Mpay24/Mpay24/Model/Api/MPay24MagentoShop.php";
 
@@ -55,7 +55,7 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
       $order->loadByIncrementId($this->getRequest()->getParam('TID'));
 
       Mage::log('mPAY24 Extension (confirmationAction): Confirmation processing DONE! Confirmed: '.$order->getPayment()->getAdditionalInformation('confirmed').'');
-      $this->getResponse()->setBody("OK: " . MPay24MagentoShop::MAGENTO_VERSION . " - confirmation received");
+      $this->getResponse()->setBody("OK: " . MAGENTO_VERSION . " - confirmation received");
     } else {
       Mage::throwException(Mage::helper('core')->__('ERROR (mPAY24 Extension): Confirmation parameters are not as expected!'));
     }
@@ -282,90 +282,9 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
 
       $order->getPayment()->setAdditionalInformation('confirmed', $status)->save();
 
-      if($mPAY24Result->getParam('BRAND') == 'AMEX') {
-        $addr_ver = Mage::helper('mpay24')->__("The 'AMEX_ADDR_VER' parameter was not returned!");
+      if($mPAY24Result->getParam('BRAND') == 'AMEX')
+        $this->setAmexData($order, $mPAY24Result);
         
-        if($mPAY24Result->getParam('AMEX_ADDR_VER')) {
-          switch ($mPAY24Result->getParam('AMEX_ADDR_VER')) {
-            case "Y":
-              $addr_ver = Mage::helper('mpay24')->__("Yes, Customer Address and Postal Code are both correct.");
-              break;
-            case "N":
-              $addr_ver = Mage::helper('mpay24')->__("No, Customer Address and Postal Code are both incorrect.");
-              break;
-            case "A":
-              $addr_ver = Mage::helper('mpay24')->__("Customer Address only correct.");
-              break;
-            case "Z":
-              $addr_ver = Mage::helper('mpay24')->__("Customer Postal Code only correct.");
-              break;
-            case "U":
-              $addr_ver = Mage::helper('mpay24')->__("Information unavailable.");
-              break;
-            case "S":
-              $addr_ver = Mage::helper('mpay24')->__("SE not allowed AAV function.");
-              break;
-            case "R":
-              $addr_ver = Mage::helper('mpay24')->__("System unavailable; retry.");
-              break;
-            case "L":
-              $addr_ver = Mage::helper('mpay24')->__("Customer Name and Postal Code match.");
-              break;
-            case "M":
-              $addr_ver = Mage::helper('mpay24')->__("Customer Name, Address and Postal Code match.");
-              break;
-            case "O":
-              $addr_ver = Mage::helper('mpay24')->__("Customer Name and Address match.");
-              break;
-            case "K":
-              $addr_ver = Mage::helper('mpay24')->__("Customer Name matches.");
-              break;
-            case "D":
-              $addr_ver = Mage::helper('mpay24')->__("Customer Name incorrect, Postal Code matches.");
-              break;
-            case "E":
-              $addr_ver = Mage::helper('mpay24')->__("Customer Name incorrect, Address and Postal Code match.");
-              break;
-            case "F":
-              $addr_ver = Mage::helper('mpay24')->__("Customer Name incorrect, Address matches.");
-              break;
-            case "W":
-              $addr_ver = Mage::helper('mpay24')->__("No, Customer Name, Address and Postal Code are all incorrect.");
-              break;
-            default:
-              $addr_ver = Mage::helper('mpay24')->__("Unknown returned value:") . " '" . $mPAY24Result->getParam('AMEX_ADDR_VER') . "'";
-              break;
-          }
-          
-        }
-        $order->getPayment()->setAdditionalInformation('amex_addr_ver', $addr_ver)->save();
-        
-        $cid_ver = Mage::helper('mpay24')->__("The 'AMEX_CVC_VER' parameter was not returned!");
-        
-        if($mPAY24Result->getParam('AMEX_CVC_VER')) {
-          switch ($mPAY24Result->getParam('AMEX_CVC_VER')) {
-            case "Y":
-              $cid_ver = Mage::helper('mpay24')->__("CID/4DBC/4CSC matched.");
-              break;
-            case "N":
-              $cid_ver = Mage::helper('mpay24')->__("CID/4DBC/4CSC did not match.");
-              break;
-            case "U":
-              $cid_ver = Mage::helper('mpay24')->__("CID/4DBC/4CSC was not checked.");
-              break;
-            default:
-              $cid_ver = Mage::helper('mpay24')->__("Unknown returned value:") . " '" . $mPAY24Result->getParam('AMEX_CVC_VER') . "'";
-              break;
-          }
-        }
-        
-        $order->getPayment()->setAdditionalInformation('amex_cid_ver', $cid_ver)->save();
-        
-        
-        if($mPAY24Result->getParam('AMEX_CVC_VER'))
-          $order->getPayment()->setAdditionalInformation('amex_cid_ver', $mPAY24Result->getParam('AMEX_CVC_VER'))->save();
-      }
-      
       switch ($res) {
         case "OK":
           if($order->getPayment()->getAdditionalInformation('user_field') == $mPAY24Result->getParam('USER_FIELD')) {
@@ -383,301 +302,18 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
               $order->sendNewOrderEmail()->save();
               Mage::log("mPAY24 Extension: New order mail sent!!!");
             }
-            
 
             if($status != 'ERROR' && $order->getState() == Mage_Sales_Model_Order::STATE_CANCELED && Mage::getStoreConfig('mpay24/mpay24/notifyForFalseNOK')) {
-              $request = $this->getRequest();
-            
-              $template = $this->_initTemplate('id');
-            
-              $template->setTemplateSubject(Mage::helper('mpay24')->__("ATTENTION!"))
-              ->setTemplateCode('FALSE_NOK')
-              ->setTemplateText('<table>
-                               <thead>
-                               <tr>
-                               <th>'.Mage::helper('mpay24')->__("A SUCCESSFUL confirmation occured for an already canceled order!").'</th>
-                               </tr>
-                               </thead>
-                               <tbody>
-                               <tr>
-                               <td>
-                               <p>
-                               {{var reason}}
-                               </p>
-                               </td>
-                               </tr>
-                               </tbody>
-                               </table>');
-            
-              // The Id you just marked...
-              if (!$template->getId())
-                $template->setTemplateType(Mage_Core_Model_Email_Template::TYPE_HTML);
-            
-              if($request->getParam('_change_type_flag')) {
-                $template->setTemplateType(Mage_Core_Model_Email_Template::TYPE_TEXT);
-                $template->setTemplateStyles('');
-              }
-            
-              $template->save();
-            
-              // Define the sender, here we query Magento default email (in the configuration)
-              // For customer support email, use : 'trans_email/ident_support/...'
-              $sender = Array('name' => Mage::getStoreConfig('trans_email/ident_general/name'),
-                  'email' => Mage::getStoreConfig('trans_email/ident_general/email'));
-            
-              // Set you store
-              // This information may be taken from the current logged in user
-              $store = Mage::app()->getStore();
-            
-              // In this array, you set the variables you use in your template
-              $vars = Array(
-                  'reason' => Mage::helper('mpay24')->__("ATTENTION! - It is possible that the payment for the order ID '") .
-                  $order->getIncrementId() . Mage::helper('mpay24')->__("' was SUCCESSFUL, although the order is set as 'Canceled'! Please check in the mPAY24 Merchant Interface (https://www.mpay24.com) whether the amount was BILLED!"));
-            
-              // You don't care about this...
-              $translate  = Mage::getSingleton('core/translate');
-            
-              // Send your email
-              Mage::getModel('core/email_template')->sendTransactional($template->getId(),
-                  $sender,
-                  Mage::getStoreConfig('trans_email/ident_general/email'),
-                  Mage::getStoreConfig('trans_email/ident_general/name'),
-                  $vars,
-                  $store->getId());
-            
-              // You don't care as well
-              $translate->setTranslateInline(true);
-            
-              $template->delete();
-              
-              return $orderHistoryText . "\nThe order could not be billed!";
+              $orderHistoryText .= $this->sendEmailForNOKTransactions($orderHistoryText);
             }
             
-            switch($status) {
-              case 'RESERVED':
-                $this->setBillpayData($order, $mPAY24Result);
-                
-                $order->getPayment()->authorize(false, $mPAY24Result->getParam('PRICE')/100)->save();
-                $order->sendOrderUpdateEmail(true, Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("RESERVED") . ' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]')->save();
-                break;
-              case 'BILLED':
-                $this->setBillpayData($order, $mPAY24Result);
+            $this->transactionStatusHandler($order, $mPAY24Result, $paymentHistoryText);
 
-                if($order->getInvoiceCollection()->count() == 0)
-                  $invoice = $this->_createInvoice($order);
-
-//                 $order->addStatusHistoryComment(Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("BILLED") .' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]' . " (" . $this->getRequest()->getClientIp() . ")")->save();
-
-                $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, 'processing', Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("BILLED") .' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]' . " (" . $this->getRequest()->getClientIp() . ")", true);
-//                 $order->sendOrderUpdateEmail(true, Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("BILLED") .' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]')->save();
-                
-                $order->save();
-                break;
-              case 'CREDITED':
-                $this->setBillpayData($order, $mPAY24Result);
-                
-                if ($order->getTotalOnlineRefunded() == 0.00) {
-                  $creditmemo = Mage::getModel('sales/service_order', $order)
-                                               ->prepareCreditmemo()
-                                               ->setPaymentRefundDisallowed(true)
-                                               ->setAutomaticallyCreated(true)
-                                               ->register();
-
-                  $creditmemo->addComment(Mage::helper('mpay24')->__("Credit memo has been created automatically through of MI/F crediting!"));
-                  $creditmemo->save();
-
-                  $order->getPayment()->refund($creditmemo)->save();
-                }
-                
-                
-                $order->addStatusHistoryComment(Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("CREDITED") .' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]' . " (" . $this->getRequest()->getClientIp() . ")")->save();
-                $order->sendOrderUpdateEmail(true, Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("CREDITED") .' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]')->save();
-                $order->save();
-                break;
-              case 'SUSPENDED':
-                $order->addStatusToHistory(Mage_Sales_Model_Order::STATE_PENDING_PAYMENT, Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("SUSPENDED") . ' [ '.$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]' . " (" . $this->getRequest()->getClientIp() . ")");
-                $order->save();
-                break;
-              case 'REVERSED':
-                if($order->getState() != Mage_Sales_Model_Order::STATE_CANCELED)
-                  foreach ($order->getInvoiceCollection() as $orderInvoice) {
-                    $order->getPayment()->setAdditionalInformation('MIFReverse', true)->save();
-                    $order->getPayment()->void($orderInvoice)->save();
-                  }
-
-                $order->addStatusToHistory($order->getState(), Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("REVERSED") .' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]' . " (" . $this->getRequest()->getClientIp() . ")", true)->save();
-                $order->sendOrderUpdateEmail(true, Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("REVERSED") .' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]')->save();
-                $order->save();
-                break;
-              case 'ERROR':
-                $this->setBillpayData($order, $mPAY24Result);
-                
-                $order->getPayment()->setAdditionalInformation('error', true)->save();
-
-                $order->addStatusToHistory($order->getStatus(), Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("ERROR") . " " . $order->getPayment()->getAdditionalInformation('error_text') . " (" . $this->getRequest()->getClientIp() . ")");
-                $order->sendOrderUpdateEmail(true, Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("ERROR") . " " . $order->getPayment()->getAdditionalInformation('error_text'))->save();
-                $order->save();
-                break;
-              default:
-                break;
-            }
-
-            if(in_array($mPAY24Result->getParam('TSTATUS'), array("RESERVED", "BILLED", "CREDITED")) && Mage::getStoreConfig('mpay24/mpay24/billingAddressMode') == "ReadWrite") {
-              if(!$mPAY24Result->getParam('BILLING_ADDR') || $mPAY24Result->getParam('BILLING_ADDR') == '') {
-                $billingAddressMode = new Mage_Core_Model_Config();
-                $billingAddressMode->saveConfig('mpay24/mpay24/billingAddressMode', 'ReadOnly', 'default', "");
-
-                $request = $this->getRequest();
-
-                $template = $this->_initTemplate('id');
-
-                $template->setTemplateSubject(Mage::helper('mpay24')->__("ATTENTION!"))
-                           ->setTemplateCode('ADDR_MODE')
-                           ->setTemplateText('<table>
-                               <thead>
-                               <tr>
-                               <th>'.Mage::helper('mpay24')->__("The billing address was not returned by mPAY24!").'</th>
-                               </tr>
-                               </thead>
-                               <tbody>
-                               <tr>
-                               <td>
-                               <p>
-                               {{var reason}}
-                               </p>
-                               </td>
-                               </tr>
-                               </tbody>
-                               </table>');
-
-                // The Id you just marked...
-                if (!$template->getId())
-                  $template->setTemplateType(Mage_Core_Model_Email_Template::TYPE_HTML);
-
-                if($request->getParam('_change_type_flag')) {
-                  $template->setTemplateType(Mage_Core_Model_Email_Template::TYPE_TEXT);
-                  $template->setTemplateStyles('');
-                }
-
-                $template->save();
-
-                // Define the sender, here we query Magento default email (in the configuration)
-                // For customer support email, use : 'trans_email/ident_support/...'
-                $sender = Array('name' => Mage::getStoreConfig('trans_email/ident_general/name'),
-                                 'email' => Mage::getStoreConfig('trans_email/ident_general/email'));
-
-                // Set you store
-                // This information may be taken from the current logged in user
-                $store = Mage::app()->getStore();
-
-                // In this array, you set the variables you use in your template
-                $vars = Array(
-                         'reason' => Mage::helper('mpay24')->__("ATTENTION! - It is possible that the billing address for the order ID '") .
-                         $order->getIncrementId() . Mage::helper('mpay24')->__("' was changed by the customer, but not in your shop! The billing address mode was set back to 'ReadOnly'! If you want to use the mode 'ReadWrite', the variable 'BILLING_ADDR' has to be activated for the 'TRANSACTIONSTATUS' request by mPAY24. Please contact (including your merchant ID '") . Mage::getStoreConfig('mpay24/mpay24as/merchantid')
-                         . Mage::helper('mpay24')->__("') mPAY24 (support@mpay24.com)!"));
-
-                // You don't care about this...
-                $translate  = Mage::getSingleton('core/translate');
-
-                // Send your email
-                Mage::getModel('core/email_template')->sendTransactional($template->getId(),
-                                                                         $sender,
-                                                                         Mage::getStoreConfig('trans_email/ident_general/email'),
-                                                                         Mage::getStoreConfig('trans_email/ident_general/name'),
-                                                                         $vars,
-                                                                         $store->getId());
-
-                // You don't care as well
-                $translate->setTranslateInline(true);
-
-                $template->delete();
-              } else {
-                $billingAddress = new DOMDocument();
-                $billingAddress->loadXML(trim($mPAY24Result->getParam('BILLING_ADDR')));
-                $billingAddress->saveXML();
-
-                $name = $billingAddress->getElementsByTagName("Name")->item(0)->nodeValue;
-                $street = $billingAddress->getElementsByTagName("Street")->item(0)->nodeValue;
-                $street2 = $billingAddress->getElementsByTagName("Street2")->item(0)->nodeValue;
-                $zip = $billingAddress->getElementsByTagName("Zip")->item(0)->nodeValue;
-                $city = $billingAddress->getElementsByTagName("City")->item(0)->nodeValue;
-                $countryCode = $billingAddress->getElementsByTagName("Country")->item(0)->getAttribute("code");
-
-                //Build billing address for customer, for checkout
-                if(strpos($name, " "))
-                  $_billing_address = array (
-                                             'firstname' => substr($name, 0, strpos($name, " ")),
-                                             'lastname' => substr($name, strpos($name, " ")+1),
-                                             'street' => array (
-                                                 '0' => $street,
-                                                 '1' => $street2,
-                                             ),
-
-                                       'city' => $city,
-                                       'postcode' => $zip,
-                                       'country_id' => $countryCode,
-                                       'prefix' => '',
-                                       'middlename' => '',
-                                       'suffix' => '',
-                                       'company' => '',
-                                       'region' => '',
-                                       'region_id' => '',
-                                       'telephone' => '',
-                                       'fax' => ''
-                                   );
-                else
-                  $_billing_address = array (
-                                             'firstname' => $name,
-                                             'lastname' => '',
-                                             'street' => array (
-                                                 '0' => $street,
-                                                 '1' => $street2,
-                                             ),
-
-                                       'city' => $city,
-                                       'postcode' => $zip,
-                                       'country_id' => $countryCode,
-                                       'prefix' => '',
-                                       'middlename' => '',
-                                       'suffix' => '',
-                                       'company' => '',
-                                       'region' => '',
-                                       'region_id' => '',
-                                       'telephone' => '',
-                                       'fax' => ''
-                                   );
-
-                if(Mage::helper('customer')->isLoggedIn()) {
-                  $addressAlreadySaved = false;
-
-                  foreach(Mage::getSingleton('customer/session')->getCustomer()->getAddressesCollection() as $a)
-                    if($a->getFirstname() == substr($name, 0, strpos($name, " ")) && $a->getLastname() == substr($name, strpos($name, " ")+1)
-                                                       && $a->getStreet1() == $street && $a->getStreet2() == $street2 && $a->getCity() == $city
-                                                       && $a->getPostcode() == $zip && $a->getCountry() == $countryCode)
-                      $addressAlreadySaved = true;
-
-                  if(!$addressAlreadySaved) {
-                    $billAddress = Mage::getModel('customer/address');
-                    $billAddress->setData($_billing_address)
-                                 ->setCustomerId(Mage::getSingleton('customer/session')->getCustomer()->getId())
-                                 ->setIsDefaultBilling('0')
-                                 ->setIsDefaultShipping('0')
-                                 ->setSaveInAddressBook('1');
-
-                    $billAddress->save();
-                  }
-                }
-
-                // set Billing Address
-                $addressId  = $order->getBillingAddress()->getId();
-                $address    = Mage::getModel('sales/order_address')->load($addressId);
-                $address->addData($_billing_address);
-                $address->implodeStreetAddress()->save();
-
-                $order->setBillingAddress($address);
-                $order->save();
-              }
-            }
+            if(in_array($mPAY24Result->getParam('TSTATUS'), array("RESERVED", "BILLED", "CREDITED")) && Mage::getStoreConfig('mpay24/mpay24/billingAddressMode') == "ReadWrite")
+              if(!$mPAY24Result->getParam('BILLING_ADDR') || $mPAY24Result->getParam('BILLING_ADDR') == '')
+                $this->sendEmailForBillingAddr();
+              else
+                $this->setNewBillingAddr($order, $mPAY24Result);
           } else {
             if($order->canCancel() && $order->getState() != Mage_Sales_Model_Order::STATE_CANCELED && $order->getData('status') != Mage_Sales_Model_Order::STATE_CANCELED)
               $order->cancel($order->getPayment())->save();
@@ -704,25 +340,6 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
       Mage::throwException(Mage::helper('core')->__('ERROR (mPAY24 Extension): There is no payment for the order ' . $tid));
     
     return $orderHistoryText;
-  }
-
-  protected function _initTemplate($idFieldName = 'template_id') {
-    Mage::log('mPAY24 Extension: initTemplate called');
-    $this->_title($this->__('System'))->_title($this->__('Transactional Emails'));
-
-    $id = (int)$this->getRequest()->getParam($idFieldName);
-    $model = Mage::getModel('adminhtml/email_template');
-
-    if ($id)
-      $model->load($id);
-
-    if (!Mage::registry('email_template'))
-      Mage::register('email_template', $model);
-
-    if (!Mage::registry('current_email_template'))
-      Mage::register('current_email_template', $model);
-
-    return $model;
   }
 
   public function _createInvoice($order) {
@@ -791,6 +408,109 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
         $parentTransaction->setIsClosed(true)->save();
     }
   }
+
+  protected function _initTemplate($idFieldName = 'template_id') {
+    Mage::log('mPAY24 Extension: initTemplate called');
+    $this->_title($this->__('System'))->_title($this->__('Transactional Emails'));
+  
+    $id = (int)$this->getRequest()->getParam($idFieldName);
+    $model = Mage::getModel('adminhtml/email_template');
+  
+    if ($id)
+      $model->load($id);
+  
+    if (!Mage::registry('email_template'))
+      Mage::register('email_template', $model);
+  
+    if (!Mage::registry('current_email_template'))
+      Mage::register('current_email_template', $model);
+  
+    return $model;
+  }
+  
+  private function setAmexData($order, $mPAY24Result) {
+    $addr_ver = Mage::helper('mpay24')->__("The 'AMEX_ADDR_VER' parameter was not returned!");
+    
+    if($mPAY24Result->getParam('AMEX_ADDR_VER')) {
+      switch ($mPAY24Result->getParam('AMEX_ADDR_VER')) {
+        case "Y":
+          $addr_ver = Mage::helper('mpay24')->__("Yes, Customer Address and Postal Code are both correct.");
+          break;
+        case "N":
+          $addr_ver = Mage::helper('mpay24')->__("No, Customer Address and Postal Code are both incorrect.");
+          break;
+        case "A":
+          $addr_ver = Mage::helper('mpay24')->__("Customer Address only correct.");
+          break;
+        case "Z":
+          $addr_ver = Mage::helper('mpay24')->__("Customer Postal Code only correct.");
+          break;
+        case "U":
+          $addr_ver = Mage::helper('mpay24')->__("Information unavailable.");
+          break;
+        case "S":
+          $addr_ver = Mage::helper('mpay24')->__("SE not allowed AAV function.");
+          break;
+        case "R":
+          $addr_ver = Mage::helper('mpay24')->__("System unavailable; retry.");
+          break;
+        case "L":
+          $addr_ver = Mage::helper('mpay24')->__("Customer Name and Postal Code match.");
+          break;
+        case "M":
+          $addr_ver = Mage::helper('mpay24')->__("Customer Name, Address and Postal Code match.");
+          break;
+        case "O":
+          $addr_ver = Mage::helper('mpay24')->__("Customer Name and Address match.");
+          break;
+        case "K":
+          $addr_ver = Mage::helper('mpay24')->__("Customer Name matches.");
+          break;
+        case "D":
+          $addr_ver = Mage::helper('mpay24')->__("Customer Name incorrect, Postal Code matches.");
+          break;
+        case "E":
+          $addr_ver = Mage::helper('mpay24')->__("Customer Name incorrect, Address and Postal Code match.");
+          break;
+        case "F":
+          $addr_ver = Mage::helper('mpay24')->__("Customer Name incorrect, Address matches.");
+          break;
+        case "W":
+          $addr_ver = Mage::helper('mpay24')->__("No, Customer Name, Address and Postal Code are all incorrect.");
+          break;
+        default:
+          $addr_ver = Mage::helper('mpay24')->__("Unknown returned value:") . " '" . $mPAY24Result->getParam('AMEX_ADDR_VER') . "'";
+          break;
+      }
+    
+    }
+    $order->getPayment()->setAdditionalInformation('amex_addr_ver', $addr_ver)->save();
+    
+    $cid_ver = Mage::helper('mpay24')->__("The 'AMEX_CVC_VER' parameter was not returned!");
+    
+    if($mPAY24Result->getParam('AMEX_CVC_VER')) {
+      switch ($mPAY24Result->getParam('AMEX_CVC_VER')) {
+        case "Y":
+          $cid_ver = Mage::helper('mpay24')->__("CID/4DBC/4CSC matched.");
+          break;
+        case "N":
+          $cid_ver = Mage::helper('mpay24')->__("CID/4DBC/4CSC did not match.");
+          break;
+        case "U":
+          $cid_ver = Mage::helper('mpay24')->__("CID/4DBC/4CSC was not checked.");
+          break;
+        default:
+          $cid_ver = Mage::helper('mpay24')->__("Unknown returned value:") . " '" . $mPAY24Result->getParam('AMEX_CVC_VER') . "'";
+          break;
+      }
+    }
+    
+    $order->getPayment()->setAdditionalInformation('amex_cid_ver', $cid_ver)->save();
+    
+    
+    if($mPAY24Result->getParam('AMEX_CVC_VER'))
+      $order->getPayment()->setAdditionalInformation('amex_cid_ver', $mPAY24Result->getParam('AMEX_CVC_VER'))->save();
+  }
   
   private function setBillpayData($order, $mPAY24Result) {
     if($mPAY24Result->getParam('REFERENCE'))
@@ -811,5 +531,301 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
     if($mPAY24Result->getParam('REFERENCE'))
       $order->getPayment()->setAdditionalInformation('reference', $mPAY24Result->getParam('REFERENCE'))->save();
   	;
+  }
+  
+  private function setNewBillingAddr($order, $mPAY24Result) {
+    $billingAddress = new DOMDocument();
+    $billingAddress->loadXML(trim($mPAY24Result->getParam('BILLING_ADDR')));
+    $billingAddress->saveXML();
+  
+    $name = $billingAddress->getElementsByTagName("Name")->item(0)->nodeValue;
+    $street = $billingAddress->getElementsByTagName("Street")->item(0)->nodeValue;
+    $street2 = $billingAddress->getElementsByTagName("Street2")->item(0)->nodeValue;
+    $zip = $billingAddress->getElementsByTagName("Zip")->item(0)->nodeValue;
+    $city = $billingAddress->getElementsByTagName("City")->item(0)->nodeValue;
+    $countryCode = $billingAddress->getElementsByTagName("Country")->item(0)->getAttribute("code");
+  
+    //Build billing address for customer, for checkout
+    if(strpos($name, " "))
+      $_billing_address = array (
+          'firstname' => substr($name, 0, strpos($name, " ")),
+          'lastname' => substr($name, strpos($name, " ")+1),
+          'street' => array (
+              '0' => $street,
+              '1' => $street2,
+          ),
+  
+          'city' => $city,
+          'postcode' => $zip,
+          'country_id' => $countryCode,
+          'prefix' => '',
+          'middlename' => '',
+          'suffix' => '',
+          'company' => '',
+          'region' => '',
+          'region_id' => '',
+          'telephone' => '',
+          'fax' => ''
+      );
+    else
+      $_billing_address = array (
+          'firstname' => $name,
+          'lastname' => '',
+          'street' => array (
+              '0' => $street,
+              '1' => $street2,
+          ),
+  
+          'city' => $city,
+          'postcode' => $zip,
+          'country_id' => $countryCode,
+          'prefix' => '',
+          'middlename' => '',
+          'suffix' => '',
+          'company' => '',
+          'region' => '',
+          'region_id' => '',
+          'telephone' => '',
+          'fax' => ''
+      );
+  
+      if(Mage::helper('customer')->isLoggedIn()) {
+        $addressAlreadySaved = false;
+  
+        foreach(Mage::getSingleton('customer/session')->getCustomer()->getAddressesCollection() as $a)
+          if($a->getFirstname() == substr($name, 0, strpos($name, " ")) && $a->getLastname() == substr($name, strpos($name, " ")+1)
+              && $a->getStreet1() == $street && $a->getStreet2() == $street2 && $a->getCity() == $city
+              && $a->getPostcode() == $zip && $a->getCountry() == $countryCode)
+                $addressAlreadySaved = true;
+  
+              if(!$addressAlreadySaved) {
+                $billAddress = Mage::getModel('customer/address');
+                $billAddress->setData($_billing_address)
+                ->setCustomerId(Mage::getSingleton('customer/session')->getCustomer()->getId())
+                ->setIsDefaultBilling('0')
+                ->setIsDefaultShipping('0')
+                ->setSaveInAddressBook('1');
+  
+                $billAddress->save();
+              }
+      }
+  
+      // set Billing Address
+      $addressId  = $order->getBillingAddress()->getId();
+      $address    = Mage::getModel('sales/order_address')->load($addressId);
+      $address->addData($_billing_address);
+      $address->implodeStreetAddress()->save();
+  
+      $order->setBillingAddress($address);
+      $order->save();
+  }
+  
+  private function sendEmailForNOKTransactions($orderHistoryText) {
+    $template = $this->_initTemplate('id');
+    
+    $template->setTemplateSubject(Mage::helper('mpay24')->__("ATTENTION!"))
+    ->setTemplateCode('FALSE_NOK')
+    ->setTemplateText('<table>
+                               <thead>
+                               <tr>
+                               <th>'.Mage::helper('mpay24')->__("A SUCCESSFUL confirmation occured for an already canceled order!").'</th>
+                               </tr>
+                               </thead>
+                               <tbody>
+                               <tr>
+                               <td>
+                               <p>
+                               {{var reason}}
+                               </p>
+                               </td>
+                               </tr>
+                               </tbody>
+                               </table>');
+    
+    // The Id you just marked...
+    if (!$template->getId())
+      $template->setTemplateType(Mage_Core_Model_Email_Template::TYPE_HTML);
+    
+    if($this->getRequest()->getParam('_change_type_flag')) {
+      $template->setTemplateType(Mage_Core_Model_Email_Template::TYPE_TEXT);
+      $template->setTemplateStyles('');
+    }
+    
+    $template->save();
+    
+    // Define the sender, here we query Magento default email (in the configuration)
+    // For customer support email, use : 'trans_email/ident_support/...'
+    $sender = Array('name' => Mage::getStoreConfig('trans_email/ident_general/name'),
+        'email' => Mage::getStoreConfig('trans_email/ident_general/email'));
+    
+    // Set you store
+    // This information may be taken from the current logged in user
+    $store = Mage::app()->getStore();
+    
+    // In this array, you set the variables you use in your template
+    $vars = Array(
+        'reason' => Mage::helper('mpay24')->__("ATTENTION! - It is possible that the payment for the order ID '") .
+        $order->getIncrementId() . Mage::helper('mpay24')->__("' was SUCCESSFUL, although the order is set as 'Canceled'! Please check in the mPAY24 Merchant Interface (https://www.mpay24.com) whether the amount was BILLED!"));
+    
+    // You don't care about this...
+    $translate  = Mage::getSingleton('core/translate');
+    
+    // Send your email
+    Mage::getModel('core/email_template')->sendTransactional($template->getId(),
+        $sender,
+        Mage::getStoreConfig('trans_email/ident_general/email'),
+        Mage::getStoreConfig('trans_email/ident_general/name'),
+        $vars,
+        $store->getId());
+    
+    // You don't care as well
+    $translate->setTranslateInline(true);
+    
+    $template->delete();
+    
+    return $orderHistoryText . "\nThe order could not be billed!";
+  }
+  
+  private function sendEmailForBillingAddr() {
+    $billingAddressMode = new Mage_Core_Model_Config();
+    $billingAddressMode->saveConfig('mpay24/mpay24/billingAddressMode', 'ReadOnly', 'default', "");
+    
+    $request = $this->getRequest();
+    
+    $template = $this->_initTemplate('id');
+    
+    $template->setTemplateSubject(Mage::helper('mpay24')->__("ATTENTION!"))
+    ->setTemplateCode('ADDR_MODE')
+    ->setTemplateText('<table>
+                               <thead>
+                               <tr>
+                               <th>'.Mage::helper('mpay24')->__("The billing address was not returned by mPAY24!").'</th>
+                               </tr>
+                               </thead>
+                               <tbody>
+                               <tr>
+                               <td>
+                               <p>
+                               {{var reason}}
+                               </p>
+                               </td>
+                               </tr>
+                               </tbody>
+                               </table>');
+    
+    // The Id you just marked...
+    if (!$template->getId())
+      $template->setTemplateType(Mage_Core_Model_Email_Template::TYPE_HTML);
+    
+    if($request->getParam('_change_type_flag')) {
+      $template->setTemplateType(Mage_Core_Model_Email_Template::TYPE_TEXT);
+      $template->setTemplateStyles('');
+    }
+    
+    $template->save();
+    
+    // Define the sender, here we query Magento default email (in the configuration)
+    // For customer support email, use : 'trans_email/ident_support/...'
+    $sender = Array('name' => Mage::getStoreConfig('trans_email/ident_general/name'),
+        'email' => Mage::getStoreConfig('trans_email/ident_general/email'));
+    
+    // Set you store
+    // This information may be taken from the current logged in user
+    $store = Mage::app()->getStore();
+    
+    // In this array, you set the variables you use in your template
+    $vars = Array(
+        'reason' => Mage::helper('mpay24')->__("ATTENTION! - It is possible that the billing address for the order ID '") .
+        $order->getIncrementId() . Mage::helper('mpay24')->__("' was changed by the customer, but not in your shop! The billing address mode was set back to 'ReadOnly'! If you want to use the mode 'ReadWrite', the variable 'BILLING_ADDR' has to be activated for the 'TRANSACTIONSTATUS' request by mPAY24. Please contact (including your merchant ID '") . Mage::getStoreConfig('mpay24/mpay24as/merchantid')
+        . Mage::helper('mpay24')->__("') mPAY24 (support@mpay24.com)!"));
+    
+    // You don't care about this...
+    $translate  = Mage::getSingleton('core/translate');
+    
+    // Send your email
+    Mage::getModel('core/email_template')->sendTransactional($template->getId(),
+        $sender,
+        Mage::getStoreConfig('trans_email/ident_general/email'),
+        Mage::getStoreConfig('trans_email/ident_general/name'),
+        $vars,
+        $store->getId());
+    
+    // You don't care as well
+    $translate->setTranslateInline(true);
+    
+    $template->delete();
+  }
+
+  private function transactionStatusHandler($order, $mPAY24Result, $paymentHistoryText) {
+    switch($mPAY24Result->getParam('TSTATUS')) {
+      case 'RESERVED':
+        $this->setBillpayData($order, $mPAY24Result);
+    
+        $order->getPayment()->authorize(false, $mPAY24Result->getParam('PRICE')/100)->save();
+        $order->sendOrderUpdateEmail(true, Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("RESERVED") . ' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]')->save();
+        break;
+      case 'BILLED':
+        $this->setBillpayData($order, $mPAY24Result);
+    
+        if (!$order->getEmailSent())
+          $order->sendNewOrderEmail()
+          ->setIsCustomerNotified(true)
+          ->save();
+    
+        if($order->getInvoiceCollection()->count() == 0)
+          $invoice = $this->_createInvoice($order);
+    
+        $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, 'processing', Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("BILLED") .' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]' . " (" . $this->getRequest()->getClientIp() . ")", true);
+    
+        $order->save();
+        break;
+      case 'CREDITED':
+        $this->setBillpayData($order, $mPAY24Result);
+    
+        if ($order->getTotalOnlineRefunded() == 0.00) {
+          $creditmemo = Mage::getModel('sales/service_order', $order)
+          ->prepareCreditmemo()
+          ->setPaymentRefundDisallowed(true)
+          ->setAutomaticallyCreated(true)
+          ->register();
+    
+          $creditmemo->addComment(Mage::helper('mpay24')->__("Credit memo has been created automatically through of MI/F crediting!"));
+          $creditmemo->save();
+    
+          $order->getPayment()->refund($creditmemo)->save();
+        }
+    
+    
+        $order->addStatusHistoryComment(Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("CREDITED") .' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]' . " (" . $this->getRequest()->getClientIp() . ")")->save();
+        $order->sendOrderUpdateEmail(true, Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("CREDITED") .' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]')->save();
+        $order->save();
+        break;
+      case 'SUSPENDED':
+        $order->addStatusToHistory(Mage_Sales_Model_Order::STATE_PENDING_PAYMENT, Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("SUSPENDED") . ' [ '.$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]' . " (" . $this->getRequest()->getClientIp() . ")");
+        $order->save();
+        break;
+      case 'REVERSED':
+        if($order->getState() != Mage_Sales_Model_Order::STATE_CANCELED)
+          foreach ($order->getInvoiceCollection() as $orderInvoice) {
+            $order->getPayment()->setAdditionalInformation('MIFReverse', true)->save();
+            $order->getPayment()->void($orderInvoice)->save();
+          }
+    
+        $order->addStatusToHistory($order->getState(), Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("REVERSED") .' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]' . " (" . $this->getRequest()->getClientIp() . ")", true)->save();
+        $order->sendOrderUpdateEmail(true, Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("REVERSED") .' [ ' . $mPAY24Result->getParam('CURRENCY') . " " .$order->formatPriceTxt($mPAY24Result->getParam('PRICE')/100).' ]')->save();
+        $order->save();
+        break;
+      case 'ERROR':
+        $this->setBillpayData($order, $mPAY24Result);
+    
+        $order->getPayment()->setAdditionalInformation('error', true)->save();
+    
+        $order->addStatusToHistory($order->getStatus(), Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("ERROR") . " " . $order->getPayment()->getAdditionalInformation('error_text') . " (" . $this->getRequest()->getClientIp() . ")");
+        $order->sendOrderUpdateEmail(true, Mage::helper('mpay24')->__("$paymentHistoryText") . Mage::helper('mpay24')->__("ERROR") . " " . $order->getPayment()->getAdditionalInformation('error_text'))->save();
+        $order->save();
+        break;
+      default:
+        break;
+    }
   }
 }
