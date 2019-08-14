@@ -5,7 +5,7 @@
 <config>
   <modules>
     <Mpay24_Mpay24>
-      <version>1.6.3</version>
+      <version>1.6.4</version>
     </Mpay24_Mpay24>
   </modules>
 
@@ -191,16 +191,16 @@
 
   <admin>
     <routers>
-      <mpay24>
-        <use>admin</use>
+      <adminhtml>
         <args>
-          <module>Mpay24_Mpay24</module>
-          <frontName>mpay24</frontName>
+          <modules>
+            <mpay24 after="Mage_Adminhtml">Mpay24_Adminhtml</mpay24>
+          </modules>
         </args>
-      </mpay24>
+      </adminhtml>
     </routers>
   </admin>
-
+  
   <adminhtml>
     <acl>
       <resources>
