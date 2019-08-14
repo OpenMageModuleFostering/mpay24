@@ -89,7 +89,7 @@
   </xs:simpleType>
   <xs:simpleType name="PriceType">
     <xs:restriction base="xs:float">
-      <xs:pattern value="-?\d{1,9}\.\d{2}|-?\d{1,9}"/>
+      <xs:pattern value="\-?\d{1,9}(\.\d{2})?"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="CurrencyType">

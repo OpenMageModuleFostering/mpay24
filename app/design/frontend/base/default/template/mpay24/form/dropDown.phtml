@@ -1,0 +1,206 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category            design
+ * @package             base_defaut
+ * @author              Firedrago Magento
+ * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @version             $Id: dropDown.phtml 36 2015-01-27 16:48:06Z sapolhei $
+ */
+?>
+<?php
+$_code=$this->getMethodCode();
+
+if(Mage::getStoreConfig('mpay24/mpay24/payments_active') == 'true') {
+  $brandsAndTypes = explode(", ", Mage::getStoreConfig('mpay24/mpay24/active_payment_types'));
+  $brands = array();
+  foreach($brandsAndTypes as $brandAndType)
+    $brands[substr($brandAndType, 0, strpos($brandAndType, "=>"))] = substr($brandAndType, strpos($brandAndType, "=>")+2);
+
+  $temp_brand="";
+}
+?>
+<script type="text/javascript">  
+  var brand = "";
+  window.onload = function() {
+    var inputs = document.getElementById('mpay24_table').getElementsByTagName('input');
+
+    for(var i=0; i<inputs.length; i++)
+      inputs[i].disabled = true;
+
+    var eSelect = document.getElementById('mpay24_ps');
+    var mpay24PsImg = document.getElementById('mpay24_img');
+    eSelect.onchange = function() {
+      if(eSelect.value != "false")
+        mpay24PsImg.style.display = 'block';
+      else
+        mpay24PsImg.style.display = 'none';
+     }
+  }
+</script>
+<ul id="payment_form_<?php echo $_code ?>" style="display:none;">
+  <li>
+    <b>
+      <?php if(Mage::getStoreConfig('mpay24/mpay24/payments_active') == 'true')
+              if(Mage::getStoreConfig('mpay24/mpay24/forced_preselection') == 1)
+                echo Mage::helper('mpay24')->__("Please choose a payment system from the drop down menu...");
+              else
+                echo Mage::helper('mpay24')->__("You can choose the payment system you want to use now or do it when you are redirected to the mPAY24 pay page after placing the order.");
+            else
+              echo Mage::helper('mpay24')->__("You can choose the payment system you want to use after you are redirected to the mPAY24 pay page after placing the order.");
+      ?>
+    </b>
+  </li>
+
+  <?php if(Mage::getStoreConfig('mpay24/mpay24/payments_active') == 'true'):?>
+    <li>
+      <div id="myDIV" style="min-height:100px; padding-top:10px; padding-bottom: 15px; margin-left: -30px;">
+
+        <table>
+          <tr>
+            <td height="1" colspan="3"></td>
+            <td height="1" bgcolor="#b3b3b3"></td>
+            <td height="1" colspan="3"></td>
+          </tr>
+          <tr>
+            <td height="1" colspan="2"></td>
+            <td height="1" width="2" bgcolor="#b3b3b3"></td>
+            <td height="1" bgcolor="#ffffff"></td>
+            <td height="1" width="2" bgcolor="#b3b3b3"></td>
+            <td height="1" colspan="2"></td>
+          </tr>
+          <tr>
+            <td height="2" width="1"></td>
+            <td height="2" width="1" bgcolor="#b3b3b3"></td>
+            <td height="2" colspan="3" bgcolor="#ffffff"></td>
+            <td height="2" width="1" bgcolor="#b3b3b3"></td>
+            <td height="2" width="1"></td>
+          </tr>
+          <tr>
+            <td width="1" bgcolor="#b3b3b3"></td>
+            <td width="3" colspan="2" bgcolor="#ffffff"></td>
+            <td bgcolor="#ffffff">
+              <table id='mpay24_table' style="width: 100%;">
+                <colgroup>
+                    <col width="70%">
+                    <col width="30%">
+                  </colgroup>
+                <tr>
+                  <td>
+                    <?php if(Mage::getStoreConfig('mpay24/mpay24/forced_preselection') == 1):?>
+                      <select  id="mpay24_ps" name="mpay24_ps" style="margin-top: 20px; margin-bottom:20px; width: 256px" title="mPAY24 <?php echo Mage::helper('mpay24')->__("Payment method");?>" onchange="document.getElementById('mpay24_img').src='https://www.mpay24.com/web/img/logos/ptypes/'+this.options[this.selectedIndex].value.substr(7,3)+'.png';selectedPayment=this.options[this.selectedIndex].value.substr(7,3)+'.png';">
+                    <?php else:?>
+                      <select  id="mpay24_ps" name="mpay24_ps" style="margin-top: 20px; margin-bottom:20px; width: 256px" title="mPAY24 <?php echo Mage::helper('mpay24')->__("Payment method");?>" onchange="document.getElementById('mpay24_img').style.display = (this.selectedIndex != 0) ? 'block' : 'none';
+                                                                                    document.getElementById('mpay24_img').src='https://www.mpay24.com/web/img/logos/ptypes/'+this.options[this.selectedIndex].value.substr(7,3)+'.png';selectedPayment=this.options[this.selectedIndex].value.substr(7,3)+'.png';">
+                    <?php endif;?>
+                    <?php if(Mage::getStoreConfig('mpay24/mpay24/forced_preselection') != 1):?>
+                      <option value="false">mPAY24 (<?php echo Mage::helper('mpay24')->__("All payment methods") ?>)</option>
+                    <?php endif;?>
+                        <?php 
+                          if(Mage::app()->getRequest()->getParam('mpay24_ps') != null && Mage::app()->getRequest()->getParam('mpay24_ps') != "")
+                            $firstID = Mage::app()->getRequest()->getParam('mpay24_ps');
+                          else
+                            $firstID = "";
+                          $j = 1;
+                          foreach ($this->getActiveMethods() as $id => $payment):
+                            if($payment['ACTIVE'] == 1) {
+                              $changed = false;
+                              if($temp_brand == "" || $temp_brand != $payment['P_TYPE']) {
+                                if($temp_brand == "")
+                                  echo "</optgroup>";
+                                $temp_brand = $payment['P_TYPE'];
+                                echo "<optgroup label='$temp_brand'>";
+                              }
+  
+                              if(strlen($id) == 1)
+                                $id = "00$id";
+                              elseif(strlen($id) == 2)
+                                $id = "0$id";
+                              
+                              if(Mage::getStoreConfig('mpay24/mpay24/forced_preselection') == 1 && $firstID == "")
+                                $firstID = $id;
+                              ?>
+                                
+                              <option value="<?php echo "mpay24_" . $id . "_" . $j ?>"><?php echo $payment['DESCR'];
+                              if(Mage::getStoreConfig("mpay24/mpay24/forced_preselection") == 1) {
+                                echo " - ";
+                              
+                                if(Mage::getStoreConfig("mpay24/mpay24/tax_$j") > 0) {
+                                  if(Mage::getStoreConfig("mpay24/mpay24/tax_type_$j") == 'absolute')
+                                    echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol();
+                                  echo " " . Mage::getStoreConfig("mpay24/mpay24/tax_$j");
+                              
+                                  if(Mage::getStoreConfig("mpay24/mpay24/tax_type_$j") == 'percent')
+                                    echo "%";
+                              
+                                  echo " " . Mage::helper('mpay24')->__("Payment charge");
+                                } else
+                                  echo Mage::helper('mpay24')->__("For free");
+                              } ?></option>
+                      <?php } $j++; endforeach; ?>
+                    </select>
+                  </td>
+                  <td>
+                    <?php if(Mage::getStoreConfig('mpay24/mpay24/forced_preselection') == 1):?>
+                      <img id="mpay24_img" src='https://www.mpay24.com/web/img/logos/ptypes/<?php echo $firstID?>.png' style="margin-top: 19px; margin-bottom: 19px;">
+                    <?php else:?>
+                      <img id="mpay24_img" src='' style="display: none; margin-top: 19px; margin-bottom: 19px;">
+                    <?php endif;?>
+                  </td>
+                    <?php if(Mage::getStoreConfig('mpay24/mpay24/forced_preselection') == 1) 
+                            echo "<script type='text/javascript'>var selectedPayment = '$firstID'</script>"; 
+                          else 
+                            echo "<script type='text/javascript'>var selectedPayment = '../../../web/img/logos/payment-mpay24.svg';</script>";
+                    ?>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <div style="padding-bottom: 2px; border-top: 1px solid #b3b3b3"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>
+                    <img style="float:right" src="https://www.mpay24.com/web/img/logos/payment-mpay24.svg" alt="mPAY24" title="mPAY24" width="40%" height="40%">
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td width="3" colspan="2" bgcolor="#ffffff"></td>
+            <td width="1" bgcolor="#b3b3b3"></td>
+          </tr>
+          <tr>
+            <td height="2" width="1"></td>
+            <td height="2" width="1" bgcolor="#b3b3b3"></td>
+            <td height="2" colspan="3" bgcolor="#ffffff"></td>
+            <td height="2" width="1" bgcolor="#b3b3b3"></td>
+            <td height="2" width="1"></td>
+          </tr>
+          <tr>
+            <td height="1" colspan="2"></td>
+            <td height="1" width="2" bgcolor="#b3b3b3"></td>
+            <td height="1" bgcolor="#ffffff"></td>
+            <td height="1" width="2" bgcolor="#b3b3b3"></td>
+            <td height="1" colspan="2"></td>
+          </tr>
+          <tr>
+            <td height="1" colspan="3"></td>
+            <td height="1" bgcolor="#b3b3b3"></td>
+            <td height="1" colspan="3"></td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  <?php endif;?>
+</ul>

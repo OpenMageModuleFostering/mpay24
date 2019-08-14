@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!-- 
- * @version             $Id: Mpay24_Mpay24.xml 29 2014-11-10 13:21:51Z sapolhei $
+ * @version             $Id: Mpay24_Mpay24.xml 30 2014-11-10 14:00:27Z sapolhei $
  -->
 <config>
   <modules>
@@ -10,7 +10,7 @@
       <depends>
         <Mage_Payment />
       </depends>
-      <version>1.5.5</version>
+      <version>1.5.6</version>
     </Mpay24_Mpay24>
   </modules>
 </config>

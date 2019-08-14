@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <!-- 
- @version             $Id: config.xml 30 2014-11-10 14:00:27Z sapolhei $
+ @version             $Id: config.xml 36 2015-01-27 16:48:06Z sapolhei $
  -->
 <config>
   <modules>
     <Mpay24_Mpay24>
-      <version>1.5.5</version>
+      <version>1.5.6</version>
     </Mpay24_Mpay24>
   </modules>
 
@@ -140,11 +140,11 @@
       </totals>
     </pdf>
 
-    <payment>
-      <groups>
-        <mpay24>mPAY24</mpay24>
-      </groups>
-    </payment>
+<!--     <payment> -->
+<!--       <groups> -->
+<!--         <mpay24>mPAY24</mpay24> -->
+<!--       </groups> -->
+<!--     </payment> -->
   </global>
 
   <frontend>
@@ -246,54 +246,54 @@
         <allowed_ips>213.164.23.169,213.164.25.245,127.0.0.1</allowed_ips>
       </mpay24as>
       <mpay24sporder>
-        <style>margin-left: auto; margin-right: auto;</style>
+        <style>margin-left: auto; margin-right: auto; color:#647378</style>
         <logostyle></logostyle>
-        <pageheaderstyle></pageheaderstyle>
-        <pagecaptionstyle></pagecaptionstyle>
-        <pagestyle></pagestyle>
-        <inputfieldsstyle></inputfieldsstyle>
-        <dropdownlistsstyle></dropdownlistsstyle>
-        <buttonsstyle></buttonsstyle>
-        <errorsstyle></errorsstyle>
-        <successtitlestyle></successtitlestyle>
-        <errortitlestyle></errortitlestyle>
-        <footerstyle></footerstyle>
+        <pageheaderstyle>background-color: #FFF;margin-bottom:14px;</pageheaderstyle>
+        <pagecaptionstyle>background-color:#FFF;background:transparent;color:#647378;padding-left:0px;</pagecaptionstyle>
+        <pagestyle>border:1px solid #838F93;background-color:#FFF;</pagestyle>
+        <inputfieldsstyle>background-color:#ffffff;border:1px solid #DDE1E7;padding:2px 0px;margin-bottom:5px;width:100%;max-width:200px;</inputfieldsstyle>
+        <dropdownlistsstyle>padding:2px 0px;margin-bottom:5px;</dropdownlistsstyle>
+        <buttonsstyle>background-color: #005AC1;border: none;color: #FFFFFF;cursor: pointer;font-size:10px;font-weight:bold;padding:5px 10px;text-transform:uppercase;</buttonsstyle>
+        <errorsstyle>background-color: #FFF;padding: 10px 0px;</errorsstyle>
+        <successtitlestyle>background-color: #FFF;</successtitlestyle>
+        <errortitlestyle>background-color: #FFF;</errortitlestyle>
+        <footerstyle>display: none;</footerstyle>
       </mpay24sporder>
       <mpay24spsc>
-        <sc_row>Number,ProductNr,Description,Package,Quantity,ItemPrice,Price</sc_row>
+        <description>BESTELLUNGSBESCHREIBUNG</description>
+        <sc_row>Description,Quantity,ItemPrice,Price</sc_row>
         <sc_style></sc_style>
-        <sc_header></sc_header>
-        <sc_headerstyle></sc_headerstyle>
-        <sc_captionstyle></sc_captionstyle>
-        <sc_numberheader></sc_numberheader>
-        <sc_numberstyle></sc_numberstyle>
-        <sc_productnrheader></sc_productnrheader>
-        <sc_productnrstyle></sc_productnrstyle>
-        <sc_descriptionheader></sc_descriptionheader>
-        <sc_descriptionstyle></sc_descriptionstyle>
-        <sc_packageheader></sc_packageheader>
-        <sc_packagestyle></sc_packagestyle>
-        <sc_quantityheader></sc_quantityheader>
-        <sc_quantitystyle></sc_quantitystyle>
-        <sc_itempriceheader></sc_itempriceheader>
-        <sc_mpay24itempricestyle></sc_mpay24itempricestyle>
-        <sc_priceheader></sc_priceheader>
-        <sc_pricestyle></sc_pricestyle>
-        <description></description>
-        <item_style1></item_style1>
-        <item_style2></item_style2>
-        <discount_headerstyle></discount_headerstyle>
-        <discount_style></discount_style>
-        <shipping_costs_headerstyle></shipping_costs_headerstyle>
-        <shipping_costs_style></shipping_costs_style>
-        <tax_headerstyle></tax_headerstyle>
-        <tax_style></tax_style>
-        <price_header></price_header>
-        <price_headerstyle></price_headerstyle>
-        <price_style></price_style>
-        <subtotal_header></subtotal_header>
-        <subtotal_headerstyle></subtotal_headerstyle>
-        <subtotal_style></subtotal_style>
+        <sc_header>WARENKORB</sc_header>
+        <sc_headerstyle>background-color:#FFF;margin-bottom:14px;color:#647378</sc_headerstyle>
+        <sc_captionstyle>background-color:#FFF;background:transparent;color:#647378;padding-left:0px;font-size:14px;</sc_captionstyle>
+        <sc_numberheader>NUMMER</sc_numberheader>
+        <sc_numberstyle>width:80px;background-color:#FFF;color:#647378;border: 1px solid #838F93;text-transform:uppercase;padding:5px;text-align:center;</sc_numberstyle>
+        <sc_productnrheader>ARTIKELNUMMER</sc_productnrheader>
+        <sc_productnrstyle>width:80px;background-color:#FFF;color:#647378;border: 1px solid #838F93;text-transform:uppercase;padding:5px;text-align:center;</sc_productnrstyle>
+        <sc_descriptionheader>BESCHREIBUNG</sc_descriptionheader>
+        <sc_descriptionstyle>width:80px;background-color:#FFF;color:#647378;border: 1px solid #838F93;text-transform:uppercase;padding:5px;text-align:center;</sc_descriptionstyle>
+        <sc_packageheader>PAKET</sc_packageheader>
+        <sc_packagestyle>width:80px;background-color:#FFF;color:#647378;border: 1px solid #838F93;text-transform:uppercase;padding:5px;text-align:center;</sc_packagestyle>
+        <sc_quantityheader>ANZAHL</sc_quantityheader>
+        <sc_quantitystyle>width:80px;background-color:#FFF;color:#647378;border: 1px solid #838F93;text-transform:uppercase;padding:5px;text-align:center;</sc_quantitystyle>
+        <sc_itempriceheader>EINZELPREIS</sc_itempriceheader>
+        <sc_itempricestyle>width:80px;background-color:#FFF;color:#647378;border: 1px solid #838F93;text-transform:uppercase;padding:5px;text-align:center;</sc_itempricestyle>
+        <sc_priceheader>PREIS</sc_priceheader>
+        <sc_pricestyle>width:80px;background-color:#FFF;color:#647378;border: 1px solid #838F93;text-transform:uppercase;padding:5px;text-align:center;</sc_pricestyle>
+        <item_style1>background-color: #FFF;color: #647378; border: 1px solid #838F93;text-align:center;padding:5px 0px;</item_style1>
+        <item_style2>background-color: #FFF;color: #327F98; border: 1px solid #838F93;text-align:center;padding:5px 0px;</item_style2>
+        <discount_headerstyle>background-color: #FFF; color: #647378;font-weight:normal;padding:3px;</discount_headerstyle>
+        <discount_style>background-color:#FFF;color:#647378;border:none;padding:3px 20px;</discount_style>
+        <shipping_costs_headerstyle>background-color: #FFF; color: #647378;font-weight:normal;padding:3px;</shipping_costs_headerstyle>
+        <shipping_costs_style>background-color:#FFF;color:#647378;border:none;padding:3px 20px;</shipping_costs_style>
+        <tax_headerstyle>background-color:#FFF;color: #647378;padding:3px;font-weight:normal;</tax_headerstyle>
+        <tax_style>background-color:#FFF;color:#647378;border:none;font-weight:normal;padding:3px 20px;</tax_style>
+        <price_header>ENDSUMME</price_header>
+        <price_headerstyle>background-color:#FFF;color: #647378;padding:3px;font-weight:normal;border-top: 1px solid #838F93;</price_headerstyle>
+        <price_style>background-color:#FFF;color:#005AC1;border:none;padding:4px;font-weight:bold;padding:3px 20px;font-size:14px;border-top: 1px solid #838F93;</price_style>
+        <subtotal_header>ZWISCHENSUMME</subtotal_header>
+        <subtotal_headerstyle>background-color:#FFF;color: #647378;padding:3px;font-weight:normal;</subtotal_headerstyle>
+        <subtotal_style>background-color:#FFF;color:#647378;border:none;font-weight:normal;padding:3px 20px;</subtotal_style>
       </mpay24spsc>
       <mpay24>
         <payments_active>false</payments_active>
@@ -311,7 +311,7 @@
         <payments_error></payments_error>
         <payment_action>authorize</payment_action>
         <paid_order_status>processing</paid_order_status>
-        <group>mpay24</group>
+<!--         <group>mpay24</group> -->
       </mpay24>
     </payment>
   </default>

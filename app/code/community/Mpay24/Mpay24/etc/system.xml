@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!-- 
- @version             $Id: system.xml 27 2014-08-27 13:59:46Z sapolhei $
+ @version             $Id: system.xml 36 2015-01-27 16:48:06Z sapolhei $
  -->
 <config>
   <sections>
@@ -107,7 +107,7 @@
               <show_in_store>1</show_in_store>
               <depends><active>1</active></depends>
             </debug>
-            <sofort_state translate="label">
+            <sofort_state translate="label comment">
               <label>SOFORT Banking end-state</label>
               <frontend_type>select</frontend_type>
               <source_model>mpay24/source_sOFORTState</source_model>
@@ -116,6 +116,7 @@
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
               <depends><active>1</active></depends>
+              <comment>ONLY FOR 'SOFORT Überweisung' merchants: Please contact support@mpay24.com for more information!</comment>
             </sofort_state>
             <use_proxy translate="label">
               <label>API uses proxy</label>
@@ -313,6 +314,14 @@
           <show_in_website>1</show_in_website>
           <show_in_store>1</show_in_store>
           <fields>
+            <description translate="label">
+              <label>Description</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>49</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>0</show_in_store>
+            </description>
             <sc_row translate="label">
               <label>ShoppingCart Rows</label>
               <frontend_type>multiselect</frontend_type>
@@ -466,14 +475,6 @@
               <show_in_website>1</show_in_website>
               <show_in_store>0</show_in_store>
             </sc_pricestyle>
-            <description translate="label">
-              <label>Description</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>119</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>$value == 'JCB'
-              <show_in_store>0</show_in_store>
-            </description>
             <item_style1 translate="label">
               <label>ItemStyle Line 1</label>
               <frontend_type>text</frontend_type>

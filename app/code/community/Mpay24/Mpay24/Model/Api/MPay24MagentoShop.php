@@ -1,7 +1,7 @@
 <?php
 /**
  * @author              support@mpay24.com
- * @version             $Id: MPay24MagentoShop.php 30 2014-11-10 14:00:27Z sapolhei $
+ * @version             $Id: MPay24MagentoShop.php 37 2015-01-29 12:33:39Z sapolhei $
  * @filesource          test.php
  * @license             http://ec.europa.eu/idabc/eupl.html EUPL, Version 1.1
  */
@@ -20,7 +20,7 @@ class MPay24MagentoShop extends MPay24Shop {
 
   const CANCEL_URL = 'mpay24/payment/cancel';
 
-  const MAGENTO_VERSION = "Magento 1.5.5 ";
+  const MAGENTO_VERSION = "Magento 1.5.6 ";
 
   var $tid;
   var $price;
@@ -30,7 +30,7 @@ class MPay24MagentoShop extends MPay24Shop {
   var $brand;
 
   public static function getAllowedAuth() {
-    return array("CB", "MAESTRO", "PAYPAL", "ELV", "PB", "MPASS", "INVOICE", "HP", "SAFETYPAY");
+    return array("CB", "CC", "ELV", "BILLPAY", "PAYPAL", "PB", "PSC", "SAFETYPAY");
   }
 
   private function getOrder($tid=null) {
@@ -240,7 +240,7 @@ class MPay24MagentoShop extends MPay24Shop {
   function createFinishExpressCheckoutOrder($tid, $s, $a, $c) {}
 
   function write_log($operation, $info_to_log) {
-    Mage::log("$operation : $info_to_log", null, "mPAY24log.log");
+    Mage::log("$operation : $info_to_log", null, "mPAY24log.log",true);
   }
 
   function createSecret($tid, $amount, $currency, $timeStamp) {}
@@ -269,7 +269,16 @@ class MPay24MagentoShop extends MPay24Shop {
     $mdxi->Order->setFooterStyle(Mage::getStoreConfig('mpay24/mpay24sporder/footerstyle'));
 
     $this->order->getPayment()->setAdditionalInformation('user_field', MPay24MagentoShop::MAGENTO_VERSION.$transaction->TID.'_'.date('Y-m-d'))->save();
-    $mdxi->Order->ClientIP = $this->order->getRemoteIp();
+    
+    //validates IPv4
+    $validIPv4 = filter_var($this->order->getRemoteIp(), FILTER_VALIDATE_IP,FILTER_FLAG_IPV4);
+    
+    //validates IPv6
+    $validIPv6 = filter_var($this->order->getRemoteIp(), FILTER_VALIDATE_IP,FILTER_FLAG_IPV6);
+        
+    if($validIPv4)
+      $mdxi->Order->ClientIP = $this->order->getRemoteIp();
+    
     $mdxi->Order->UserField = MPay24MagentoShop::MAGENTO_VERSION.$transaction->TID.'_'.date('Y-m-d');
     $mdxi->Order->Tid = $transaction->TID;
 
@@ -357,7 +366,7 @@ class MPay24MagentoShop extends MPay24Shop {
       $mdxi->Order->ShoppingCart->setPriceStyle(Mage::getStoreConfig('mpay24/mpay24spsc/sc_pricestyle'));
     }
 
-    $mdxi->Order->ShoppingCart->Description(Mage::getStoreConfig('mpay24/mpay24spsc/description'));
+    $mdxi->Order->ShoppingCart->Description = Mage::getStoreConfig('mpay24/mpay24spsc/description');
 
     $style1 = Mage::getStoreConfig('mpay24/mpay24spsc/item_style1');
     $style2 = Mage::getStoreConfig('mpay24/mpay24spsc/item_style2');

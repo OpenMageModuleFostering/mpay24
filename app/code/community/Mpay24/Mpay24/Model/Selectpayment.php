@@ -16,7 +16,7 @@
  * @package             Mpay24_Mpay24
  * @author              Firedrago Magento
  * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- * @version             $Id: Selectpayment.php 28 2014-09-29 09:31:11Z sapolhei $
+ * @version             $Id: Selectpayment.php 36 2015-01-27 16:48:06Z sapolhei $
  */
 
 include_once Mage::getBaseDir('code')."/community/Mpay24/Mpay24/Model/Api/MPay24MagentoShop.php";
@@ -39,14 +39,44 @@ class Mpay24_Mpay24_Model_Selectpayment extends Mpay24_Mpay24_Model_Method_Selec
   protected $_canVoid                 = true;
   protected $_canUseInternal          = true;
   protected $_canUseCheckout          = true;
+  protected $_isInitializeNeeded      = true;
 
   public function validate() {
     parent::validate();
     return $this;
   }
 
-  public function authorize(Varien_Object $payment, $amount) {
-    parent::authorize($payment, $amount);
+//   public function authorize(Varien_Object $payment, $amount) {
+//     return parent::authorize($payment, $amount);
+//   }
+  
+  /**
+   * Instantiate state and set it to state object
+   * @param string $paymentAction
+   * @param Varien_Object
+   */
+  public function initialize($paymentAction, $stateObject) {
+    switch ($paymentAction) {
+      case MPay24MagentoShop::PAYMENT_TYPE_AUTH:
+      case MPay24MagentoShop::PAYMENT_TYPE_SALE:
+        $payment = $this->getInfoInstance();
+        $order = $payment->getOrder();
+        $order->setCanSendNewEmailFlag(false);
+        $payment->setAmountAuthorized($order->getTotalDue());
+        $payment->setBaseAmountAuthorized($order->getBaseTotalDue());
+    
+        $order = $payment->getOrder();
+        $order->setCanSendNewEmailFlag(false);
+
+        $stateObject->setState(Mage_Sales_Model_Order::STATE_PENDING_PAYMENT);
+        $stateObject->setStatus('pending_payment');
+        $stateObject->setIsNotified(false);
+        break;
+      default:
+        break;
+    }
+
+    parent:: initialize($payment, $order->getTotalDue());
   }
 
   /**

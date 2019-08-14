@@ -1,5 +1,5 @@
 <?php
-/** * Magento * * NOTICE OF LICENSE * * This source file is subject to the Open Software License (OSL 3.0) * that is bundled with this package in the file LICENSE.txt. * It is also available through the world-wide-web at this URL: * http://opensource.org/licenses/osl-3.0.php * If you did not receive a copy of the license and are unable to * obtain it through the world-wide-web, please send an email * to license@magentocommerce.com so we can send you a copy immediately. * * @category            Mpay24 * @package             Mpay24_Mpay24 * @author              Firedrago Magento * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0) * @version             $Id: Paymentcharge.php 27 2014-08-27 13:59:46Z sapolhei $ */
+/** * Magento * * NOTICE OF LICENSE * * This source file is subject to the Open Software License (OSL 3.0) * that is bundled with this package in the file LICENSE.txt. * It is also available through the world-wide-web at this URL: * http://opensource.org/licenses/osl-3.0.php * If you did not receive a copy of the license and are unable to * obtain it through the world-wide-web, please send an email * to license@magentocommerce.com so we can send you a copy immediately. * * @category            Mpay24 * @package             Mpay24_Mpay24 * @author              Firedrago Magento * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0) * @version             $Id: Paymentcharge.php 36 2015-01-27 16:48:06Z sapolhei $ */
 class Mpay24_Mpay24_Model_Sales_Quote_Address_Total_Paymentcharge extends Mage_Sales_Model_Quote_Address_Total_Abstract {
 
   public function __construct() {
@@ -8,10 +8,10 @@ class Mpay24_Mpay24_Model_Sales_Quote_Address_Total_Paymentcharge extends Mage_S
 
   public function collect(Mage_Sales_Model_Quote_Address $address) {
     $payment_method = "";
-    if(isset ( $_REQUEST ['payment_method'] ))
-      $payment_method = $_REQUEST ['payment_method'];
-    elseif(isset ( $_REQUEST ['mpay24_ps'] ))
-      $payment_method = $_REQUEST ['mpay24_ps'];
+    if(Mage::app()->getRequest()->getParam('payment_method') != null)
+      $payment_method = Mage::app()->getRequest()->getParam('payment_method');
+    elseif(Mage::app()->getRequest()->getParam('mpay24_ps') != null)
+      $payment_method = Mage::app()->getRequest()->getParam('mpay24_ps');
     
     if (Mage::getStoreConfig('mpay24/mpay24/payments_active') == 'true' && Mage::getStoreConfig("mpay24/mpay24/forced_preselection") == 1 && $payment_method != "" ) {
       $address->setPaymentCharge ( 0 );

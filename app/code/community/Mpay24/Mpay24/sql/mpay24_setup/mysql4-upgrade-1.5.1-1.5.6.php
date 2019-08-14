@@ -16,7 +16,7 @@
  * @package             Mpay24_Mpay24
  * @author              Firedrago Magento
  * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- * @version             $Id: mysql4-upgrade-1.5.4-1.5.5.php 31 2015-01-15 16:26:31Z sapolhei $
+ * @version             $Id: mysql4-upgrade-1.5.1-1.5.6.php 33 2015-01-15 16:29:36Z sapolhei $
  */
 if(class_exists('Mage_Sales_Model_Resource_Setup'))
   $install = new Mage_Sales_Model_Resource_Setup('sales_setup');
