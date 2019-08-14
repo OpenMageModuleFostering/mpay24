@@ -22,6 +22,12 @@
       <xs:enumeration value="TR"/>
       <xs:enumeration value="ZH"/>
       <xs:enumeration value="JA"/>
+      <xs:enumeration value="DA"/>
+      <xs:enumeration value="FI"/>
+      <xs:enumeration value="SV"/>
+      <xs:enumeration value="NO"/>
+      <xs:enumeration value="UK"/>
+      <xs:enumeration value="EL"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="ClientIPType">

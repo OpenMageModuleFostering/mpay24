@@ -76,3 +76,8 @@
 "You will be redirected to the mPAY24 pay page...", "Sie werden zur Bezahlseite von mPAY24 weitergeleitet..."
 "Please choose a payment system...", "Bitte wählen Sie ein Zahlungssystem..."
 "Forced preselection", "Zwangsvorauswahl"
+"Account holder", "Kontoinhaber"
+"Account number", "IBAN"
+"Bank code", "BIC"
+"Bank name", "Bankname"
+"Reference", "Referenz"
