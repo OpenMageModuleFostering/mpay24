@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!-- 
+ * @version             $Id: Mpay24_Mpay24.xml 7 2013-10-10 14:19:46Z sapolhei $
+ -->
+<config>
+  <modules>
+    <Mpay24_Mpay24>
+      <active>true</active>
+      <codePool>community</codePool>
+      <depends>
+        <Mage_Payment />
+      </depends>
+      <version>1.4.7</version>
+    </Mpay24_Mpay24>
+  </modules>
+</config>

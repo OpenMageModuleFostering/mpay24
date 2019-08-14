@@ -1,0 +1,16 @@
+{
+    "name": "OpenMageModuleFostering/mPAY24",
+    "type": "magento-module",
+    "license": "Open-Software-License-(OSL-3.0)",
+    "homepage": "",
+    "description": "A payment gateway, based on the mPAY24 PHP API (Webservices/SOAP v. 1.5).",
+    "authors": [
+    {
+        "name": "Firedrago Magento",
+        "email": "firedrago.magento@gmail.com"
+    }
+],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}

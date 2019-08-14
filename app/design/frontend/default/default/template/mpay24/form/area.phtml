@@ -1,0 +1,198 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category            Mpay24
+ * @package             Mpay24_Mpay24
+ * @author              Firedrago Magento
+ * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @version             $Id: area.phtml 5 2013-10-10 13:08:44Z sapolhei $
+ */
+?>
+<?php
+$_code=$this->getMethodCode();
+
+if(Mage::getStoreConfig('mpay24/mpay24/payments_active') == 'true') {
+  $brandsAndTypes = explode(", ", Mage::getStoreConfig('mpay24/mpay24/active_payment_types'));
+  $brands = array();
+  foreach($brandsAndTypes as $brandAndType)
+    $brands[substr($brandAndType, 0, strpos($brandAndType, "=>"))] = substr($brandAndType, strpos($brandAndType, "=>")+2);
+}
+?>
+<script type="text/javascript">
+  var selectedPayment = "../../../web/img/logos/payment-mpay24";
+  var brand = "";
+  
+  function activate(input, id, description) {
+    brand = description;
+    if(input.parentNode.getAttribute('style') == "border: 1px inset transparent;") {
+      var inputs = document.getElementById('mpay24_table').getElementsByTagName('input');
+
+      for(var i=0; i<inputs.length; i++) {
+        inputs[i].parentNode.setAttribute('style', "border: 1px inset transparent;");
+        inputs[i].disabled = true;
+      }
+
+      document.getElementById('mpay24_table').disabled = true;
+
+      input.parentNode.setAttribute('style', "border: 1px inset blue;");
+      document.getElementById(id).disabled = false;
+
+      selectedPayment = id;
+      payment.save();
+    } else {
+      input.parentNode.setAttribute('style', "border: 1px inset transparent;");
+      document.getElementById(id).disabled = true;
+      document.getElementById('mpay24_table').disabled = false;
+    }
+  }
+</script>
+
+<?php if(Mage::getStoreConfig('mpay24/mpay24/forced_preselection') == 1): ?>
+  <script>
+    document.getElementById('p_method_mpay24').setAttribute('onClick', "var savePaymentButton = document.getElementById('payment-buttons-container').getElementsByTagName('button')[0]; " +
+        "if(savePaymentButton) " +
+        "if(document.getElementById('p_method_mpay24').checked == true) " +
+        "savePaymentButton.setAttribute('onClick', 'alert(\"<?php echo Mage::helper('mpay24')->__("Please choose a payment system from the icon area, by clicking on the icons..."); ?>\");return false;'); " +
+        "else " +
+        "savePaymentButton.setAttribute('onClick', 'payment.save();'); " +
+        "payment.switchMethod('mpay24');");
+  </script>
+<?php endif;?>
+<ul id="payment_form_<?php echo $_code ?>" style="display:none;">
+  <li>
+    <b>
+      <?php if(Mage::getStoreConfig('mpay24/mpay24/payments_active') == 'true')
+              if(Mage::getStoreConfig('mpay24/mpay24/forced_preselection') == 1)
+                echo Mage::helper('mpay24')->__("Please choose a payment system from the icon area...");
+              else
+                echo Mage::helper('mpay24')->__("You can choose the payment system you want to use now or do it when you are redirected to the mPAY24 pay page after placing the order.");
+            else
+              echo Mage::helper('mpay24')->__("You can choose the payment system you want to use after you are redirected to the mPAY24 pay page after placing the order.");
+      ?>
+    </b>
+  </li>
+
+  <?php if(Mage::getStoreConfig('mpay24/mpay24/payments_active') == 'true'):?>
+    <li>
+      <table style="padding:10px 15px 15px;">
+        <tr>
+          <td height="1" colspan="3"></td>
+          <td height="1" bgcolor="#b3b3b3"></td>
+          <td height="1" colspan="3"></td>
+        </tr>
+        <tr>
+          <td height="1" colspan="2"></td>
+          <td height="1" width="2" bgcolor="#b3b3b3"></td>
+          <td height="1" bgcolor="#ffffff"></td>
+          <td height="1" width="2" bgcolor="#b3b3b3"></td>
+          <td height="1" colspan="2"></td>
+        </tr>
+        <tr>
+          <td height="2" width="1"></td>
+          <td height="2" width="1" bgcolor="#b3b3b3"></td>
+          <td height="2" colspan="3" bgcolor="#ffffff"></td>
+          <td height="2" width="1" bgcolor="#b3b3b3"></td>
+          <td height="2" width="1"></td>
+        </tr>
+        <tr>
+          <td width="1" bgcolor="#b3b3b3"></td>
+          <td width="3" colspan="2" bgcolor="#ffffff"></td>
+          <td bgcolor="#ffffff">
+            <table id='mpay24_table' style="width: 100%;">
+              <colgroup>
+                <col width="70%">
+                <col width="30%">
+              </colgroup>
+              <tr>
+                <td colspan="2">
+                  <div style="width: 500px;"><!-- 248 -->
+                    <?php 
+                          $j = 1;
+                          foreach ($this->getActiveMethods() as $id => $payment):
+                            if(strlen($id) == 1)
+                              $id = "00$id";
+                            elseif(strlen($id) == 2)
+                              $id = "0$id";
+                            
+                            $addInfo = "";
+                            
+                            if(Mage::getStoreConfig("mpay24/mpay24/forced_preselection") == 1) {
+                              $addInfo .= " - ";
+                            
+                              if(Mage::getStoreConfig("mpay24/mpay24/tax_$j") > 0) {
+                                if(Mage::getStoreConfig("mpay24/mpay24/tax_type_$j") == 'absolute')
+                                  $addInfo .= Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol();
+                                $addInfo .= " " . Mage::getStoreConfig("mpay24/mpay24/tax_$j");
+                            
+                                if(Mage::getStoreConfig("mpay24/mpay24/tax_type_$j") == 'percent')
+                                  $addInfo .= "%";
+                            
+                                $addInfo .= " " . Mage::helper('mpay24')->__("Payment charge");
+                              } else
+                                $addInfo .= Mage::helper('mpay24')->__("For free");
+                            }
+                            
+                    ?>
+                      <div style="border:5px solid transparent; float:left;">
+                        <div style="border: 1px inset transparent;">
+                          <a href="#" onclick="activate(this, '<?php echo $id;?>', '<?php echo $payment['DESCR']?>');"><img src='https://www.mpay24.com/merchadm/img/ptypes/<?php echo $id?>.png' alt='<?php echo $payment['DESCR'] . $addInfo?>' title='<?php echo $payment['DESCR'] . $addInfo?>' ></a>
+                          <input type="hidden" id='<?php echo $id;?>' name='mpay24_ps' value='<?php echo $id . "_" . $j;?>' disabled />
+                        </div>
+                      </div>
+                    <?php 
+                    $j++;
+                    endforeach; ?>
+                    <input type="hidden" id='mpay24_all' name='mpay24_ps' value='false' />
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <div style="padding-bottom: 2px; border-top: 1px solid #b3b3b3"></div>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <img style="float:right" src="https://www.mpay24.com/web/img/logos/payment-mpay24.png" alt="mPAY24" title="mPAY24" width="40%" height="40%">
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td width="3" colspan="2" bgcolor="#ffffff"></td>
+          <td width="1" bgcolor="#b3b3b3"></td>
+        </tr>
+        <tr>
+          <td height="2" width="1"></td>
+          <td height="2" width="1" bgcolor="#b3b3b3"></td>
+          <td height="2" colspan="3" bgcolor="#ffffff"></td>
+          <td height="2" width="1" bgcolor="#b3b3b3"></td>
+          <td height="2" width="1"></td>
+        </tr>
+        <tr>
+          <td height="1" colspan="2"></td>
+          <td height="1" width="2" bgcolor="#b3b3b3"></td>
+          <td height="1" bgcolor="#ffffff"></td>
+          <td height="1" width="2" bgcolor="#b3b3b3"></td>
+          <td height="1" colspan="2"></td>
+        </tr>
+        <tr>
+          <td height="1" colspan="3"></td>
+          <td height="1" bgcolor="#b3b3b3"></td>
+          <td height="1" colspan="3"></td>
+        </tr>
+      </table>
+    </li>
+  <?php endif;?>
+</ul>

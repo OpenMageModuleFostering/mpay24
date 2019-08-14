@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!-- 
+ * @version             $Id: mpay24.xml 5 2013-10-10 13:08:44Z sapolhei $
+ -->
+<layout version="0.1.0">
+  <mpay24_payment_payment>
+    <reference name="root">
+      <action method="setTemplate"><template>page/1column.phtml</template></action>
+    </reference>
+  </mpay24_payment_payment>
+  <mpay24_payment_errormsg>
+    <reference name="root">
+      <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
+    </reference>
+    <reference name="content">
+      <block type="mpay24/mpay24" name="errormsg"  template="mpay24/error.phtml"/>
+    </reference>
+  </mpay24_payment_errormsg>
+</layout>
