@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Order Style="margin-left: auto; margin-right: auto; color:#647378" PageHeaderStyle="background-color: #FFF;margin-bottom:14px;" PageCaptionStyle="background-color:#FFF;background:transparent;color:#647378;padding-left:0px;" PageStyle="border:1px solid #838F93;background-color:#FFF;" InputFieldsStyle="background-color:#ffffff;border:1px solid #DDE1E7;padding:2px 0px;margin-bottom:5px;" DropDownListsStyle="padding:2px 0px;margin-bottom:5px;" ButtonsStyle="background-color: #005AC1;border: none;color: #FFFFFF;cursor: pointer;font-size:10px;font-weight:bold;padding:5px 10px;text-transform:uppercase;" ErrorsStyle="background-color: #FFF;padding: 10px 0px;" SuccessTitleStyle="background-color: #FFF;" ErrorTitleStyle="background-color: #FFF;">
+  <ClientIP>127.0.0.1</ClientIP>
+  <UserField>Magento v 1.9.2.2 Module v 1.6.2 145000006_2015-11-04</UserField>
+  <Tid>145000006</Tid>
+  <TemplateSet Language="DE" CSSName="MOBILE"/>
+  <PaymentTypes Enable="true">
+    <Payment Type="CC" Brand="VISA"/>
+  </PaymentTypes>
+  <ShoppingCart Header="WARENKORB" HeaderStyle="background-color:#FFF;margin-bottom:14px;color:#647378" CaptionStyle="background-color:#FFF;background:transparent;color:#647378;padding-left:0px;font-size:14px;" DescriptionHeader="BESCHREIBUNG" DescriptionStyle="width:80px;background-color:#FFF;color:#647378;border: 1px solid #838F93;text-transform:uppercase;padding:5px;text-align:center;" QuantityHeader="ANZAHL" QuantityStyle="width:80px;background-color:#FFF;color:#647378;border: 1px solid #838F93;text-transform:uppercase;padding:5px;text-align:center;" ItemPriceHeader="EINZELPREIS" ItemPriceStyle="width:80px;background-color:#FFF;color:#647378;border: 1px solid #838F93;text-transform:uppercase;padding:5px;text-align:center;" PriceHeader="PREIS" PriceStyle="width:80px;background-color:#FFF;color:#647378;border: 1px solid #838F93;text-transform:uppercase;padding:5px;text-align:center;">
+    <Description>BESTELLUNGSBESCHREIBUNG</Description>
+    <Item>
+      <Description Style="background-color: #FFF;color: #647378; border: 1px solid #838F93;text-align:center;padding:5px 0px;">Tori Tank</Description>
+      <Quantity Style="background-color: #FFF;color: #647378; border: 1px solid #838F93;text-align:center;padding:5px 0px;">1</Quantity>
+      <ItemPrice Style="background-color: #FFF;color: #647378; border: 1px solid #838F93;text-align:center;padding:5px 0px;">60.00</ItemPrice>
+      <Price Style="background-color: #FFF;color: #647378; border: 1px solid #838F93;text-align:center;padding:5px 0px;">60</Price>
+    </Item>
+    <SubTotal Header="ZWISCHENSUMME" HeaderStyle="background-color:#FFF;color: #647378;padding:3px;font-weight:normal;" Style="background-color:#FFF;color:#647378;border:none;font-weight:normal;padding:3px 20px;">60.00</SubTotal>
+    <ShippingCosts Header="Flat Rate - Fixed" HeaderStyle="background-color: #FFF; color: #647378;font-weight:normal;padding:3px;" Style="background-color:#FFF;color:#647378;border:none;padding:3px 20px;">5.00</ShippingCosts>
+  </ShoppingCart>
+  <Price Header="ENDSUMME" HeaderStyle="background-color:#FFF;color: #647378;padding:3px;font-weight:normal;border-top: 1px solid #838F93;" Style="background-color:#FFF;color:#005AC1;border:none;padding:4px;font-weight:bold;padding:3px 20px;font-size:14px;border-top: 1px solid #838F93;">65.00</Price>
+  <Currency>USD</Currency>
+  <Customer Id="140">Max Musterman</Customer>
+  <BillingAddr Mode="ReadOnly">
+    <Name Birthday="1970-01-01">Max Musterman</Name>
+    <Street>Teststraße 123</Street>
+    <Zip>1234</Zip>
+    <City>Wien</City>
+    <State>Wien</State>
+    <Country Code="AT"/>
+    <Email>sapolhei@hotmail.com</Email>
+    <Phone>0043123456789</Phone>
+  </BillingAddr>
+  <ShippingAddr Mode="ReadOnly">
+    <Name Birthday="1970-01-01">Max Musterman</Name>
+    <Street>Teststraße 123</Street>
+    <Zip>1234</Zip>
+    <City>Wien</City>
+    <State>Wien</State>
+    <Country Code="AT"/>
+    <Email>sapolhei@hotmail.com</Email>
+    <Phone>0043123456789</Phone>
+  </ShippingAddr>
+  <URL>
+    <Success>http://localhost/magento/mpay24/payment/success/?TID=145000006</Success>
+    <Error>http://localhost/magento/mpay24/payment/error/?TID=145000006</Error>
+    <Confirmation>http://localhost/magento/mpay24/payment/confirmation/</Confirmation>
+    <Cancel>http://localhost/magento/mpay24/payment/cancel/?TID=145000006</Cancel>
+  </URL>
+</Order>

@@ -7,7 +7,7 @@
  */
 
 include_once(Mage::getBaseDir('code')."/community/Mpay24/Mpay24/Model/Api/MPay24Shop.php");
-define("MAGENTO_VERSION", "Magento v " . Mage::getVersion() . " Module v 1.6.4 ");
+define("MAGENTO_VERSION", "Magento v " . Mage::getVersion() . " Module v 1.6.5 ");
 
 class MPay24MagentoShop extends MPay24Shop {
 
@@ -235,11 +235,11 @@ class MPay24MagentoShop extends MPay24Shop {
   }
 
   function createProfileOrder($tid) {}
-  function createExpressCheckoutOrder($tid) {}
+  function createBackend2BackendOrder($tid, $paymentType) {}
   function createFinishExpressCheckoutOrder($tid, $s, $a, $c) {}
 
   function write_log($operation, $info_to_log) {
-    Mage::log("$operation : $info_to_log", null, "mPAY24log.log",true);
+    Mage::log("$operation : $info_to_log", null, "mpay24/mPAY24.log",true);
   }
 
   function createSecret($tid, $amount, $currency, $timeStamp) {}
@@ -288,7 +288,7 @@ class MPay24MagentoShop extends MPay24Shop {
     else
       $mdxi->Order->TemplateSet->setLanguage("EN");
     
-    $mdxi->Order->TemplateSet->setCSSName("MOBILE");
+    $mdxi->Order->TemplateSet->setCSSName("MODERN");
 
     if($this->ps) {
       $this->order->getPayment()->setCcType($this->type . " => " . $this->brand)->save();
@@ -610,12 +610,8 @@ class MPay24MagentoShop extends MPay24Shop {
     $mdxi->Order->URL->Confirmation = Mage::getUrl(MPay24MagentoShop::CONFIRMATION_URL,array('_secure' => true));
     $mdxi->Order->URL->Cancel = Mage::getUrl(MPay24MagentoShop::CANCEL_URL,array('_secure' => true, '_query' => "TID=" . substr($this->order->getIncrementId(),0,32) ));
 
-    if(Mage::getStoreConfig('mpay24/mpay24as/debug') == 1) {
-      $myFile = Mage::getBaseDir('code')."/community/Mpay24/Mpay24/Model/Api/xmls/".$transaction->TID.".xml";
-      $fh = fopen($myFile, 'w') or die("can't open file");
-      fwrite($fh, $mdxi->toXML());
-      fclose($fh);
-    }
+    if(Mage::getStoreConfig('mpay24/mpay24as/debug') == 1)
+      Mage::log($mdxi->toXML(), null, "mpay24/xmls/".$transaction->TID.".xml",true);
 
     return $mdxi;
   }
@@ -730,7 +726,7 @@ class MPay24MagentoShop extends MPay24Shop {
       $proxy_pass = null;
     }
 
-    $mPay24MagentoShop = new MPay24MagentoShop(Mage::getStoreConfig('mpay24/mpay24as/merchantid'), Mage::getStoreConfig('mpay24/mpay24as/soap_pass'), $test, $debug, $verify_peer, $proxy_host, $proxy_port, $proxy_user, $proxy_pass);
+    $mPay24MagentoShop = new MPay24MagentoShop(Mage::getStoreConfig('mpay24/mpay24as/merchantid'), Mage::getStoreConfig('mpay24/mpay24as/soap_pass'), $test, $debug, $proxy_host, $proxy_port, $proxy_user, $proxy_pass, $verify_peer);
     return   $mPay24MagentoShop;
   }
 }
