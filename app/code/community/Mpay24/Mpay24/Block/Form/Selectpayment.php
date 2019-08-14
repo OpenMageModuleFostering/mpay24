@@ -16,13 +16,14 @@
  * @package             Mpay24_Mpay24
  * @author              Firedrago Magento
  * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- * @version             $Id: Selectpayment.php 5 2013-10-10 13:08:44Z sapolhei $
+ * @version             $Id: Selectpayment.php 13 2013-10-31 14:44:29Z sapolhei $
  */
 
 class Mpay24_Mpay24_Block_Form_Selectpayment extends Mage_Payment_Block_Form {
   protected function _construct() {
     parent::_construct();
-    $this->setTemplate('mpay24/form/'.Mage::getStoreConfig('mpay24/mpay24/form_template'));
+    if(Mage::getStoreConfig('mpay24/mpay24/form_template'))
+      $this->setTemplate('mpay24/form/'.Mage::getStoreConfig('mpay24/mpay24/form_template'));
   }
 
   /**
@@ -60,14 +61,18 @@ class Mpay24_Mpay24_Block_Form_Selectpayment extends Mage_Payment_Block_Form {
         Mage::app()->reinitStores();
       }
 
+      foreach($paymentsArray as $key => $value) {
+        $value['ACTIVE'] = 1;
+        $paymentsArray[$key] = $value;
+      }
+      
       return $paymentsArray;
     } else {
       $i=1;
       $payments = array();
       foreach($paymentsArray as $id => $payment) {
-        if(Mage::getStoreConfig('mpay24/mpay24/ps_'.$i) == 1) {
-          $payments[$id] = $payment;
-        }
+        $payment['ACTIVE'] = Mage::getStoreConfig('mpay24/mpay24/ps_'.$i);
+        $payments[$id] = $payment;
 
         $i++;
       }

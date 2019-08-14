@@ -16,16 +16,13 @@
  * @package             Mpay24_Mpay24
  * @author              Firedrago Magento
  * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- * @version             $Id: Paymentcharge.php 5 2013-10-10 13:08:44Z sapolhei $
+ * @version             $Id: Paymentcharge.php 10 2013-10-31 14:23:20Z sapolhei $
  */
 
 class Mpay24_Mpay24_Model_Sales_Order_Invoice_Total_Paymentcharge extends Mage_Sales_Model_Order_Invoice_Total_Abstract {
   public function collect(Mage_Sales_Model_Order_Invoice $invoice) {
     $invoice->setPaymentCharge(0);
     $invoice->setBasePaymentCharge(0);
-      
-    $amount = $invoice->getOrder()->getPaymentCharge();
-    $invoice->setPaymentCharge($amount);
     
     $amount = $invoice->getOrder()->getBasePaymentCharge();
     $invoice->setBasePaymentCharge($amount);
@@ -33,8 +30,14 @@ class Mpay24_Mpay24_Model_Sales_Order_Invoice_Total_Paymentcharge extends Mage_S
     $type = $invoice->getOrder()->getPaymentChargeType();
     $invoice->setPaymentChargeType($type);
     
+    $amount = $invoice->getOrder()->getPaymentCharge();
+    if($type == 'percent')
+      $invoice->setPaymentCharge($invoice->getSubtotal()*$invoice->getBasePaymentCharge()/100);
+    else
+      $invoice->setPaymentCharge($amount);
+    
     if($type == 'percent') {
-      $invoice->setGrandTotal($invoice->getGrandTotal() + $invoice->getSubtotal()*$invoice->getPaymentCharge()/100);
+      $invoice->setGrandTotal($invoice->getGrandTotal() + $invoice->getPaymentCharge());
       $invoice->setBaseGrandTotal($invoice->getBaseGrandTotal() + $invoice->getSubtotal()*$invoice->getBasePaymentCharge()/100);
     } else {
       $invoice->setGrandTotal($invoice->getGrandTotal() + $invoice->getPaymentCharge());

@@ -12,11 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
- * @category  Mpay24
- * @package    Mpay24_Mpay24
- * @author    Firedrago Magento
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- * @version             $Id: Selectpayment.php 5 2013-10-10 13:08:44Z sapolhei $
+ * @category            Mpay24
+ * @package             Mpay24_Mpay24
+ * @author              Firedrago Magento
+ * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @version             $Id: Selectpayment.php 10 2013-10-31 14:23:20Z sapolhei $
  */
 
 include_once "app/code/community/Mpay24/Mpay24/Model/Api/MPay24MagentoShop.php";

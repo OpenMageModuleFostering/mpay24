@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <!-- 
- @version             $Id: config.xml 5 2013-10-10 13:08:44Z sapolhei $
+ @version             $Id: config.xml 10 2013-10-31 14:23:20Z sapolhei $
  -->
 <config>
   <modules>
     <Mpay24_Mpay24>
-      <version>1.4.7</version>
+      <version>1.4.8</version>
     </Mpay24_Mpay24>
   </modules>
 
@@ -110,6 +110,8 @@
         <totals>
           <payment_charge>
             <class>mpay24/sales_order_invoice_total_paymentcharge</class>
+            <after>subtotal,discount,shipping,tax</after>
+            <before>grand_total</before>
           </payment_charge>
         </totals>
       </order_invoice>
@@ -118,6 +120,8 @@
         <totals>
           <payment_charge>
             <class>mpay24/sales_order_creditmemo_total_paymentcharge</class>
+            <after>subtotal,discount,shipping,tax</after>
+            <before>grand_total</before>
           </payment_charge>
         </totals>
       </order_creditmemo>
@@ -131,7 +135,7 @@
           <amount_prefix></amount_prefix>
           <font_size>7</font_size>
           <display_zero>0</display_zero>
-          <sort_order>200</sort_order>
+          <sort_order>500</sort_order>
         </payment_charge>
       </totals>
     </pdf>
@@ -236,6 +240,8 @@
         <soap_pass backend_model="adminhtml/system_config_backend_encrypted"/>
         <debug>1</debug>
         <use_proxy>0</use_proxy>
+        <use_proxy_auth>0</use_proxy_auth>
+        <verify_peer>1</verify_peer>
         <allowed_ips>213.164.23.169,213.164.25.245,127.0.0.1</allowed_ips>
       </mpay24as>
       <mpay24sporder>
@@ -289,9 +295,9 @@
         <subtotal_style></subtotal_style>
       </mpay24spsc>
       <mpay24>
-          <payments_active>false</payments_active>
-          <billingAddressMode>ReadOnly</billingAddressMode>
-          <show_free_products>0</show_free_products>
+        <payments_active>false</payments_active>
+        <billingAddressMode>ReadOnly</billingAddressMode>
+        <show_free_products>0</show_free_products>
       </mpay24>
     </mpay24>
     <payment>

@@ -68,3 +68,7 @@
 "Please choose a payment system from the icon area...", "Bitte wählen Sie ein Zahlungssystem von dem Icon-Area..."
 "For free", "Kostenlos"
 "Please choose a payment system from the icon area, by clicking on the icons...", "Bitte wählen Sie ein Zahlungssystem von dem Icon-Area indem Sie auf dem Icon klicken..."
+"Use proxy authentification","Proxy-Authenitifizierung verwenden"
+"Proxy User","Proxy-Benutzer"
+"Proxy Password","Proxy-Passwort"
+"cURL: Verify the peer's certificate","cURL: Peers Zertifikate verfizieren"

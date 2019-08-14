@@ -4,7 +4,7 @@
  * build the SOAP request, sent to mPAY24
  *
  * @author              mPAY24 GmbH <support@mpay24.com>
- * @version             $Id: MPay24Api.php 5 2013-10-10 13:08:44Z sapolhei $
+ * @version             $Id: MPay24Api.php 9 2013-10-29 15:36:26Z sapolhei $
  * @filesource          MPay24Api.php
  * @license             http://ec.europa.eu/idabc/eupl.html EUPL, Version 1.1
  */
@@ -63,6 +63,16 @@ class MPay24Api {
    */
   private $proxy_port             = "";
   /**
+   * The user name, in case you are using proxy
+   * @var               string
+   */
+  private $proxy_user             = "";
+  /**
+   * The password, in case you are using proxy
+   * @var               string
+   */
+  private $proxy_pass             = "";
+  /**
    * The whole soap-xml (envelope and body), which is to be sent to mPAY24 as request
    * @var               string
    */
@@ -72,6 +82,11 @@ class MPay24Api {
    * @var               string
    */
   private $response                = "";
+  /**
+   * FALSE to stop cURL from verifying the peer's certificate, default - TRUE
+   * @var               bool
+   */
+  private $verify_peer            = true;
   /**
    * TRUE if log files are to be written, by default - FALSE
    * @var               bool
@@ -106,8 +121,11 @@ class MPay24Api {
    *                                                                      FALSE - when you want to use the LIVE system
    * @param             string              $proxyHost                    The host name in case you are behind a proxy server ("" when not)
    * @param             int                 $proxyPort                    4-digit port number in case you are behind a proxy server ("" when not)
+   * @param             string              $proxyUser                    The proxy user in case you are behind a proxy server ("" when not)
+   * @param             string              $proxyPass                    The proxy password in case you are behind a proxy server ("" when not)
+   * @param             bool                $verifyPeer                   Set as FALSE to stop cURL from verifying the peer's certificate
    */
-  public function configure($merchantID, $soapPassword, $test, $proxyHost, $proxyPort) {
+  public function configure($merchantID, $soapPassword, $test, $proxyHost, $proxyPort, $proxyUser, $proxyPass, $verifyPeer) {
     /**
      * An error message, that will be displayed to the user in case you are using the LIVE system
      * @const           LIVE_ERROR_MSG
@@ -124,8 +142,14 @@ class MPay24Api {
     $this->setSoapPassword($soapPassword);
     $this->setSystem($test);
 
-    if($proxyHost != "" && $proxyPort != "")
-      $this->setProxySettings($proxyHost, $proxyPort);
+    if($proxyHost != "" && $proxyPort != "") {
+      if($proxyUser != "" && $proxyPass != "")
+        $this->setProxySettings($proxyHost, $proxyPort, $proxyUser, $proxyPass);
+      else
+        $this->setProxySettings($proxyHost, $proxyPort);
+    }
+    
+    $this->setVerifyPeer($verifyPeer);
   }
 
   /**
@@ -645,11 +669,24 @@ class MPay24Api {
    * @param             string              $proxy_host                   Proxy host
    * @param             string              $proxy_port                   Proxy port
    */
-  private function setProxySettings($proxy_host="", $proxy_port="") {
+  private function setProxySettings($proxy_host="", $proxy_port="",$proxy_user="",$proxy_pass="") {
     if($proxy_host != "" && $proxy_port != "") {
       $this->proxy_host = $proxy_host;
       $this->proxy_port = $proxy_port;
     }
+    
+    if($proxy_user != "" && $proxy_pass != "") {
+      $this->proxy_user = $proxy_user;
+      $this->proxy_pass = $proxy_pass;
+    }
+  }
+  
+  /**
+   * Set whether to stop cURL from verifying the peer's certificate
+   * @param             bool                $verify_peer                  Set as FALSE to stop cURL from verifying the peer's certificate
+   */
+  private function setVerifyPeer($verify_peer) {
+    $this->verify_peer = $verify_peer;
   }
 
   /**
@@ -677,7 +714,7 @@ class MPay24Api {
    * Create a curl request and send the cretaed SOAP XML
    */
   private function send() {
-    $userAgent = 'mPAY24 PHP API $Rev: 5 $ ($Date:: 2013-10-10 #$)';
+    $userAgent = 'mPAY24 PHP API $Rev: 9 $ ($Date:: 2013-10-29 #$)';
 
     if($this->shop != '') {
       $userAgent = $this->shop;
@@ -706,8 +743,15 @@ class MPay24Api {
     try {
       curl_setopt($ch, CURLOPT_CAINFO, __DIR__.'/cacert.pem');
 
-      if($this->proxy_host !== '' && $this->proxy_port !== '')
+      if($this->proxy_host !== '' && $this->proxy_port !== '') {
         curl_setopt($ch, CURLOPT_PROXY, $this->proxy_host.':'.$this->proxy_port);
+        
+        if($this->proxy_user !== '' && $this->proxy_pass !== '')
+          curl_setopt($ch, CURLOPT_PROXYUSERPWD, $this->proxy_user.':'.$this->proxy_pass);
+        
+        if($this->verify_peer !== true)
+          curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->verify_peer);
+      }
 
       $this->response = curl_exec($ch);
       curl_close($ch);
@@ -775,7 +819,7 @@ class MPay24Api {
  * The GeneralResponse class contains the status of a response and return code, which was delivered by mPAY24 as an answer of your request
  *
  * @author              mPAY24 GmbH <support@mpay24.com>
- * @version             $Id: MPay24Api.php 5 2013-10-10 13:08:44Z sapolhei $
+ * @version             $Id: MPay24Api.php 9 2013-10-29 15:36:26Z sapolhei $
  * @filesource          MPay24Api.php
  * @license             http://ec.europa.eu/idabc/eupl.html EUPL, Version 1.1
  */
@@ -851,7 +895,7 @@ class GeneralResponse {
  * The PaymentResponse class contains a generalResponse object and the location(URL), which will be used for the payment session
  *
  * @author              mPAY24 GmbH <support@mpay24.com>
- * @version             $Id: MPay24Api.php 5 2013-10-10 13:08:44Z sapolhei $
+ * @version             $Id: MPay24Api.php 9 2013-10-29 15:36:26Z sapolhei $
  * @filesource          MPay24Api.php
  * @license             http://ec.europa.eu/idabc/eupl.html EUPL, Version 1.1
  */
@@ -907,7 +951,7 @@ class PaymentResponse extends GeneralResponse {
  * The ManagePaymentResponse class contains a generalResponse object and the mPAYTID and/or tid of the transaction which was managed
  *
  * @author              mPAY24 GmbH <support@mpay24.com>
- * @version             $Id: MPay24Api.php 5 2013-10-10 13:08:44Z sapolhei $
+ * @version             $Id: MPay24Api.php 9 2013-10-29 15:36:26Z sapolhei $
  * @filesource          MPay24Api.php
  * @license             http://ec.europa.eu/idabc/eupl.html EUPL, Version 1.1
  */
@@ -978,7 +1022,7 @@ class ManagePaymentResponse extends GeneralResponse {
  * The ListPaymentMethodsResponse class contains a generalResponse object and all the needed informarion for the active payment mothods (payment methods count, payment types, brands and descriptions)
  *
  * @author              mPAY24 GmbH <support@mpay24.com>
- * @version             $Id: MPay24Api.php 5 2013-10-10 13:08:44Z sapolhei $
+ * @version             $Id: MPay24Api.php 9 2013-10-29 15:36:26Z sapolhei $
  * @filesource          MPay24Api.php
  * @license             http://ec.europa.eu/idabc/eupl.html EUPL, Version 1.1
  */
@@ -1131,7 +1175,7 @@ class ListPaymentMethodsResponse extends GeneralResponse {
  * The TransactionStatusResponse class contains a generalResponse object and all the parameters, returned with the confirmation from mPAY24
  *
  * @author              mPAY24 GmbH <support@mpay24.com>
- * @version             $Id: MPay24Api.php 5 2013-10-10 13:08:44Z sapolhei $
+ * @version             $Id: MPay24Api.php 9 2013-10-29 15:36:26Z sapolhei $
  * @filesource          MPay24Api.php
  * @license             http://ec.europa.eu/idabc/eupl.html EUPL, Version 1.1
  */

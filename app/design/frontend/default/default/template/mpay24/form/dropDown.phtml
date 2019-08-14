@@ -16,7 +16,7 @@
  * @package             default_defaut
  * @author              Firedrago Magento
  * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- * @version             $Id: dropDown.phtml 5 2013-10-10 13:08:44Z sapolhei $
+ * @version             $Id: dropDown.phtml 10 2013-10-31 14:23:20Z sapolhei $
  */
 ?>
 <?php
@@ -114,40 +114,41 @@ if(Mage::getStoreConfig('mpay24/mpay24/payments_active') == 'true') {
                             $firstID = "";
                           $j = 1;
                           foreach ($this->getActiveMethods() as $id => $payment):
-                            $changed = false;
-                            if($temp_brand == "" || $temp_brand != $payment['P_TYPE']) {
-                              if($temp_brand == "")
-                                echo "</optgroup>";
-                              $temp_brand = $payment['P_TYPE'];
-                              echo "<optgroup label='$temp_brand'>";
-                            }
-
-                            if(strlen($id) == 1)
-                              $id = "00$id";
-                            elseif(strlen($id) == 2)
-                              $id = "0$id";
-                            
-                            if(Mage::getStoreConfig('mpay24/mpay24/forced_preselection') == 1 && $firstID == "")
-                              $firstID = $id;
-                        ?>
-
-                        <option value="<?php echo $id . "_" . $j ?>"><?php echo $payment['DESCR']; 
-                          if(Mage::getStoreConfig("mpay24/mpay24/forced_preselection") == 1) {
-                            echo " - ";
-                            
-                            if(Mage::getStoreConfig("mpay24/mpay24/tax_$j") > 0) {
-                              if(Mage::getStoreConfig("mpay24/mpay24/tax_type_$j") == 'absolute') 
-                                echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol(); 
-                              echo " " . Mage::getStoreConfig("mpay24/mpay24/tax_$j");
+                            if($payment['ACTIVE'] == 1) {
+                              $changed = false;
+                              if($temp_brand == "" || $temp_brand != $payment['P_TYPE']) {
+                                if($temp_brand == "")
+                                  echo "</optgroup>";
+                                $temp_brand = $payment['P_TYPE'];
+                                echo "<optgroup label='$temp_brand'>";
+                              }
+  
+                              if(strlen($id) == 1)
+                                $id = "00$id";
+                              elseif(strlen($id) == 2)
+                                $id = "0$id";
                               
-                              if(Mage::getStoreConfig("mpay24/mpay24/tax_type_$j") == 'percent') 
-                                echo "%";
-                              
-                              echo " " . Mage::helper('mpay24')->__("Payment charge");
-                            } else
-                              echo Mage::helper('mpay24')->__("For free");
-                          } ?></option>
-                      <?php $j++; endforeach; ?>
+                              if(Mage::getStoreConfig('mpay24/mpay24/forced_preselection') == 1 && $firstID == "")
+                                $firstID = $id;
+                          ?>
+  
+                            <option value="<?php echo $id . "_" . $j ?>"><?php echo $payment['DESCR']; 
+                              if(Mage::getStoreConfig("mpay24/mpay24/forced_preselection") == 1) {
+                                echo " - ";
+                                
+                                if(Mage::getStoreConfig("mpay24/mpay24/tax_$j") > 0) {
+                                  if(Mage::getStoreConfig("mpay24/mpay24/tax_type_$j") == 'absolute') 
+                                    echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol(); 
+                                  echo " " . Mage::getStoreConfig("mpay24/mpay24/tax_$j");
+                                  
+                                  if(Mage::getStoreConfig("mpay24/mpay24/tax_type_$j") == 'percent') 
+                                    echo "%";
+                                  
+                                  echo " " . Mage::helper('mpay24')->__("Payment charge");
+                                } else
+                                  echo Mage::helper('mpay24')->__("For free");
+                              } ?></option>
+                      <?php } $j++; endforeach; ?>
                     </select>
                   </td>
                   <td>

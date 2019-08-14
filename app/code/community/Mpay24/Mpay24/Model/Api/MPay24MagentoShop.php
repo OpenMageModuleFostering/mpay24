@@ -1,7 +1,7 @@
 <?php
 /**
  * @author              support@mpay24.com
- * @version             $Id: MPay24MagentoShop.php 5 2013-10-10 13:08:44Z sapolhei $
+ * @version             $Id: MPay24MagentoShop.php 16 2013-11-12 15:30:44Z sapolhei $
  * @filesource          test.php
  * @license             http://ec.europa.eu/idabc/eupl.html EUPL, Version 1.1
  */
@@ -20,7 +20,7 @@ class MPay24MagentoShop extends MPay24Shop {
 
   const CANCEL_URL = 'mpay24/payment/cancel';
 
-  const MAGENTO_VERSION = "Magento 1.4.7 ";
+  const MAGENTO_VERSION = "Magento 1.4.8 ";
 
   var $tid;
   var $price;
@@ -395,7 +395,7 @@ class MPay24MagentoShop extends MPay24Shop {
           if(in_array('ItemPrice',$conf)) {
             $mdxi->Order->ShoppingCart->Item($linecount)->ItemPrice = number_format($_item->getPriceInclTax()*1,2,'.','');
             $mdxi->Order->ShoppingCart->Item($linecount)->ItemPrice->setStyle($style);
-            $mdxi->Order->ShoppingCart->Item($linecount)->ItemPrice->setTax(number_format($_item->getTaxAmount(),2,'.',''));
+            $mdxi->Order->ShoppingCart->Item($linecount)->ItemPrice->setTax(number_format(number_format(($_item->getData('price')*1),2,'.','') * number_format($_item->getTaxPercent(),2,'.','')/100,2,'.',''));
           }
         } else {
           if(in_array('ItemPrice',$conf)) {
@@ -404,9 +404,16 @@ class MPay24MagentoShop extends MPay24Shop {
           }
         }
         
-        if(in_array('Price',$conf)) {
-          $mdxi->Order->ShoppingCart->Item($linecount)->Price = number_format(($_item->getData('price')*1),2,'.','') * (int)$_item->getQtyOrdered();
-          $mdxi->Order->ShoppingCart->Item($linecount)->Price->setStyle($style);
+        if(Mage::getStoreConfig('tax/cart_display/price') == 2 || Mage::getStoreConfig('tax/cart_display/price') == 3) {
+          if(in_array('Price',$conf)) {
+            $mdxi->Order->ShoppingCart->Item($linecount)->Price = number_format(($_item->getPriceInclTax()*1),2,'.','') * (int)$_item->getQtyOrdered();
+            $mdxi->Order->ShoppingCart->Item($linecount)->Price->setStyle($style);
+          }
+        } else {
+          if(in_array('Price',$conf)) {
+            $mdxi->Order->ShoppingCart->Item($linecount)->Price = number_format(($_item->getData('price')*1),2,'.','') * (int)$_item->getQtyOrdered();
+            $mdxi->Order->ShoppingCart->Item($linecount)->Price->setStyle($style);
+          }
         }
       }
     }
@@ -427,15 +434,31 @@ class MPay24MagentoShop extends MPay24Shop {
       $mdxi->Order->ShoppingCart->Discount = number_format($this->order->getData('discount_amount'), 2, '.', '');
     }
 
+    $s=1;
     if(number_format($this->order->getData('shipping_amount'),2,'.','') !== '0.00') {
-      $mdxi->Order->ShoppingCart->ShippingCosts->setHeader($this->order->getData('shipping_description'));
-      $mdxi->Order->ShoppingCart->ShippingCosts->setHeaderStyle(Mage::getStoreConfig('mpay24/mpay24spsc/shipping_costs_headerstyle'));
-      $mdxi->Order->ShoppingCart->ShippingCosts->setStyle(Mage::getStoreConfig('mpay24/mpay24spsc/shipping_costs_style'));
-
       if(Mage::getStoreConfig('tax/cart_display/shipping') == 2 || Mage::getStoreConfig('tax/cart_display/shipping') == 3)
-        $mdxi->Order->ShoppingCart->ShippingCosts = number_format($this->order->getShippingInclTax(), 2, '.', '');
+        $mdxi->Order->ShoppingCart->ShippingCosts($s, number_format($this->order->getShippingInclTax(), 2, '.', ''));
       else
-        $mdxi->Order->ShoppingCart->ShippingCosts = number_format($this->order->getData('shipping_amount'), 2, '.', '');
+        $mdxi->Order->ShoppingCart->ShippingCosts($s, number_format($this->order->getData('shipping_amount'), 2, '.', ''));
+      
+      $mdxi->Order->ShoppingCart->ShippingCosts($s)->setHeader($this->order->getData('shipping_description'));
+      $mdxi->Order->ShoppingCart->ShippingCosts($s)->setHeaderStyle(Mage::getStoreConfig('mpay24/mpay24spsc/shipping_costs_headerstyle'));
+      $mdxi->Order->ShoppingCart->ShippingCosts($s)->setStyle(Mage::getStoreConfig('mpay24/mpay24spsc/shipping_costs_style'));
+      
+      $s++;
+    }
+    
+    if($this->order->getPaymentCharge() > 0) {
+      if($this->order->getPaymentChargeType() == "percent") {
+        $mdxi->Order->ShoppingCart->ShippingCosts($s, number_format($this->order->getData('subtotal')*$this->order->getBasePaymentCharge()/100,2,'.',''));
+        $mdxi->Order->ShoppingCart->ShippingCosts($s)->setHeader(Mage::helper('mpay24')->__("Payment charge") . " (" . $this->order->getBasePaymentCharge() . "%)");
+      } else {
+        $mdxi->Order->ShoppingCart->ShippingCosts($s, number_format($this->order->getPaymentCharge(),2,'.',''));
+        $mdxi->Order->ShoppingCart->ShippingCosts($s)->setHeader(Mage::helper('mpay24')->__("Payment charge") . " (" . Mage::helper('mpay24')->__("Absolute value") . ")");
+      }
+    
+      $mdxi->Order->ShoppingCart->ShippingCosts($s)->setHeaderStyle(Mage::getStoreConfig('mpay24/mpay24spsc/tax_headerstyle'));
+      $mdxi->Order->ShoppingCart->ShippingCosts($s)->setStyle(Mage::getStoreConfig('mpay24/mpay24spsc/tax_style'));
     }
 
     $t=1;
@@ -449,7 +472,7 @@ class MPay24MagentoShop extends MPay24Shop {
         foreach(array_keys($taxArray) as $taxKey)
           $taxInfo[$taxKey] = $taxArray[$taxKey];
 
-        if(Mage::getStoreConfig('tax/cart_display/shipping') == 2 || Mage::getStoreConfig('tax/cart_display/shipping') == 3) {
+        if(Mage::getStoreConfig('tax/cart_display/price') == 2 || Mage::getStoreConfig('tax/cart_display/price') == 3) {
           if(substr(Mage::getStoreConfig('general/locale/code'), 0, 2) == 'de')
             $inklText = "inkl. ";
            else
@@ -466,19 +489,6 @@ class MPay24MagentoShop extends MPay24Shop {
         
         $t++;
       }
-    }
-    
-    if($this->order->getPaymentCharge() > 0) {
-      if($this->order->getPaymentChargeType() == "percent") {
-        $mdxi->Order->ShoppingCart->Tax($t, number_format($this->order->getData('subtotal')*$this->order->getPaymentCharge()/100,2,'.',''));
-        $mdxi->Order->ShoppingCart->Tax($t)->setHeader(Mage::helper('mpay24')->__("Payment charge") . " (" . $this->order->getPaymentCharge() . "%)");
-      } else {
-        $mdxi->Order->ShoppingCart->Tax($t, number_format($this->order->getPaymentCharge(),2,'.',''));
-        $mdxi->Order->ShoppingCart->Tax($t)->setHeader(Mage::helper('mpay24')->__("Payment charge") . " (" . Mage::helper('mpay24')->__("Absolute value") . ")");
-      }
-      
-      $mdxi->Order->ShoppingCart->Tax($t)->setHeaderStyle(Mage::getStoreConfig('mpay24/mpay24spsc/tax_headerstyle'));
-      $mdxi->Order->ShoppingCart->Tax($t)->setStyle(Mage::getStoreConfig('mpay24/mpay24spsc/tax_style'));
     }
 
     $billingCountry = "";
@@ -677,16 +687,30 @@ class MPay24MagentoShop extends MPay24Shop {
       $debug = TRUE;
     else
       $debug = FALSE;
+    
+    if(Mage::getStoreConfig('mpay24/mpay24as/verify_peer') == 1)
+      $verify_peer = TRUE;
+    else
+      $verify_peer = FALSE;
 
     if(Mage::getStoreConfig('mpay24/mpay24as/use_proxy') == 1) {
       $proxy_host = Mage::getStoreConfig('mpay24/mpay24as/proxy_host');
       $proxy_port = Mage::getStoreConfig('mpay24/mpay24as/proxy_port');
+      if(Mage::getStoreConfig('mpay24/mpay24as/use_proxy_auth') == 1) {
+        $proxy_user = Mage::getStoreConfig('mpay24/mpay24as/proxy_user');
+        $proxy_pass = Mage::getStoreConfig('mpay24/mpay24as/proxy_pass');
+      } else {
+        $proxy_user = null;
+        $proxy_pass = null;
+      }
     } else {
       $proxy_host = null;
       $proxy_port = null;
+      $proxy_user = null;
+      $proxy_pass = null;
     }
 
-    $mPay24MagentoShop = new MPay24MagentoShop(Mage::getStoreConfig('mpay24/mpay24as/merchantid'), Mage::getStoreConfig('mpay24/mpay24as/soap_pass'), $test, $proxy_host, $proxy_port, $debug);
+    $mPay24MagentoShop = new MPay24MagentoShop(Mage::getStoreConfig('mpay24/mpay24as/merchantid'), Mage::getStoreConfig('mpay24/mpay24as/soap_pass'), $test, $debug, $verify_peer, $proxy_host, $proxy_port, $proxy_user, $proxy_pass);
     return   $mPay24MagentoShop;
   }
 }

@@ -6,7 +6,7 @@ include_once("orderXML.php");
  * The abstract MPay24Shop class provides abstract functions, which are used from the other functions in order to make a payment or a request to mPAY24
  *
  * @author              mPAY24 GmbH <support@mpay24.com>
- * @version             $Id: MPay24Shop.php 5 2013-10-10 13:08:44Z sapolhei $
+ * @version             $Id: MPay24Shop.php 9 2013-10-29 15:36:26Z sapolhei $
  * @filesource          MPay24Shop.php
  * @license             http://ec.europa.eu/idabc/eupl.html EUPL, Version 1.1
  */
@@ -25,29 +25,46 @@ abstract class MPay24Shop extends Transaction {
    * @param             string              $soapPassword                 The webservice's password, supported by mPAY24
    * @param             bool                $test                         TRUE - when you want to use the TEST system,
    *                                                                      FALSE - when you want to use the LIVE system
-   * @param             string              $proxyHost                    The host name in case you are behind a proxy server ("" when not)
-   * @param             int                 $proxyPort                    4-digit port number in case you are behind a proxy server ("" when not)
    * @param             bool                $debug                        TRUE - when you want to write log files,
    *                                                                      FALSE - when you don't want write log files
+   * @param             bool                $verfiyPeer                   Set as FALSE to stop cURL from verifying the peer's certificate
+   * @param             string              $proxyHost                    The host name in case you are behind a proxy server ("" when not)
+   * @param             int                 $proxyPort                    4-digit port number in case you are behind a proxy server ("" when not)
+   
+   * @param             string              $proxyUser                    The proxy user in case you are behind a proxy server ("" when not)
+   * @param             string              $proxyPass                    The proxy password in case you are behind a proxy server ("" when not)
    */
-  function MPay24Shop($merchantID, $soapPassword, $test, $proxyHost=null, $proxyPort=null, $debug=false) {
+  function MPay24Shop($merchantID, $soapPassword, $test, $debug=false, $verfiyPeer=true, $proxyHost=null, $proxyPort=null, $proxyUser=null, $proxyPass=null) {
     if(!is_bool($test))
       die("The test parameter '$test' you have given is wrong, it must be boolean value 'true' or 'false'!");
 
     if(!is_bool($debug))
       die("The debug parameter '$debug' you have given is wrong, it must be boolean value 'true' or 'false'!");
+    
+    if(!is_bool($verfiyPeer))
+      die("The verifyPeer parameter '$verfiyPeer' you have given is wrong, it must be boolean value 'true' or 'false'!");
 
     $this->mPay24Api = new MPay24Api();
 
     if($proxyHost == null) {
       $pHost = "";
       $pPort = "";
+      $pUser = "";
+      $pPass = "";
     } else {
       $pHost = $proxyHost;
       $pPort = $proxyPort;
+      
+      if($proxyUser == null) {
+        $pUser = "";
+        $pPass = "";
+      } else {
+        $pUser = $proxyUser;
+        $pPass = $proxyPass;
+      }
     }
 
-    $this->mPay24Api->configure($merchantID, $soapPassword, $test, $pHost, $pPort);
+    $this->mPay24Api->configure($merchantID, $soapPassword, $test, $pHost, $pPort, $pUser, $pPass, $verfiyPeer);
     $this->mPay24Api->setDebug($debug);
 
     if (version_compare(phpversion(), '5.0.0', '<')===true || !in_array('curl', get_loaded_extensions()) || !in_array('dom', get_loaded_extensions())) {
@@ -634,7 +651,7 @@ define("TRANSACTION_PROPERTIES", "SECRET,TID,STATUS,MPAYTID,APPR_CODE,P_TYPE,
  * * STRING:            FILTER_STATUS
  * * STRING:            APPR_CODE
  * @author              mPAY24 GmbH <support@mpay24.com>
- * @version             $Id: MPay24Shop.php 5 2013-10-10 13:08:44Z sapolhei $
+ * @version             $Id: MPay24Shop.php 9 2013-10-29 15:36:26Z sapolhei $
  * @filesource          MPay24Shop.php
  * @license             http://ec.europa.eu/idabc/eupl.html EUPL, Version 1.1
  */
@@ -706,7 +723,7 @@ class Transaction {
  * The abstract MPay24flexLINK class provides abstract functions, which are used from the other functions in order to create a flexLINK
  *
  * @author              mPAY24 GmbH <support@mpay24.com>
- * @version             $Id: MPay24Shop.php 5 2013-10-10 13:08:44Z sapolhei $
+ * @version             $Id: MPay24Shop.php 9 2013-10-29 15:36:26Z sapolhei $
  * @filesource          MPay24Shop.php
  * @license             http://ec.europa.eu/idabc/eupl.html EUPL, Version 1.1
  */

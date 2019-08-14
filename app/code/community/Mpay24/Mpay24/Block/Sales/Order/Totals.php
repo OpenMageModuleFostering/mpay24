@@ -16,7 +16,7 @@
  * @package             Mpay24_Mpay24
  * @author              Firedrago Magento
  * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- * @version             $Id: Totals.php 5 2013-10-10 13:08:44Z sapolhei $
+ * @version             $Id: Totals.php 14 2013-10-31 15:13:46Z sapolhei $
  */
 
 class Mpay24_Mpay24_Block_Sales_Order_Totals extends Mage_Sales_Block_Order_Totals {
@@ -41,8 +41,8 @@ class Mpay24_Mpay24_Block_Sales_Order_Totals extends Mage_Sales_Block_Order_Tota
         if ($index == "grand_total")
           if (((float)$source->getPaymentCharge()) != 0) {
             if($source->getPaymentChargeType() == "percent") {
-              $label = Mage::helper('mpay24')->__("Payment charge") . "(" . number_format($source->getPaymentCharge(),2,'.','') . "%)";
-              $amount = $source->getSubtotal()*$source->getPaymentCharge()/100;
+              $label = Mage::helper('mpay24')->__("Payment charge") . "(" . number_format($source->getBasePaymentCharge(),2,'.','') . "%)";
+              $amount = $source->getSubtotal()*$source->getBasePaymentCharge()/100;
             } else {
               $label = Mage::helper('mpay24')->__("Payment charge") . "(" . Mage::helper('mpay24')->__("Absolute value") . ")";
               $amount = $source->getPaymentCharge();
