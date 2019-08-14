@@ -72,3 +72,4 @@
 "Proxy User","Proxy-Benutzer"
 "Proxy Password","Proxy-Passwort"
 "cURL: Verify the peer's certificate","cURL: Peers Zertifikate verfizieren"
+"SOFORT Banking end-state", "SOFORT Überweisung Endstatus"

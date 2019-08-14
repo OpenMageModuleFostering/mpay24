@@ -16,7 +16,7 @@
  * @package             Mpay24_Mpay24
  * @author              Firedrago Magento
  * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- * @version             $Id: PaymentController.php 10 2013-10-31 14:23:20Z sapolhei $
+ * @version             $Id: PaymentController.php 25 2014-06-24 15:33:56Z sapolhei $
  */
 include_once "app/code/community/Mpay24/Mpay24/Model/Api/MPay24MagentoShop.php";
 
@@ -203,7 +203,10 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
         $mPay24MagentoShop = MPay24MagentoShop::getMPay24Api();
         $mPAY24Result = $mPay24MagentoShop->updateTransactionStatus($incrementId);
         $res = $mPAY24Result->getGeneralResponse()->getStatus();
-        $status = $mPAY24Result->getParam('TSTATUS');
+        if($mPAY24Result->getParam('P_TYPE') == 'SOFORT')
+          $status = Mage::getStoreConfig('mpay24/mpay24as/sofort_state');
+        else
+          $status = $mPAY24Result->getParam('TSTATUS');
 
         if($mPAY24Result->getGeneralResponse()->getStatus() != 'OK' || $mPAY24Result->getParam('APPR_CODE') == '')
            $apprCode = 'N/A';
@@ -216,7 +219,10 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
         foreach($this->getRequest()->getParams() as $key => $value)
           $mPAY24Result->setParam($key, $value);
 
-        $status = $mPAY24Result->getParam('STATUS');
+        if($mPAY24Result->getParam('P_TYPE') == 'SOFORT')
+          $status = Mage::getStoreConfig('mpay24/mpay24as/sofort_state');
+        else
+          $status = $mPAY24Result->getParam('STATUS');
         $apprCode = $mPAY24Result->getParam('APPR_CODE');
       }
 

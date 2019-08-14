@@ -1,7 +1,7 @@
 <?php
 /**
  * @author              support@mpay24.com
- * @version             $Id: MPay24MagentoShop.php 17 2013-12-10 07:18:39Z sapolhei $
+ * @version             $Id: MPay24MagentoShop.php 25 2014-06-24 15:33:56Z sapolhei $
  * @filesource          test.php
  * @license             http://ec.europa.eu/idabc/eupl.html EUPL, Version 1.1
  */
@@ -20,7 +20,7 @@ class MPay24MagentoShop extends MPay24Shop {
 
   const CANCEL_URL = 'mpay24/payment/cancel';
 
-  const MAGENTO_VERSION = "Magento 1.4.9 ";
+  const MAGENTO_VERSION = "Magento 1.5.1 ";
 
   var $tid;
   var $price;

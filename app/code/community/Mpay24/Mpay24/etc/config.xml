@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <!-- 
- @version             $Id: config.xml 17 2013-12-10 07:18:39Z sapolhei $
+ @version             $Id: config.xml 25 2014-06-24 15:33:56Z sapolhei $
  -->
 <config>
   <modules>
     <Mpay24_Mpay24>
-      <version>1.4.9</version>
+      <version>1.5.1</version>
     </Mpay24_Mpay24>
   </modules>
 
@@ -238,7 +238,8 @@
         <merchantid backend_model="adminhtml/system_config_backend_encrypted"/>
         <old_merchantid />
         <soap_pass backend_model="adminhtml/system_config_backend_encrypted"/>
-        <debug>1</debug>
+        <debug>0</debug>
+        <sofort_state>SUSPENDED</sofort_state>
         <use_proxy>0</use_proxy>
         <use_proxy_auth>0</use_proxy_auth>
         <verify_peer>1</verify_peer>

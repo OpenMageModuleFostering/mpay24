@@ -1,5 +1,143 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:simpleType name="LanguageType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="EN"/>
+      <xs:enumeration value="DE"/>
+      <xs:enumeration value="BG"/>
+      <xs:enumeration value="FR"/>
+      <xs:enumeration value="HU"/>
+      <xs:enumeration value="NL"/>
+      <xs:enumeration value="ES"/>
+      <xs:enumeration value="IT"/>
+      <xs:enumeration value="CS"/>
+      <xs:enumeration value="HR"/>
+      <xs:enumeration value="SK"/>
+      <xs:enumeration value="SL"/>
+      <xs:enumeration value="SR"/>
+      <xs:enumeration value="RO"/>
+      <xs:enumeration value="RU"/>
+      <xs:enumeration value="PL"/>
+      <xs:enumeration value="PT"/>
+      <xs:enumeration value="TR"/>
+      <xs:enumeration value="ZH"/>
+      <xs:enumeration value="JA"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ClientIPType">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="15"/>
+      <xs:pattern value="[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PaymentTypeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CC"/>
+      <xs:enumeration value="CB"/>
+      <xs:enumeration value="MAESTRO"/>
+      <xs:enumeration value="EPS"/>
+      <xs:enumeration value="MIA"/>
+      <xs:enumeration value="PB"/>
+      <xs:enumeration value="PSC"/>
+      <xs:enumeration value="CASH-TICKET"/>
+      <xs:enumeration value="ELV"/>
+      <xs:enumeration value="QUICK"/>
+      <xs:enumeration value="GIROPAY"/>
+      <xs:enumeration value="PAYPAL"/>
+      <xs:enumeration value="MPASS"/>
+      <xs:enumeration value="BILLPAY"/>
+      <xs:enumeration value="INVOICE"/>
+      <xs:enumeration value="HP"/>
+      <xs:enumeration value="SAFETYPAY"/>
+      <xs:enumeration value="KLARNA"/>
+      <xs:enumeration value="SOFORT"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PaymentBrandType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AMEX"/>
+      <xs:enumeration value="DINERS"/>
+      <xs:enumeration value="MASTERCARD"/>
+      <xs:enumeration value="VISA"/>
+      <xs:enumeration value="JCB"/>
+      <xs:enumeration value="BANK-BGLD"/>
+      <xs:enumeration value="BAWAG"/>
+      <xs:enumeration value="BA"/>
+      <xs:enumeration value="ERSTE"/>
+      <xs:enumeration value="RZB"/>
+      <xs:enumeration value="HYPO"/>
+      <xs:enumeration value="VOLKSBANK"/>
+      <xs:enumeration value="ARZ"/>
+      <xs:enumeration value="ONE"/>
+      <xs:enumeration value="T-MOBILE"/>
+      <xs:enumeration value="ORANGE"/>
+      <xs:enumeration value="EPS"/>
+      <xs:enumeration value="ATOS"/>
+      <xs:enumeration value="HOBEX-AT"/>
+      <xs:enumeration value="HOBEX-DE"/>
+      <xs:enumeration value="HOBEX-NL"/>
+      <xs:enumeration value="BILLPAY"/>
+      <xs:enumeration value="INVOICE"/>
+      <xs:enumeration value="HP"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PriceType">
+    <xs:restriction base="xs:float">
+      <xs:pattern value="-?\d{1,9}\.\d{2}|-?\d{1,9}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="CurrencyType">
+    <xs:restriction base="xs:string">
+      <xs:length value="3"/>
+      <xs:pattern value="[A-Z]{3}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AddressModeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ReadOnly"/>
+      <xs:enumeration value="ReadWrite"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AddressFieldType">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="50"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="CustomerType">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="50"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="CustomerIDType">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="32"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ProfileIDType">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="12"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="URLType">
+    <xs:restriction base="xs:anyURI">
+      <xs:pattern value="(http://|https://).{5,2040}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:attributeGroup name="BasicAttributes">
+    <xs:attribute name="Style" type="xs:string"/>
+    <xs:attribute name="LogoStyle" type="xs:string"/>
+    <xs:attribute name="PageHeaderStyle" type="xs:string"/>
+    <xs:attribute name="PageCaptionStyle" type="xs:string"/>
+    <xs:attribute name="PageStyle" type="xs:string"/>
+    <xs:attribute name="InputFieldsStyle" type="xs:string"/>
+    <xs:attribute name="DropDownListsStyle" type="xs:string"/>
+    <xs:attribute name="ButtonsStyle" type="xs:string"/>
+    <xs:attribute name="ErrorsStyle" type="xs:string"/>
+    <xs:attribute name="ErrorsHeaderStyle" type="xs:string"/>
+    <xs:attribute name="SuccessTitleStyle" type="xs:string"/>
+    <xs:attribute name="ErrorTitleStyle" type="xs:string"/>
+    <xs:attribute name="FooterStyle" type="xs:string"/>
+  </xs:attributeGroup>
   <xs:complexType name="AddressType">
     <xs:sequence>
       <xs:choice>
@@ -90,42 +228,18 @@
         </xs:simpleType>
       </xs:element>
     </xs:sequence>
-    <xs:attribute name="Mode" use="required">
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
-          <xs:enumeration value="ReadOnly"/>
-          <xs:enumeration value="ReadWrite"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
   </xs:complexType>
-  <xs:simpleType name="PriceType">
-    <xs:restriction base="xs:float">
-      <xs:pattern value="-?\d{1,9}\.\d{2}|-?\d{1,9}"/>
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:simpleType name="CurrencyType">
-    <xs:restriction base="xs:string">
-      <xs:length value="3"/>
-      <xs:pattern value="[A-Z]{3}"/>
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:simpleType name="AddressFieldType">
-    <xs:restriction base="xs:string">
-      <xs:maxLength value="50"/>
-    </xs:restriction>
-  </xs:simpleType>
   <xs:element name="Order">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="ClientIP" minOccurs="0">
+        <xs:element name="ClientIP" type="ClientIPType" minOccurs="0"/>
+        <xs:element name="UserField" minOccurs="0">
           <xs:simpleType>
             <xs:restriction base="xs:string">
-              <xs:maxLength value="40"/>
+              <xs:maxLength value="255"/>
             </xs:restriction>
           </xs:simpleType>
         </xs:element>
-        <xs:element name="UserField" type="xs:string" minOccurs="0"/>
         <xs:element name="Tid">
           <xs:simpleType>
             <xs:restriction base="xs:string">
@@ -139,22 +253,7 @@
             <xs:simpleContent>
               <xs:extension base="xs:string">
                 <xs:attribute name="CSSName" type="xs:string"/>
-                <xs:attribute name="Language">
-                  <xs:simpleType>
-                    <xs:restriction base="xs:string">
-                      <xs:enumeration value="EN"/>
-                      <xs:enumeration value="DE"/>
-                      <xs:enumeration value="BG"/>
-                      <xs:enumeration value="FR"/>
-                      <xs:enumeration value="HU"/>
-                      <xs:enumeration value="NL"/>
-                      <xs:enumeration value="ES"/>
-                      <xs:enumeration value="IT"/>
-                      <xs:enumeration value="CS"/>
-                      <xs:enumeration value="HR"/>
-                    </xs:restriction>
-                  </xs:simpleType>
-                </xs:attribute>
+                <xs:attribute name="Language" type="LanguageType"/>
               </xs:extension>
             </xs:simpleContent>
           </xs:complexType>
@@ -164,59 +263,8 @@
             <xs:sequence>
               <xs:element name="Payment" maxOccurs="unbounded">
                 <xs:complexType>
-                  <xs:attribute name="Type" use="required">
-                    <xs:simpleType>
-                      <xs:restriction base="xs:string">
-                        <xs:enumeration value="CC"/>
-                        <xs:enumeration value="CB"/>
-                        <xs:enumeration value="MAESTRO"/>
-                        <xs:enumeration value="EPS"/>
-                        <xs:enumeration value="MIA"/>
-                        <xs:enumeration value="PB"/>
-                        <xs:enumeration value="PSC"/>
-                        <xs:enumeration value="CASH-TICKET"/>
-                        <xs:enumeration value="ELV"/>
-                        <xs:enumeration value="QUICK"/>
-                        <xs:enumeration value="GIROPAY"/>
-                        <xs:enumeration value="PAYPAL"/>
-                        <xs:enumeration value="MPASS"/>
-                        <xs:enumeration value="BILLPAY"/>
-                        <xs:enumeration value="INVOICE"/>
-                        <xs:enumeration value="HP"/>
-                        <xs:enumeration value="SAFETYPAY"/>
-                        <xs:enumeration value="KLARNA"/>
-                      </xs:restriction>
-                    </xs:simpleType>
-                  </xs:attribute>
-                  <xs:attribute name="Brand">
-                    <xs:simpleType>
-                      <xs:restriction base="xs:string">
-                        <xs:enumeration value="AMEX"/>
-                        <xs:enumeration value="DINERS"/>
-                        <xs:enumeration value="MASTERCARD"/>
-                        <xs:enumeration value="VISA"/>
-                        <xs:enumeration value="JCB"/>
-                        <xs:enumeration value="BANK-BGLD"/>
-                        <xs:enumeration value="BAWAG"/>
-                        <xs:enumeration value="BA"/>
-                        <xs:enumeration value="ERSTE"/>
-                        <xs:enumeration value="RZB"/>
-                        <xs:enumeration value="HYPO"/>
-                        <xs:enumeration value="VOLKSBANK"/>
-                        <xs:enumeration value="ARZ"/>
-                        <xs:enumeration value="ONE"/>
-                        <xs:enumeration value="T-MOBILE"/>
-                        <xs:enumeration value="ORANGE"/>
-                        <xs:enumeration value="EPS"/>
-                        <xs:enumeration value="ATOS"/>
-                        <xs:enumeration value="HOBEX-AT"/>
-                        <xs:enumeration value="HOBEX-DE"/>
-                        <xs:enumeration value="HOBEX-NL"/>
-                        <xs:enumeration value="INVOICE"/>
-                        <xs:enumeration value="HP"/>
-                      </xs:restriction>
-                    </xs:simpleType>
-                  </xs:attribute>
+                  <xs:attribute name="Type" type="PaymentTypeType" use="required"/>
+                  <xs:attribute name="Brand" type="PaymentBrandType"/>
                 </xs:complexType>
               </xs:element>
             </xs:sequence>
@@ -227,10 +275,28 @@
             </xs:attribute>
           </xs:complexType>
         </xs:element>
+        <xs:element name="PaymentProfiles" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ProfileID" type="ProfileIDType" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="Enable" type="xs:boolean" default="true">
+              <xs:annotation>
+                <xs:documentation>Enable or disable specified customer payment profiles</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="ShoppingCart" minOccurs="0">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="Description" type="xs:string" minOccurs="0"/>
+              <xs:element name="Description" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
               <xs:element name="Item" minOccurs="0" maxOccurs="unbounded">
                 <xs:complexType>
                   <xs:sequence>
@@ -393,7 +459,7 @@
         <xs:element name="Customer" minOccurs="0">
           <xs:complexType>
             <xs:simpleContent>
-              <xs:extension base="xs:string">
+              <xs:extension base="CustomerType">
                 <xs:attribute name="Id">
                   <xs:simpleType>
                     <xs:restriction base="xs:string">
@@ -409,41 +475,90 @@
         <xs:element name="BillingAddr" minOccurs="0">
           <xs:complexType>
             <xs:complexContent>
-              <xs:extension base="AddressType"/>
+              <xs:extension base="AddressType">
+                <xs:attribute name="Mode" type="AddressModeType" use="required"/>
+              </xs:extension>
             </xs:complexContent>
           </xs:complexType>
         </xs:element>
         <xs:element name="ShippingAddr" minOccurs="0">
           <xs:complexType>
             <xs:complexContent>
-              <xs:extension base="AddressType"/>
+              <xs:extension base="AddressType">
+                <xs:attribute name="Mode" type="AddressModeType" use="required"/>
+              </xs:extension>
             </xs:complexContent>
           </xs:complexType>
         </xs:element>
         <xs:element name="URL" minOccurs="0">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="Success" type="xs:anyURI" minOccurs="0"/>
-              <xs:element name="Error" type="xs:anyURI" minOccurs="0"/>
-              <xs:element name="Confirmation" type="xs:anyURI" minOccurs="0"/>
-              <xs:element name="Cancel" type="xs:anyURI" minOccurs="0"/>
+              <xs:element name="Success" type="URLType" minOccurs="0"/>
+              <xs:element name="Error" type="URLType" minOccurs="0"/>
+              <xs:element name="Confirmation" type="URLType" minOccurs="0"/>
+              <xs:element name="Cancel" type="URLType" minOccurs="0"/>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
       </xs:sequence>
-      <xs:attribute name="Style" type="xs:string"/>
-      <xs:attribute name="LogoStyle" type="xs:string"/>
-      <xs:attribute name="PageHeaderStyle" type="xs:string"/>
-      <xs:attribute name="PageCaptionStyle" type="xs:string"/>
-      <xs:attribute name="PageStyle" type="xs:string"/>
-      <xs:attribute name="InputFieldsStyle" type="xs:string"/>
-      <xs:attribute name="DropDownListsStyle" type="xs:string"/>
-      <xs:attribute name="ButtonsStyle" type="xs:string"/>
-      <xs:attribute name="ErrorsStyle" type="xs:string"/>
-      <xs:attribute name="ErrorsHeaderStyle" type="xs:string"/>
-      <xs:attribute name="SuccessTitleStyle" type="xs:string"/>
-      <xs:attribute name="ErrorTitleStyle" type="xs:string"/>
-      <xs:attribute name="FooterStyle" type="xs:string"/>
+      <xs:attributeGroup ref="BasicAttributes"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Profile">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="ClientIP" type="ClientIPType" minOccurs="0"/>
+        <xs:element name="TemplateSet" minOccurs="0">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute name="CSSName" type="xs:string"/>
+                <xs:attribute name="Language" type="LanguageType"/>
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="PaymentTypes" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Payment" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="Type" type="PaymentTypeType" use="required"/>
+                  <xs:attribute name="Brand" type="PaymentBrandType"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="Enable" type="xs:boolean" default="true">
+              <xs:annotation>
+                <xs:documentation>Enable or disable the specified payment types</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="CustomerID">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="CustomerIDType">
+                <xs:attribute name="ProfileID" type="ProfileIDType">
+                  <xs:annotation>
+                    <xs:documentation>Should be set to update an existing profile</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="BillingAddr" type="AddressType" minOccurs="0"/>
+        <xs:element name="URL" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Success" type="URLType" minOccurs="0"/>
+              <xs:element name="Cancel" type="URLType" minOccurs="0"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attributeGroup ref="BasicAttributes"/>
     </xs:complexType>
   </xs:element>
 </xs:schema>

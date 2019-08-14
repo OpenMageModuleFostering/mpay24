@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!-- 
- @version             $Id: system.xml 9 2013-10-29 15:36:26Z sapolhei $
+ @version             $Id: system.xml 25 2014-06-24 15:33:56Z sapolhei $
  -->
 <config>
   <sections>
@@ -107,6 +107,17 @@
               <show_in_store>1</show_in_store>
               <depends><active>1</active></depends>
             </debug>
+            <sofort_state translate="label">
+              <label>SOFORT Banking end-state</label>
+              <frontend_type>select</frontend_type>
+              <source_model>mpay24/source_sOFORTState</source_model>
+              <sort_order>5</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <depends><active>1</active></depends>
+              <comment>The SOAP password provided by mPAY24</comment>
+            </sofort_state>
             <use_proxy translate="label">
               <label>API uses proxy</label>
               <frontend_type>select</frontend_type>
