@@ -487,3 +487,36 @@ Content-Type: application/x-www-form-urlencoded
 < Content-Type: text/xml; charset=utf-8
 < 
 * Connection #5 to host test.mpay24.com left intact
+* About to connect() to test.mpay24.com port 443 (#0)
+*   Trying 213.164.23.169...
+* connected
+* Connected to test.mpay24.com (213.164.23.169) port 443 (#0)
+* successfully set certificate verify locations:
+*   CAfile: D:\xampp\htdocs\magento\app\code\community\Mpay24\Mpay24\Model\Api/cacert.pem
+  CApath: none
+* SSL connection using ECDHE-RSA-AES256-GCM-SHA384
+* Server certificate:
+* 	 subject: OU=Domain Control Validated; OU=Provided by EUNETIC GmbH; OU=EuropeanSSL Single; CN=test.mpay24.com
+* 	 start date: 2013-05-13 00:00:00 GMT
+* 	 expire date: 2015-05-13 23:59:59 GMT
+* 	 subjectAltName: test.mpay24.com matched
+* 	 issuer: C=DE; O=EUNETIC GmbH; CN=EuropeanSSL Server CA
+* 	 SSL certificate verify ok.
+* Server auth using Basic with user 'u92169'
+> POST /app/bin/etpproxy_v15 HTTP/1.1
+Authorization: Basic dTkyMTY5OlZhcm5hLjMwMTIyMDEx
+User-Agent: mPAY24 PHP API $Rev: 9 $ ($Date:: 2013-10-29 #$)
+Host: test.mpay24.com
+Accept: */*
+Content-Length: 423
+Content-Type: application/x-www-form-urlencoded
+
+* upload completely sent off: 423 out of 423 bytes
+< HTTP/1.1 200 OK
+< Date: Fri, 07 Nov 2014 12:27:46 GMT
+< Server: 
+< Content-Length: 2924
+< Content-Type: text/xml; charset=utf-8
+< 
+* Connection #0 to host test.mpay24.com left intact
+* Closing connection #0

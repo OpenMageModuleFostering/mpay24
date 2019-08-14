@@ -105,7 +105,7 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
     $order = $this->getOrder($_REQUEST['TID']);
     $order->getPayment()->setAdditionalInformation('error_text', utf8_encode($_REQUEST['ERROR']))->save();
     $order->getPayment()->setAdditionalInformation('error', true)->save();
-    
+
     if($order->canCancel() && $order->getState() != Mage_Sales_Model_Order::STATE_CANCELED && $order->getData('status') != Mage_Sales_Model_Order::STATE_CANCELED)
       $order->cancel($order->getPayment())->save();
 
@@ -147,7 +147,7 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
     }
 
     $cart->save();
-    
+
     if($order->canCancel() && $order->getState() != Mage_Sales_Model_Order::STATE_CANCELED && $order->getData('status') != Mage_Sales_Model_Order::STATE_CANCELED)
       $order->cancel($order->getPayment())->save();
 
@@ -219,7 +219,7 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
         foreach($this->getRequest()->getParams() as $key => $value)
           $mPAY24Result->setParam($key, $value);
 
-        if($mPAY24Result->getParam('P_TYPE') == 'SOFORT')
+        if(($mPAY24Result->getParam('STATUS') == 'SUSPENDED' || $mPAY24Result->getParam('STATUS') == 'RESERVED'  || $mPAY24Result->getParam('STATUS') == 'BILLED') && $mPAY24Result->getParam('P_TYPE') == 'SOFORT')
           $status = Mage::getStoreConfig('mpay24/mpay24as/sofort_state');
         else
           $status = $mPAY24Result->getParam('STATUS');
