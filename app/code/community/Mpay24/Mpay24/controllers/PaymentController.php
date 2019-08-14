@@ -16,7 +16,7 @@
  * @package             Mpay24_Mpay24
  * @author              Firedrago Magento
  * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- * @version             $Id: PaymentController.php 29 2014-11-10 13:21:51Z sapolhei $
+ * @version             $Id: PaymentController.php 30 2014-11-10 14:00:27Z sapolhei $
  */
 include_once Mage::getBaseDir('code')."/community/Mpay24/Mpay24/Model/Api/MPay24MagentoShop.php";
 
@@ -219,7 +219,7 @@ class Mpay24_Mpay24_PaymentController extends Mage_Core_Controller_Front_Action 
         foreach($this->getRequest()->getParams() as $key => $value)
           $mPAY24Result->setParam($key, $value);
 
-        if($mPAY24Result->getParam('P_TYPE') == 'SOFORT')
+        if($mPAY24Result->getParam('P_TYPE') == 'SOFORT' && ($mPAY24Result->getParam('TSTATUS') == 'BILLED' || $mPAY24Result->getParam('TSTATUS') == 'RESERVED' || $mPAY24Result->getParam('TSTATUS') == 'SUSPENDED'))
           $status = Mage::getStoreConfig('mpay24/mpay24as/sofort_state');
         else
           $status = $mPAY24Result->getParam('STATUS');

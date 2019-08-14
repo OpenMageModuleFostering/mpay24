@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <!-- 
- @version             $Id: config.xml 29 2014-11-10 13:21:51Z sapolhei $
+ @version             $Id: config.xml 30 2014-11-10 14:00:27Z sapolhei $
  -->
 <config>
   <modules>
     <Mpay24_Mpay24>
-      <version>1.5.4</version>
+      <version>1.5.5</version>
     </Mpay24_Mpay24>
   </modules>
 
