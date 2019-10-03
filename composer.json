@@ -1,21 +1,5 @@
 {
-    "name": "OpenMageModuleFostering/mPAY24",
-    "type": "magento-module",
-    "license": "Open-Software-License-(OSL-3.0)",
-    "homepage": "",
-    "description": "A seamless payment gateway, based on the mPAY24 PHP API (Webservices/SOAP v. 1.5).
-
-Currently supported payment methods:
- * Credit cards (AMEX, Diners Club, JCB, MasterCard, VISA)
- * eps and giropay Online-Banking
- * PayPal",
-    "authors": [
-    {
-        "name": "Anna Sadriu",
-        "email": "modules@mpay24.com"
-    }
-],
-    "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+    "keywords": [
+        "openmage-module"
+    ]
 }
